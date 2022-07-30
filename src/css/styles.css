@@ -13,7 +13,7 @@
 @font-face {
     font-family: 'HarmonyOS Sans';
     src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Light.ttf");
-    font-weight: light;
+    font-weight: 300;
 }
 
 @font-face {
