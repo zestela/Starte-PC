@@ -3,8 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
   <link rel="shortcut icon" href="./icons/favicon.ico">
   <link href="./css/styles.css" rel="stylesheet">
   <link href="./css/index.css" rel="stylesheet">
@@ -25,6 +23,9 @@
     <div class="topbar-icons">
       <button id="setWallpaper"><img src="./icons/setWallpaper.svg"></button>
       <button><img src="./icons/share.svg"></button>
+      <button onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
+      <button onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
+      <button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
     </div>
   </div>
 

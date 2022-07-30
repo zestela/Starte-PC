@@ -38,7 +38,12 @@
     font-family: 'HarmonyOS Sans';
 }
 
+button {
+    -webkit-app-region: no-drag;
+}
+
 .topbar {
+    -webkit-app-region: drag;
     width: 100%;
     height: 50px;
     background-color: rgba(0, 0, 0, 0.8);
@@ -52,7 +57,7 @@
     margin-left: 25px;
 }
 
-.topbar .topbar-date *{
+.topbar .topbar-date * {
     float: left;
     font-family: 'HarmonyOS Sans';
     color: white;
@@ -60,17 +65,17 @@
     align-content: center;
 }
 
-.topbar .topbar-icons{
+.topbar .topbar-icons {
     margin-right: 25px;
 }
 
-.topbar .topbar-date year{
-    color: rgb(205,204,207);
+.topbar .topbar-date year {
+    color: rgb(205, 204, 207);
     font-weight: lighter;
 }
 
 .topbar .topbar-date h2 {
-    color: rgb(213,213,214);
+    color: rgb(213, 213, 214);
     font-weight: 600;
     margin: 0;
     margin-left: 10px;
@@ -83,14 +88,24 @@
     gap: 15px;
 }
 
-.topbar .topbar-icons * {
+.topbar .topbar-icons button {
     color: white;
     width: 16px;
     height: 16px;
     background: none;
     padding: 0;
     border: none;
+    margin-left: 10px;
+    margin-right: 10px;
 }
+
+.topbar .topbar-icons button img {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+}
+
 
 .topbar .topbar-menu button {
     width: 16px;
@@ -100,11 +115,12 @@
     border: none;
 }
 
-.topbar .topbar-date date{
+.topbar .topbar-date date {
     font-weight: bolder;
 }
 
 body {
     background-size: cover;
+    background-repeat: no-repeat;
     margin: 0;
 }
