@@ -49,8 +49,7 @@ async function downloadImage(url, name) {
   const response = await axios({
     url,
     method: 'GET',
-    responseType: 'stream',
-    httpsAgent
+    responseType: 'stream'
   });
 
   response.data.pipe(writer);
