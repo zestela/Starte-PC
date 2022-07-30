@@ -1,0 +1,22 @@
+.mainpage-text {
+    position: absolute;
+    bottom: 0;
+    padding: 25px;
+    padding-bottom: 0px;
+    width: -webkit-fill-available;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+.mainpage-text-title {
+    color: white;
+    font-weight: 600;
+    font-size: 35px;
+    margin-bottom: 0;
+}
+
+.mainpage-text-describe {
+    color: rgba(255, 255, 255, 0.62);
+    word-break: break-all;
+    font-size: 15px;
+    margin-top: 0;
+}
