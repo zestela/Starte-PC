@@ -78,7 +78,13 @@
     font-weight: 600;
 }
 
+.topbar-icons {
+    display: flex;
+    gap: 15px;
+}
+
 .topbar .topbar-icons * {
+    color: white;
     width: 16px;
     height: 16px;
     background: none;

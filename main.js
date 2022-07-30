@@ -14,15 +14,16 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    minWidth: 800,
-    minHeight: 450,
+    minWidth: 1366,
+    minHeight: 768,
+    icon:"./src/icons/favicon.ico",
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   });
   Menu.setApplicationMenu(null);
   mainWindow.loadFile('src/loading.html');
-  //mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {

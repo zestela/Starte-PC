@@ -5,25 +5,27 @@ html {
 body {
     height: 100%;
     user-select: none;
+    background-color: #EEF4F9;
 }
 
-div {
-    margin-left: 50px;
+.loading-text {
     height: 100%;
     display: flex;
+    justify-content: center;
     align-content: center;
     flex-wrap: wrap;
 }
 
-div div h1 {
+.text-title {
     width: 100%;
     font-weight: lighter;
     margin-bottom: 0;
+    font-size: 50px;
 }
 
-div div h3 {
+.text-connecting {
     margin-top: 5px;
     font-weight: 600;
     font-size: 20px;
-    color: rgb(96,97,99);
+    color: rgba(0, 0, 0, 0.448);
 }
