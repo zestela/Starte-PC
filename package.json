@@ -5,7 +5,7 @@
   "license": "none",
   "scripts": {
     "start": "electron .",
-    "packager": "electron-packager ./ starte --platform=win32 --arch=x64 --out=out --icon=src/icons/favicon.ico --overwrite --ignore=cache"
+    "packager": "electron-packager ./ starte --platform=win32 --arch=x64 --out=out --icon=src/icons/favicon.ico --overwrite --ignore=cache -asar"
   },
   "author": "Starte",
   "devDependencies": {
