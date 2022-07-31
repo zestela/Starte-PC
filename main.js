@@ -10,8 +10,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    minWidth: 1366,
-    minHeight: 768,
+    minWidth: 900,
+    minHeight: 500,
     icon: "./src/icons/favicon.ico",
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')

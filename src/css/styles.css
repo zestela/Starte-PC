@@ -54,7 +54,9 @@ button {
 }
 
 .topbar .topbar-menu {
-    margin-left: 25px;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
 }
 
 .topbar .topbar-date * {
@@ -66,7 +68,7 @@ button {
 }
 
 .topbar .topbar-icons {
-    margin-right: 25px;
+    margin-right: 19px;
 }
 
 .topbar .topbar-date year {
@@ -85,7 +87,8 @@ button {
 
 .topbar-icons {
     display: flex;
-    gap: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
 .topbar .topbar-icons button {
@@ -97,6 +100,22 @@ button {
     border: none;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.onhover {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.onhover:hover { 
+    background-color: rgba(255, 255, 255, 0.299);
+}
+
+.onhover:active { 
+    background-color: rgba(255, 255, 255, 0.11);
 }
 
 .topbar .topbar-icons button img {

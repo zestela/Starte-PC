@@ -12,20 +12,21 @@
 <body style="background-image: none;">
   <div class="topbar">
     <div class="topbar-menu">
-      <!-- <button><img src="./icons/menu.svg"></button> -->
-      <img src="./icons/today.png" width="60" style="margin-top: 12px">
+      <div class="onhover"><button><img style="width: 16px;height: 16px;" src="./icons/menu.svg"></button></div>
+      <img style="margin-top: 5px;" src="./icons/today.png" width="60">
+      <div style="width:133px;background-color: rgba(0, 0, 0, 0);"> </div> <!-- 加入透明div，使得左边的元素和右边的元素宽度相同，达到日期居中的目的 -->
     </div>
     <div class="topbar-date">
-      <year>514 年</year>
+      <year>XXXX 年</year>
       <h2> / </h2>
-      <date>1 月 14 日</date>
+      <date>X 月 XX 日</date>
     </div>
     <div class="topbar-icons">
-      <button id="setWallpaper"><img src="./icons/setWallpaper.svg"></button>
-      <button><img src="./icons/share.svg"></button>
-      <button onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
-      <button onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
-      <button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
+      <div class="onhover"><button id="setWallpaper"><img src="./icons/setWallpaper.svg"></button></div>
+      <div class="onhover"><button><img src="./icons/share.svg"></button></div>
+      <div class="onhover"><button onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button></div>
+      <div class="onhover"><button onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button></div>
+      <div class="onhover"><button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button></div>
     </div>
   </div>
 

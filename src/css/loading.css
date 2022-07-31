@@ -24,8 +24,31 @@ body {
 }
 
 .text-connecting {
-    margin-top: 5px;
+    margin-left: 15px;
     font-weight: 600;
     font-size: 20px;
     color: rgba(0, 0, 0, 0.448);
+}
+
+.line {
+    display: flex;
+    align-items: center;
+}
+
+.loading {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.448);
+    border-top-color: transparent;
+    border-radius: 100%;
+    animation: circle infinite 0.75s linear;
+}
+
+@keyframes circle {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
 }
