@@ -12,6 +12,7 @@
     font-weight: 300;
     font-size: 50px;
     margin-bottom: 0;
+    user-select: none;
 }
 
 .mainpage-text-describe {
@@ -20,4 +21,5 @@
     font-size: 20px;
     margin-top: 5px;
     font-weight: normal;
+    user-select: none;
 }

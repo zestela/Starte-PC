@@ -51,12 +51,14 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    user-select: none;
 }
 
 .topbar .topbar-menu {
     display: flex;
     align-items: center;
     margin-left: 8px;
+    user-select: none;
 }
 
 .topbar .topbar-date * {
@@ -65,6 +67,7 @@ button {
     color: white;
     font-size: 15px;
     align-content: center;
+    user-select: none;
 }
 
 .topbar .topbar-icons {
@@ -119,16 +122,16 @@ button {
 }
 
 .topbar .topbar-icons button img {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
     padding: 0;
     border: none;
 }
 
 
 .topbar .topbar-menu button {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
     background: none;
     padding: 0;
     border: none;
@@ -142,4 +145,5 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
+    user-select: none;
 }
