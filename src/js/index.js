@@ -16,3 +16,7 @@ window.electronAPI.getMainpage()
 document.getElementById("setWallpaper").addEventListener("click", function () {
     window.electronAPI.setWallpaper(mainpageData.data.id);
 }, false);
+
+document.getElementById("share").addEventListener("click", function () {
+    window.electronAPI.share(mainpageData.data.id);
+}, false);

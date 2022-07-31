@@ -21,6 +21,6 @@
   "dependencies": {
     "axios": "^0.27.2",
     "url-file-size": "^1.0.2",
-    "wallpaper": "^6.1.1"
+    "wallpaper": "^5.0.1"
   }
 }

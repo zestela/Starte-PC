@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分享</title>
+    <link href="./css/styles.css" rel="stylesheet">
+    <link href="./css/share.css" rel="stylesheet">
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-menu">
+          <img style="margin-left: 13px;margin-top: 3px;margin-right: 5px;" src="./icons/logoBGB.svg" width="18px">
+          <div class="onhover"><button onclick="window.electronAPI.backtoMainpage()"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+          <div style="width:133px;background-color: rgba(0, 0, 0, 0);"> </div> <!-- 加入透明div，使得左边的元素和右边的元素宽度相同，达到日期居中的目的 -->
+        </div>
+        <!-- <div class="topbar-date">
+          <year>ERROR</year>
+          <h2> / </h2>
+          <date>NOPICTURE</date>
+        </div> -->
+        <div class="topbar-icons">
+          <div class="onhover"><button onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button></div>
+          <div class="onhover"><button onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button></div>
+          <div class="onhover"><button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button></div>
+        </div>
+      </div>
+    <div class="share-main" id="share">
+        <img id="mainPicture" src="">
+        <div class="share-text-background">
+            <h2 class="share-text-title">114514</h2>
+            <h5 class="share-text-describe">19198101919810191981019198101919810191981019198101919810191981019198101919810191981019198101919810</h5>
+            <img src="./icons/qrcode.png" class="share-qrcode">
+        </div>
+    </div>
+</body>
+<script src="./js/html2canvas.min.js"></script>
+<script src="./js/share.js"></script>
+</html>

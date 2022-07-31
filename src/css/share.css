@@ -1,0 +1,45 @@
+* {
+    font-family: 'HarmonyOS Sans';
+}
+
+body {
+    background-color: rgb(238, 244, 249);
+}
+
+.share-main {
+    margin: 0 auto;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 40%;
+    background-color: white;
+}
+
+.share-main img {
+    width: 100%;
+}
+
+.share-text-background {
+    padding: 20px;
+    padding-top: 0px;
+    background-color: white;
+}
+
+.share-text-background h2 {
+    margin-bottom: 5px;
+}
+
+.share-text-background h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    word-break: break-all;
+    width: 89%;
+}
+
+img.share-qrcode {
+    width: 64px;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}

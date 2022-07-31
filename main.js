@@ -1,10 +1,10 @@
-const { app, BrowserWindow, Menu, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, Notification, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const axios = require('axios');
 const ufs = require("url-file-size");
-const wallpaper = import("wallpaper");
+const wallpaper = require("wallpaper");
 https.globalAgent.options.rejectUnauthorized = false;
 let mainWindow;
 
@@ -62,11 +62,8 @@ async function downloadImage(url, name) {
 
 
 ipcMain.on('init', async () => {
-  try {
-    fs.accessSync(path.join(process.cwd(), "cache"), fs.F_OK);
-  } catch (e) {
+  if (!fs.existsSync(path.join(process.cwd(), "cache")))
     fs.mkdirSync(path.join(process.cwd(), "cache"));
-  }
   let mainpageData = await axios.get('https://api.discoverse.space/mainpage/get-mainpage');
   mainpageData = mainpageData.data;
   if (mainpageData.code != "0") {
@@ -97,7 +94,7 @@ ipcMain.on('init', async () => {
 
 
 ipcMain.on('set-wallpaper', async (event, id) => {
-  await (await wallpaper).setWallpaper(path.join(process.cwd(), "cache/", id + ".png"));
+  await wallpaper.set(path.join(process.cwd(), "cache/", id + ".png"));
 });
 
 ipcMain.on('window-events', async (event, type) => {
@@ -112,3 +109,28 @@ ipcMain.on('window-events', async (event, type) => {
   else if (type === 3)
     app.quit();
 });
+
+// Part of Share
+let shareId;
+ipcMain.on('share', async (event, id) => {
+  shareId = id;
+  mainWindow.loadFile("src/share.html");
+});
+
+ipcMain.on('save-share', async (event, data) => {
+  let dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+  fs.writeFileSync(dialog.showSaveDialogSync({
+    filters: [{
+      name: 'img',
+      extensions: ['jpeg']
+    }]
+  }), dataBuffer);
+});
+
+ipcMain.on('back-to-mainpage', async (event) => {
+  mainWindow.loadFile("src/index.html");
+});
+
+
+
+
