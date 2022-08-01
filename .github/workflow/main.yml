@@ -1,0 +1,33 @@
+name: Build Starte For Win
+on: push
+jobs:
+  release:
+    name: build and release electron app
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v2]
+      - name: Install Node.js
+        uses: actions/setup-node@v2-beta
+      - name: Install Yarn
+          run: |
+          npm install -g yarn
+      - name: Yarn
+          run: |
+          yarn
+      - name: Build Starte
+          run: |
+          yarn packager
+      - name: zip Build
+          uses: vimtor/action-zip@v1
+          with:
+            files: out/
+            dest: result.zip
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: out
