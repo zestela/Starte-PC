@@ -20,7 +20,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: vimtor/action-zip@v1
       with:
-        files: out
+        files: ./home/runner/work/Starte-PC-dev/Starte-PC-dev/out
         dest: realesea.zip
     - name: Upload to release
       uses: JasonEtco/upload-to-release@master
