@@ -2,8 +2,8 @@ name: Build
 on: [push, pull_request]
 
 jobs:
-  build_on_win:
-    runs-on: windows-latest
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v3
@@ -20,12 +20,9 @@ jobs:
       with:
         files: out
         dest: realesea.zip
-  goto-realses:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
-        with:
-          args: realesea.zip
-        env:
-          GITHUB_TOKEN: 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
+    - name: Upload to release
+      uses: JasonEtco/upload-to-release@master
+      with:
+        args: realesea.zip
+      env:
+        GITHUB_TOKEN: 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
