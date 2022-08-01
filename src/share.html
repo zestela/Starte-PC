@@ -11,8 +11,9 @@
 <body>
     <div class="topbar">
         <div class="topbar-menu">
-          <img style="margin-left: 13px;margin-top: 3px;margin-right: 5px;" src="./icons/logoBGB.svg" width="18px">
-          <div class="onhover"><button onclick="window.electronAPI.backtoMainpage()"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+          <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
+          <div class="onhover"><button><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+          <div class="onhover"><button onclick="window.electronAPI.backtoMainpage()"><img style="width: 13px;height: 13px;" src="./icons/back.svg"></button></div>
           <div style="width:133px;background-color: rgba(0, 0, 0, 0);"> </div> <!-- 加入透明div，使得左边的元素和右边的元素宽度相同，达到日期居中的目的 -->
         </div>
         <!-- <div class="topbar-date">
@@ -23,7 +24,7 @@
         <div class="topbar-icons">
           <div class="onhover"><button onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button></div>
           <div class="onhover"><button onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button></div>
-          <div class="onhover"><button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button></div>
+          <div class="onhover closeonhover"><button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button></div>
         </div>
       </div>
     <div class="share-main" id="share">
