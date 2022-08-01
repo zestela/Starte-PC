@@ -27,10 +27,12 @@ body {
 }
 
 .share-text-background h2 {
+    font-weight: 300;
     margin-bottom: 5px;
 }
 
 .share-text-background h5 {
+    font-weight: lighter;
     margin-top: 0;
     margin-bottom: 0;
     word-break: break-all;

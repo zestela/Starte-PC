@@ -5,40 +5,99 @@ html {
 body {
     height: 100%;
     user-select: none;
-    background-color: #EEF4F9;
+    background-color: #e89f00;
 }
 
-.loading-text {
-    height: 100%;
+.loading-topbar-icons {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.loading-onhover {
+    height: 50px;
+    width: 50px;
     display: flex;
     justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-}
-
-.text-title {
-    width: 100%;
-    font-weight: lighter;
-    margin-bottom: 0;
-    font-size: 50px;
-}
-
-.text-connecting {
-    margin-left: 15px;
-    font-weight: 600;
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.448);
-}
-
-.line {
-    display: flex;
     align-items: center;
 }
 
-.loading {
+.loading-onhover button img {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    border: none;
+}
+
+.loading-onhover button {
+    color: white;
     width: 16px;
     height: 16px;
-    border: 2px solid rgba(0, 0, 0, 0.448);
+    background: none;
+    padding: 0;
+    border: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.loading-onhover:hover { 
+    background-color: rgba(255, 255, 255, 0.299);
+}
+
+.loading-onhover:active { 
+    background-color: rgba(255, 255, 255, 0.11);
+}
+
+.closeonhover:hover { 
+    background-color: rgba(119, 0, 0, 0.299);
+}
+
+.closeonhover:active { 
+    background-color: rgba(60, 0, 0, 0.451);
+}
+
+.flex-logo {
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loading-box {
+    height:80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-dev {
+    
+    font-weight: 600;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+}
+
+.text-connecting {
+    color:white;
+    margin-left: 12px;
+    font-weight: lighter;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+.line {
+    margin-top: -9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
     border-top-color: transparent;
     border-radius: 100%;
     animation: circle infinite 0.75s linear;

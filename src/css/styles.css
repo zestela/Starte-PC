@@ -57,10 +57,14 @@ button {
 .topbar .topbar-menu {
     display: flex;
     align-items: center;
-    margin-left: 8px;
+    margin-left: 7px;
     user-select: none;
 }
-
+.topbar-logo {
+    margin-left: 20px;
+    margin-top: 3px;
+    margin-right: 10px;
+}
 .topbar .topbar-date * {
     float: left;
     font-family: 'HarmonyOS Sans';
@@ -70,9 +74,7 @@ button {
     user-select: none;
 }
 
-.topbar .topbar-icons {
-    margin-right: 19px;
-}
+
 
 .topbar .topbar-date year {
     color: rgb(205, 204, 207);
@@ -121,6 +123,13 @@ button {
     background-color: rgba(255, 255, 255, 0.11);
 }
 
+.closeonhover:hover { 
+    background-color: rgb(119, 0, 0);
+}
+
+.closeonhover:active { 
+    background-color: rgb(78, 0, 0);
+}
 .topbar .topbar-icons button img {
     width: 13px;
     height: 13px;

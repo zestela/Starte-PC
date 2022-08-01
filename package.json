@@ -1,11 +1,11 @@
 {
   "name": "starte",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "main": "main.js",
   "license": "none",
   "scripts": {
     "start": "electron .",
-    "packager": "electron-packager ./ starte --platform=win32 --arch=x64 --out=out --icon=src/icons/favicon.ico --overwrite --ignore=cache --asar"
+    "packager": "electron-packager ./ starte --platform=win32 --arch=x64 --out=out --icon=src/icons/dev.ico --overwrite --ignore=cache --asar"
   },
   "author": "Starte",
   "devDependencies": {
@@ -14,7 +14,7 @@
   },
   "build": {
     "win": {
-      "icon": "./src/icons/favicon.ico"
+      "icon": "./src/icons/dev.ico"
     }
   },
   "packageManager": "yarn@3.2.2",
