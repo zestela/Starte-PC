@@ -10,9 +10,13 @@ jobs:
       with:
         node-version: 16.16.0
     - name: install dependencies
-      run: npm install
+      run: yarn
     - name: install packager
-      run: npm install --save-dev electron-packager
+      run: yarn global add electron-packager
+    - name: update
+      run: apt-get update
+    - name: install wine
+      run: apt-get -y install wine
     - name: build
       run: npm run packager
     - uses: actions/checkout@v2
