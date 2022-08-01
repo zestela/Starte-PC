@@ -21,6 +21,7 @@ function createWindow() {
   Menu.setApplicationMenu(null);
   mainWindow.loadFile('src/loading.html');
   //mainWindow.webContents.openDevTools();
+  //tetststst
 }
 
 app.whenReady().then(() => {
