@@ -17,14 +17,12 @@ jobs:
       run: sudo apt-get -y install wine
     - name: build
       run: npm run packager
-    - uses: actions/checkout@v2
-    - uses: vimtor/action-zip@v1
+    - uses: montudor/action-zip@v1
       with:
-        files: ./home/runner/work/Starte-PC-dev/Starte-PC-dev/out
-        dest: realesea.zip
+        args: zip -qq -r dir.zip out
     - name: Upload to release
       uses: JasonEtco/upload-to-release@master
       with:
-        args: realesea.zip
+        args: dir.zip
       env:
         GITHUB_TOKEN: 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
