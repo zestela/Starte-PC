@@ -14,13 +14,13 @@ jobs:
         uses: actions/setup-node@v2-beta
       - name: Install Yarn
           run: |
-          npm install -g yarn
+            npm install -g yarn
       - name: Yarn
           run: |
-          yarn
+            yarn
       - name: Build Starte
           run: |
-          yarn packager
+            yarn packager
       - name: zip Build
           uses: vimtor/action-zip@v1
           with:
