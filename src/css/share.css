@@ -12,12 +12,19 @@ body {
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
-    width: 40%;
+    width: calc(70vh);
     background-color: white;
 }
 
-.share-main img {
+.share-main div #mainPicture {
     width: 100%;
+}
+
+.share-main div .watermark {
+    width: calc(10vh);
+    position: absolute;
+    bottom: 115px;
+    right: 20px;
 }
 
 .share-text-background {
@@ -28,6 +35,7 @@ body {
 
 .share-text-background h2 {
     font-weight: 300;
+    font-size: 25px;
     margin-bottom: 5px;
 }
 
@@ -41,7 +49,7 @@ body {
 
 img.share-qrcode {
     width: 64px;
-    position: fixed;
+    position: absolute;
     bottom: 15px;
     right: 15px;
 }

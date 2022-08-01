@@ -21,7 +21,6 @@ function createWindow() {
   Menu.setApplicationMenu(null);
   mainWindow.loadFile('src/loading.html');
   //mainWindow.webContents.openDevTools();
-  //tetststst
 }
 
 app.whenReady().then(() => {
@@ -45,16 +44,19 @@ app.on('window-all-closed', function () {
 });
 
 async function downloadImage(url, name) {
-  const writer = fs.createWriteStream(path.join(process.cwd(), "cache/", name));
+  try {
+    const writer = fs.createWriteStream(path.join(process.cwd(), "cache/", name));
 
-  const response = await axios({
-    url,
-    method: 'GET',
-    responseType: 'stream'
-  });
+    const response = await axios({
+      url,
+      method: 'GET',
+      responseType: 'stream'
+    });
 
-  response.data.pipe(writer);
-
+    response.data.pipe(writer);
+  } catch (err) {
+    throw new Error(err);
+  }
   return new Promise((resolve, reject) => {
     writer.on('finish', resolve);
     writer.on('error', reject);
@@ -70,18 +72,23 @@ ipcMain.on('init', async () => {
   if (mainpageData.code != "0") {
     let filename = path.join(process.cwd(), "cache", mainpageData.data.id + ".png");
     if (!fs.existsSync(filename)) {
+      console.log("Log: 开始下载(文件不存在)");
       downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
-        .then(() => {
+        .finally(() => {
+          console.log("Log: 下载完毕");
           mainWindow.loadFile('src/index.html');
         });
     }
     else {
       if (await ufs(mainpageData.data.url) == fs.statSync(filename).size) {
+        console.log("Log: 缓存加载成功");
         mainWindow.loadFile('src/index.html');
       }
       else {
+        console.log("Log: 开始下载(文件大小不符)");
         downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
-          .then(() => {
+          .finally(() => {
+            console.log("Log: 下载完毕");
             mainWindow.loadFile('src/index.html');
           });
       }
@@ -119,13 +126,17 @@ ipcMain.on('share', async (event, id) => {
 });
 
 ipcMain.on('save-share', async (event, data) => {
-  let dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-  fs.writeFileSync(dialog.showSaveDialogSync({
-    filters: [{
-      name: 'img',
-      extensions: ['jpeg']
-    }]
-  }), dataBuffer);
+  try {
+    let dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+    fs.writeFileSync(dialog.showSaveDialogSync({
+      filters: [{
+        name: 'img',
+        extensions: ['jpeg']
+      }]
+    }), dataBuffer);
+  }
+  catch {
+  }
 });
 
 ipcMain.on('back-to-mainpage', async (event) => {
