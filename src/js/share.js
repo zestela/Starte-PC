@@ -8,7 +8,6 @@ window.electronAPI.getMainpage()
         document.getElementsByClassName("share-text-title")[0].innerText = shareData.data.title;
         document.getElementsByClassName("share-text-describe")[0].innerText = shareData.data.describe;
         // let time = new Date().toLocaleString().split(" ")[0];
-        // document.getElementsByTagName("year")[0].innerText = time.split("/")[0] + " 年";
         // document.getElementsByTagName("date")[0].innerText = time.split("/")[1] + " 月 " + time.split("/")[2] + " 日";
         await html2canvas(document.getElementById("share"),{scale: 4})
         .then(async function(canvas) {

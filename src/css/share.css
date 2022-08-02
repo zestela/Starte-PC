@@ -16,30 +16,27 @@ body {
     background-color: white;
 }
 
-.share-main div #mainPicture {
-    width:100%;
-}
-
-.share-main div .watermark {
-    width: calc(10vh);
-    position: absolute;
-    bottom: 115px;
-    right: 20px;
+.share-main #mainPicture {
+    width: 100%;
 }
 
 .share-text-background {
     padding: 20px;
     padding-top: 0px;
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.share-text-background h2 {
+.share-text-background div h2 {
     font-weight: 300;
     font-size: 25px;
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
-.share-text-background h5 {
+.share-text-background div h5 {
     font-weight: lighter;
     margin-top: 0;
     margin-bottom: 0;
@@ -49,7 +46,4 @@ body {
 
 img.share-qrcode {
     width: 64px;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
 }

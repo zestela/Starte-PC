@@ -6,6 +6,7 @@ const axios = require('axios');
 const ufs = require("url-file-size");
 const wallpaper = require("wallpaper");
 https.globalAgent.options.rejectUnauthorized = false;
+https.globalAgent.options.family = 4;
 let mainWindow;
 
 function createWindow() {
@@ -20,7 +21,7 @@ function createWindow() {
   });
   Menu.setApplicationMenu(null);
   mainWindow.loadFile('src/loading.html');
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
@@ -44,7 +45,6 @@ app.on('window-all-closed', function () {
 });
 
 async function downloadImage(url, name) {
-  try {
     const writer = fs.createWriteStream(path.join(process.cwd(), "cache/", name));
 
     const response = await axios({
@@ -54,13 +54,10 @@ async function downloadImage(url, name) {
     });
 
     response.data.pipe(writer);
-  } catch (err) {
-    throw new Error(err);
-  }
-  return new Promise((resolve, reject) => {
-    writer.on('finish', resolve);
-    writer.on('error', reject);
-  });
+    return new Promise((resolve, reject) => {
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
 }
 
 
