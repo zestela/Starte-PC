@@ -1,11 +1,11 @@
 {
   "name": "starte",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "main.js",
-  "license": "none",
+  "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
-    "packager": "electron-packager ./ starte --platform=win32 --arch=x64 --out=out --icon=src/icons/dev.ico --overwrite --ignore=cache --asar"
+    "packager": "electron-builder build --dir"
   },
   "author": "Starte",
   "devDependencies": {
@@ -13,8 +13,14 @@
     "electron-packager": "^15.5.1"
   },
   "build": {
+    "productName": "Starte",
+    "appId": "discoverse.space.starte",
+    "copyright": "discoverse.space",
+    "directories": {
+      "output": "build"
+    },
     "win": {
-      "icon": "./src/icons/dev.ico"
+      "icon": "./src/icons/favicon.ico"
     }
   },
   "packageManager": "yarn@3.2.2",

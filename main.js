@@ -1,3 +1,4 @@
+process.env.NODE_OPTIONS = undefined;
 const { app, BrowserWindow, Menu, ipcMain, Notification, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -21,7 +22,7 @@ function createWindow() {
   });
   Menu.setApplicationMenu(null);
   mainWindow.loadFile('src/loading.html');
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
