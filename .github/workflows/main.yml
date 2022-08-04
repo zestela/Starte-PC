@@ -12,8 +12,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Node.js
         uses: actions/setup-node@v2-beta
-      - run: npm install -g pnpm
-      - run: npm install -g electron-builder
+      - run: npm install pnpm --location=global
+      - run: npm install electron-builder --location=global
       - run: pnpm install
       - run: pnpm packager
       - name: zip Build
@@ -25,4 +25,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.os }}
-          path: build/result.zip
+          path: /build/result.zip
