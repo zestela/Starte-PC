@@ -6,10 +6,10 @@ window.electronAPI.getMainpage()
         let picUrl = (await window.electronAPI.getcwd() + "/cache/" + mainpageData.data.id + ".png");
         document.body.style.backgroundImage = `url('${picUrl}')`;
         let time = new Date().toLocaleString().split(" ")[0];
-        document.getElementsByTagName("year")[0].innerText = time.split("/")[0] + " 年";
-        document.getElementsByTagName("date")[0].innerText = time.split("/")[1] + " 月 " + time.split("/")[2] + " 日";
-        document.getElementsByClassName("mainpage-text-title")[0].innerText = mainpageData.data.title;
-        document.getElementsByClassName("mainpage-text-describe")[0].innerText = mainpageData.data.describe;
+        $("year").text(time.split("/")[0] + " 年");
+        $("date").text(time.split("/")[1] + " 月 " + time.split("/")[2] + " 日");
+        $(".mainpage-text-title").text(mainpageData.data.title);
+        $(".mainpage-text-describe").text(mainpageData.data.describe);
     });
 
 

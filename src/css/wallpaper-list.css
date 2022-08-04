@@ -1,0 +1,62 @@
+.wallpaper-list:first-child {
+    margin-top: 50px;
+}
+
+.wallpaper-in-list {
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+    padding: 25px;
+    height: 30vh;
+}
+
+.wallpaper-in-list div {
+    height: inherit;
+}
+
+.wallpaper-in-list div div {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    position: unset;
+}
+
+.wallpaper-in-list div div h1 {
+    font-weight: lighter;
+}
+
+.wallpaper-in-list div div h4 {
+    display: block !important;
+    font-weight: lighter;
+}
+
+.wallpaper-in-list div h3 {
+    display: none;
+    position: unset;
+    font-weight: normal;
+}
+
+.wallpaper-in-list div * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.wallpaper-in-list div {
+    position: relative;
+    bottom: 25px;
+}
+
+.focus div h3 {
+    display: block !important;
+}
+
+.focus {
+    height: 50vh;
+    transition: height .4s;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

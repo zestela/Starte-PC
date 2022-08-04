@@ -21,7 +21,7 @@ function createWindow() {
   });
   Menu.setApplicationMenu(null);
   mainWindow.loadFile('src/loading.html');
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
@@ -140,6 +140,9 @@ ipcMain.on('back-to-mainpage', async (event) => {
   mainWindow.loadFile("src/index.html");
 });
 
+ipcMain.on("go-to-past-day",() => {
+  mainWindow.loadFile("src/wallpaper-list.html");
+});
 
 
 

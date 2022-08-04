@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./icons/dev.ico">
+    <link href="./css/styles.css" rel="stylesheet">
+    <link href="./css/wallpaper-list.css" rel="stylesheet">
+    <title>观星记</title>
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="topbar-menu">
+            <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
+            <div class="onhover"><button><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+            <div class="onhover"><button onclick="window.electronAPI.backtoMainpage()"><img style="width: 13px;height: 13px;"
+                src="./icons/back.svg"></button></div>
+        </div>
+        <div class="topbar-icons">
+            <div class="onhover"><button id="setWallpaper"><img src="./icons/setWallpaper.svg"></button></div>
+            <div class="onhover"><button id="share"><img src="./icons/share.svg"></button></div>
+            <div class="onhover"><button onclick="window.electronAPI.windowEvents(1);"><img
+                        src="./icons/min.svg"></button></div>
+            <div class="onhover"><button onclick="window.electronAPI.windowEvents(2);"><img
+                        src="./icons/max.svg"></button></div>
+            <div class="onhover closeonhover"><button onclick="window.electronAPI.windowEvents(3);"><img
+                        src="./icons/close.svg"></button></div>
+        </div>
+    </div>
+    <div class="wallpaper-list">
+
+    </div>
+</body>
+<script src="./js/jquery-3.6.0.min.js"></script>
+<script src="./js/wallpaper-list.js"></script>
+
+</html>
