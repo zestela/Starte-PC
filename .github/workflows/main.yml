@@ -12,16 +12,16 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Node.js
         uses: actions/setup-node@v2-beta
-      - run: npm install -g yarn
-      - run: yarn
-      - run: yarn packager
+      - run: npm install -g pnpm
+      - run: pnpm install
+      - run: pnpm packager
       - name: zip Build
         uses: vimtor/action-zip@v1
         with:
-            files: out/
+            files: build/
             dest: result.zip
       - name: upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.os }}
-          path: out
+          path: build/result.zip
