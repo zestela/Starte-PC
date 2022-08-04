@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     windowEvents: (type) => ipcRenderer.send('window-events',type), // windows events
     share: (id) => ipcRenderer.send('share',id),
     saveShare: (data) => ipcRenderer.send('save-share',data),
-    backtoMainpage: () => ipcRenderer.send("back-to-mainpage")
+    backtoMainpage: () => ipcRenderer.send("back-to-mainpage"),
+    goToPastDay: () => ipcRenderer.send("go-to-past-day")
 });
