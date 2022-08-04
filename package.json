@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.0.12",
+  "version": "0.0.9",
   "main": "main.js",
   "license": "none",
   "scripts": {

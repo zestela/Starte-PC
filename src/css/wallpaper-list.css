@@ -8,8 +8,7 @@
     background-size: cover;
     background-attachment: fixed;
     color: white;
-    padding: 35px;
-    padding-bottom: 60px;
+    padding: 25px;
     height: 30vh;
 }
 
@@ -25,21 +24,18 @@
 }
 
 .wallpaper-in-list div div h1 {
-    font-weight: 300;
-    font-size: 38px;
+    font-weight: lighter;
 }
 
 .wallpaper-in-list div div h4 {
     display: block !important;
-    font-weight: 300;
+    font-weight: lighter;
 }
 
 .wallpaper-in-list div h3 {
-    margin-top: 7px;
     display: none;
     position: unset;
-    font-weight: lighter;
-    color: rgba(255, 255, 255, 0.662);
+    font-weight: normal;
 }
 
 .wallpaper-in-list div * {
