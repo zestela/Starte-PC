@@ -13,6 +13,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2-beta
       - run: npm install -g pnpm
+      - run: npm install -g electron-builder
       - run: pnpm install
       - run: pnpm packager
       - name: zip Build
