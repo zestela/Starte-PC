@@ -21,7 +21,7 @@ window.onload = async function () {
     }
 };
 function select(id) {
-    if (nowSelect != 0) {
+    if (nowSelect !== 0) {
         $(`#wallpaper-${nowSelect}`).classList.remove("focus");
         nowSelect = id;
     }

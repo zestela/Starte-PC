@@ -1,4 +1,3 @@
-process.env.NODE_OPTIONS = undefined;
 const { app, BrowserWindow, Menu, ipcMain, Notification, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -10,7 +9,7 @@ https.globalAgent.options.rejectUnauthorized = false;
 https.globalAgent.options.family = 4;
 let mainWindow;
 
-function createWindow() {
+async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
     minHeight: 500,
@@ -21,11 +20,11 @@ function createWindow() {
     frame: false
   });
   Menu.setApplicationMenu(null);
-  mainWindow.loadFile('src/loading.html');
+  await mainWindow.loadFile('src/loading.html');
   //mainWindow.webContents.openDevTools();
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async() => {
   ipcMain.handle('load-mainpage', async () => {
     const json = await axios.get('https://api.discoverse.space/mainpage/get-mainpage');
     return JSON.stringify(json.data);
@@ -35,7 +34,7 @@ app.whenReady().then(() => {
     return process.cwd().replaceAll("\\", "/");
   });
 
-  createWindow();
+  await createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -67,7 +66,7 @@ ipcMain.on('init', async () => {
     fs.mkdirSync(path.join(process.cwd(), "cache"));
   let mainpageData = await axios.get('https://api.discoverse.space/mainpage/get-mainpage');
   mainpageData = mainpageData.data;
-  if (mainpageData.code != "0") {
+  if (mainpageData.code !== "0") {
     let filename = path.join(process.cwd(), "cache", mainpageData.data.id + ".png");
     if (!fs.existsSync(filename)) {
       console.log("Log: 开始下载(文件不存在)");
@@ -78,9 +77,9 @@ ipcMain.on('init', async () => {
         });
     }
     else {
-      if (await ufs(mainpageData.data.url) == fs.statSync(filename).size) {
+      if (await ufs(mainpageData.data.url) === fs.statSync(filename).size) {
         console.log("Log: 缓存加载成功");
-        mainWindow.loadFile('src/index.html');
+        await mainWindow.loadFile('src/index.html');
       }
       else {
         console.log("Log: 开始下载(文件大小不符)");
@@ -120,7 +119,7 @@ ipcMain.on('window-events', async (event, type) => {
 let shareId;
 ipcMain.on('share', async (event, id) => {
   shareId = id;
-  mainWindow.loadFile("src/share.html");
+  await mainWindow.loadFile("src/share.html");
 });
 
 ipcMain.on('save-share', async (event, data) => {
@@ -137,12 +136,12 @@ ipcMain.on('save-share', async (event, data) => {
   }
 });
 
-ipcMain.on('back-to-mainpage', async (event) => {
-  mainWindow.loadFile("src/index.html");
+ipcMain.on('back-to-mainpage', async () => {
+  await mainWindow.loadFile("src/index.html");
 });
 
-ipcMain.on("go-to-past-day",() => {
-  mainWindow.loadFile("src/wallpaper-list.html");
+ipcMain.on("go-to-past-day",async () => {
+  await mainWindow.loadFile("src/wallpaper-list.html");
 });
 
 
