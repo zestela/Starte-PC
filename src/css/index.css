@@ -7,8 +7,7 @@ body {
 .mainpage-text {
     position: absolute;
     bottom: 0;
-    padding: 50px;
-    padding-bottom: 30px;
+    padding: 50px 50px 30px;
     width: -webkit-fill-available;
     background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 }
