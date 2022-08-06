@@ -1,0 +1,27 @@
+* {
+    font-family: 'HarmonyOS Sans';
+}
+
+body {
+    background-color: black;
+}
+
+.setting-contain {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+
+}
+
+.setting-left {
+    background-color: black;
+
+    color: white;
+
+}
+
+.setting-right {
+    background-color: #141414;
+    color: white;
+
+}
