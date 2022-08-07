@@ -3,12 +3,11 @@
 }
 
 .wallpaper-in-list {
-    display: block;
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
     padding: 35px 35px 60px;
-    height: 30vh;
+    height: 50vh;
     transition: height .4s;
 }
 
@@ -35,7 +34,6 @@
 
 .wallpaper-in-list div h3 {
     margin-top: 7px;
-    display: none;
     position: unset;
     font-weight: lighter;
     color: rgba(255, 255, 255, 0.662);
@@ -49,14 +47,6 @@
 .wallpaper-in-list div {
     position: relative;
     bottom: 25px;
-}
-
-.focus div h3 {
-    display: block !important;
-}
-
-.focus {
-    height: 50vh;
 }
 
 ::-webkit-scrollbar {

@@ -13,7 +13,7 @@ async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
     minHeight: 500,
-    icon: "./src/icons/dev.ico",
+    icon: "./src/icons/dock.ico",
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },
@@ -21,7 +21,7 @@ async function createWindow() {
   });
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async() => {
@@ -33,6 +33,10 @@ app.whenReady().then(async() => {
   ipcMain.handle('get-cwd', () => {
     return process.cwd().replaceAll("\\", "/");
   });
+
+  // ipcMain.handle('get-settings', () => {
+  //
+  // });
 
   await createWindow();
 
@@ -136,6 +140,8 @@ ipcMain.on('save-share', async (event, data) => {
   }
 });
 
+// Go to the Page
+
 ipcMain.on('back-to-mainpage', async () => {
   await mainWindow.loadFile("src/index.html");
 });
@@ -147,6 +153,12 @@ ipcMain.on("go-to-past-day",async () => {
 ipcMain.on("go-to-settings",async () => {
   await mainWindow.loadFile("src/settings.html");
 });
+
+// Part of Settings
+
+// ipcMain.on('set-settings', async (event,settings) => {
+//
+// });
 
 
 

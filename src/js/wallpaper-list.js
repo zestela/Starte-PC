@@ -20,12 +20,3 @@ window.onload = async function () {
     </div>`);
     }
 };
-function select(id) {
-    if (nowSelect !== 0) {
-        $(`#wallpaper-${nowSelect}`).classList.remove("focus");
-        nowSelect = id;
-    }
-    else
-        nowSelect = id;
-    $(`#wallpaper-${id}`).classList.add("focus");
-}
