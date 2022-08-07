@@ -144,5 +144,9 @@ ipcMain.on("go-to-past-day",async () => {
   await mainWindow.loadFile("src/wallpaper-list.html");
 });
 
+ipcMain.on("go-to-settings",async () => {
+  await mainWindow.loadFile("src/settings.html");
+});
+
 
 

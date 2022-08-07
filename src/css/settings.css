@@ -4,24 +4,161 @@
 
 body {
     background-color: black;
+    height: 100%;
 }
 
 .setting-contain {
     width: 100%;
-    display: grid;
-    grid-template-columns: 20% 80%;
-
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    left: 0px;
 }
 
 .setting-left {
+    float: left;
+    width: 20%;
     background-color: black;
-
+    height: 100%;
     color: white;
-
 }
 
 .setting-right {
+    float: right;
+    width: 80%;
     background-color: #141414;
     color: white;
-
+    height: 100%;
 }
+
+.setting-switch {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.choose-text {
+    margin-right:10px;
+    font-weight: 300;
+    font-size: 14px;
+    color:rgba(255, 255, 255, 0.479)
+}
+
+.setting-nav {
+    height:auto;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-left: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 16px;
+    display: flex;
+    border-radius: 13px;
+    align-items: center;
+}
+
+.setting-nav img {
+    height: 17px;
+    width: 17px;
+}
+
+.setting-nav-text {
+    margin-left: 10px;
+}
+
+.setting-nav-text-title {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.setting-nav-text-context {
+    font-weight: 300;
+    font-size: 13px;
+    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.419)
+}
+
+.setting-item {
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 900px){ /*自适应大小*/
+    .setting-left {
+        float: left;
+        width: 10%;
+        background-color: black;
+        height: 100%;
+        color: white;
+    }
+    .setting-right {
+        float: right;
+        width: 90%;
+        background-color: #141414;
+        color: white;
+        height: 100%;
+    }
+    .setting-nav-text {
+        display: none;
+    }
+    .setting-nav {
+        height:auto;
+        margin-top: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-left: 16px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-right: 16px;
+        display: flex;
+        border-radius: 13px;
+        justify-content: center;
+        align-items: center;
+    }
+    .setting-item {
+        margin-top: 30px;
+        margin-right: 30px;
+        margin-left: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/*以下是网上抄的按钮*/
+        #toggle-button{ display: none; }
+        .button-label{
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+            background-color: #454545;
+            box-shadow: rgba(0, 0, 0, 0.358) 0px 0px 0px 2px;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+        .circle{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+        .button-label .circle{
+            left: 0;
+            transition: all 0.3s;
+        }
+        #toggle-button:checked + label.button-label .circle{
+            left: 18px;
+        }
+        #toggle-button:checked + label.button-label{
+            background-color: #311E8F;
+        }
+/*以上是网上抄的按钮*/

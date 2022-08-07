@@ -13,7 +13,7 @@
   <div class="topbar">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
-      <div class="onhover" onclick="window.electronAPI.goToPastDay()"><button><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+      <div class="onhover"><button><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
       <img style="margin-top: 5px;" src="./icons/today.png" width="60">
       <div style="width:102px;background-color: rgba(0, 0, 0, 0);"> </div> <!-- 加入透明div，使得左边的元素和右边的元素宽度相同，达到日期居中的目的 -->
     </div>
@@ -31,6 +31,19 @@
     </div>
   </div>
 
+  <!-- 以下是菜单的实验性制作 -->
+  <div class="all-menu">
+    <div class="menu-item" style="background-color: #311E8F;color:white;cursor: default;">
+      <h5 class="menu-text">今日</h5>
+    </div>
+    <div class="menu-item" onclick="window.electronAPI.goToPastDay()">
+      <h5 class="menu-text">往日</h5>
+    </div>
+    <div class="menu-item" style="margin-bottom: 7px;" onclick="window.electronAPI.goToSettings()">
+      <h5 class="menu-text">设置</h5>
+    </div>
+  </div>
+  <!-- 以上是菜单的实验性制作 -->
   
   <div class="mainpage-text">
     <h2 class="mainpage-text-title">这不是什么好事。</h2>

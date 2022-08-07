@@ -156,3 +156,34 @@ body {
     margin: 0;
     user-select: none;
 }
+
+/* 以下是菜单的实验性制作 */
+
+.all-menu {
+    z-index: 1145141919810;
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    position: absolute;
+    margin-left: 53px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 200px;
+}
+
+.menu-item {
+    margin-top: 7px;
+    cursor: pointer;
+    margin-left: 7px;
+    margin-right: 7px;
+    border-radius: 8px;
+    height:auto;
+}
+
+.menu-text {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 8px;
+    font-weight: 300;
+    font-size: 14px;
+}

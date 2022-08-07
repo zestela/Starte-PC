@@ -5,16 +5,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>分享</title>
+  <title>设置</title>
   <link href="./css/styles.css" rel="stylesheet">
   <link href="./css/settings.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="topbar">
+  <div class="topbar" style="background-color: #454545;">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
-      <div class="onhover"><button onclick="window.electronAPI.backtoMainpage()"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+      <div class="onhover"><button><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
       <div style="width:133px;background-color: rgba(0, 0, 0, 0);"> </div> <!-- 加入透明div，使得左边的元素和右边的元素宽度相同，达到日期居中的目的 -->
     </div>
     <!-- <div class="topbar-date">
@@ -37,14 +37,58 @@
       </div>
     </div>
   </div>
-  <div class="setting-contain">
-    <div class="setting-left">
-        114
+
+  <!-- 以下是菜单的实验性制作 -->
+  <div class="all-menu">
+    <div class="menu-item" onclick="window.electronAPI.backtoMainpage()">
+      <h5 class="menu-text">今日</h5>
     </div>
-    <div class="setting-right">
-        514
+    <div class="menu-item" onclick="window.electronAPI.goToPastDay()">
+      <h5 class="menu-text">往日</h5>
+    </div>
+    <div class="menu-item" style="background-color: #311E8F;color:white;margin-bottom: 7px;cursor: default;" >
+      <h5 class="menu-text">设置</h5>
     </div>
   </div>
+  <!-- 以上是菜单的实验性制作 -->
+
+  <div class="setting-contain">
+    <div class="setting-left">
+        <div class="setting-nav" style="background-color: #454545;">
+          <img src="./icons/settings-normal.svg">
+          <div class="setting-nav-text">
+            <div class="setting-nav-text-title">功能</div>
+            <div class="setting-nav-text-context">功能性设置</div>
+          </div>
+        </div>
+        <div class="setting-nav" style="margin-top: 16px;">
+          <img src="./icons/settings-about.svg">
+          <div class="setting-nav-text">
+            <div class="setting-nav-text-title">关于</div>
+            <div class="setting-nav-text-context">有关观星记的各种信息</div>
+          </div>
+        </div>
+    </div>
+    <div class="setting-right">
+        <div class="setting-item">
+          <div>
+          <div class="setting-nav-text-title">每日自动将 Today 图片设置为桌面壁纸</div>
+          <div class="setting-nav-text-context">这需要开机自启动</div>
+          </div>
+          <div class="setting-switch">
+            <div class="switch-container">
+              <input type="checkbox" id="toggle-button" name="switch">
+              <label for="toggle-button" class="button-label">
+                  <span class="circle"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script>
+
+  </script>
 </body>
 <script src="./js/html2canvas.min.js"></script>
 <script src="./js/share.js"></script>
