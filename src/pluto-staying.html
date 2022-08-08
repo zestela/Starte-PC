@@ -5,19 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>分享</title>
+  <title>冥星</title>
   <link href="./css/styles.css" rel="stylesheet">
-  <link href="./css/share.css" rel="stylesheet">
+  <link href="./css/settings.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="topbar">
+  <div class="topbar" style="background-color: #454545;">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
       <div class="onhover"><button id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
-      <div class="onhover"><button onclick="window.electronAPI.backtoMainpage()"><img style="width: 13px;height: 13px;"
-            src="./icons/back.svg"></button></div>
-      <div class="topbar-title">分享</div>
+      <div class="topbar-title">冥星</div>
     </div>
     <!-- <div class="topbar-date">
           <year>ERROR</year>
@@ -43,7 +41,7 @@
   <!-- 以下是菜单的实验性制作 -->
   <div class="all-menu">
     <div class="menu-item" onclick="window.electronAPI.backtoMainpage()">
-      <h5 class="menu-text" >今日</h5>
+      <h5 class="menu-text">今日</h5>
     </div>
     <div class="menu-item" onclick="window.electronAPI.goToPastDay()">
       <h5 class="menu-text">往日</h5>
@@ -51,7 +49,7 @@
     <div class="menu-item" onclick="window.electronAPI.goToGx()">
       <h5 class="menu-text">观星</h5>
     </div>
-    <div class="menu-item" onclick="window.electronAPI.goToMx()">
+    <div class="menu-item" style="background-color: #311E8F;color:white;cursor: default;">
       <h5 class="menu-text">冥星</h5>
     </div>
     <div class="menu-item" style="margin-bottom: 7px;" onclick="window.electronAPI.goToSettings()">
@@ -59,23 +57,11 @@
     </div>
   </div>
   <!-- 以上是菜单的实验性制作 -->
-  
-  <div class="share-main" id="share">
-    <img id="mainPicture">
-    <div class="share-text-background">
-      <div>
-        <h2 class="share-text-title">114514</h2>
-        <h5 class="share-text-describe">
-          19198101919810191981019198101919810191981019198101919810191981019198101919810191981019198101919810</h5>
-      </div>
-      <div style="display: content">
-        <img src="./icons/qrcode.png" class="share-qrcode">
-      </div>
-    </div>
-  </div>
+
+  </script>
 </body>
 <script src="./js/topbar.js"></script>
 <script src="./js/html2canvas.min.js"></script>
-<script src="./js/share.js"></script>
+<script src="./js/settings.js"></script>
 
 </html>

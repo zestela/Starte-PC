@@ -43,6 +43,8 @@ button {
 }
 
 .topbar {
+    position: fixed;
+    z-index: 1919810114514114514;
     -webkit-app-region: drag;
     width: 100%;
     height: 50px;
@@ -60,6 +62,14 @@ button {
     margin-left: 7px;
     user-select: none;
 }
+
+.topbar-title {
+    font-size: 25px;
+    color:white;
+    font-weight: lighter;
+    margin-left: 7px;
+}
+
 .topbar-logo {
     margin-left: 20px;
     margin-top: 3px;
@@ -160,15 +170,18 @@ body {
 /* 以下是菜单的实验性制作 */
 
 .all-menu {
+    margin-top: 53px;
     z-index: 1145141919810;
     width: auto;
     height: auto;
     border-radius: 12px;
-    position: absolute;
+    position: fixed;
     margin-left: 53px;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.655);
+    backdrop-filter: blur(50px);
     display: none;
-    grid-template-columns: 200px;
+    grid-template-columns: 180px;
+    box-shadow: 0px 10px 55px rgba(255, 255, 255, 0.067);
 }
 
 .menu-item {
@@ -186,6 +199,7 @@ body {
     margin-left: 8px;
     font-weight: 300;
     font-size: 14px;
+    color: white;
 }
 
 .all-menu.menu-focus {

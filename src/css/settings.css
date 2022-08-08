@@ -2,6 +2,23 @@
     font-family: 'HarmonyOS Sans';
 }
 
+a:link {
+    color:white;
+    text-decoration:none;
+}
+a:visited {
+    color:white;
+    text-decoration:none;
+}
+a:hover {
+    color:white;
+    text-decoration:none;
+}
+a:active {
+    color:white;
+    text-decoration:none;
+}
+
 body {
     background-color: black;
     height: 100%;
@@ -21,6 +38,7 @@ body {
     background-color: black;
     height: 100%;
     color: white;
+    display: fixed;
 }
 
 .setting-right {
@@ -56,6 +74,7 @@ body {
     display: flex;
     border-radius: 13px;
     align-items: center;
+    cursor: pointer;
 }
 
 .setting-nav img {
@@ -86,6 +105,66 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 175px 90px;
+    height: 265px;
+    width: 70%;
+    gap: 6px;
+}
+
+.starte-logo {
+    height:100%;
+    background-color: #311E8F;
+    border-radius: 12px 0px 0px 12px;
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons {
+    height:100%;
+    display: grid;
+    row-gap: 6px;
+}
+
+.right-icons {
+    background-color: #383838;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.right-icons div {
+    margin-left: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.right-icons div img {
+    width: 18px;
+}
+
+.right-icons div div {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.links {
+    margin-top: 15px;
+    background-color: #383838;
+    display: flex;
+    align-items: center;
+}
+
+.links img {
+    width:25px;
+    margin-left: 25px;
 }
 
 @media screen and (max-width: 900px){ /*自适应大小*/

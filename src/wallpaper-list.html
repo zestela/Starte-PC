@@ -14,6 +14,7 @@
         <div class="topbar-menu">
             <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
             <div class="onhover"><button id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+            <div class="topbar-title">往日</div>
         </div>
         <div class="topbar-icons">
             <div class="onhover"><button id="setWallpaper"><img src="./icons/setWallpaper.svg"></button></div>
@@ -34,6 +35,12 @@
     </div>
     <div class="menu-item" style="background-color: #311E8F;color:white;cursor: default;">
       <h5 class="menu-text">往日</h5>
+    </div>
+    <div class="menu-item" onclick="window.electronAPI.goToGx()">
+      <h5 class="menu-text">观星</h5>
+    </div>
+    <div class="menu-item" onclick="window.electronAPI.goToMx()">
+      <h5 class="menu-text">冥星</h5>
     </div>
     <div class="menu-item" style="margin-bottom: 7px;" onclick="window.electronAPI.goToSettings()">
       <h5 class="menu-text">设置</h5>

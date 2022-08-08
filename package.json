@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "main": "main.js",
   "license": "UNLICENSED",
   "scripts": {
@@ -20,7 +20,7 @@
       "output": "build"
     },
     "win": {
-      "icon": "./src/icons/favicon.ico"
+      "icon": "./src/icons/dock.ico"
     }
   },
   "packageManager": "yarn@3.2.2",
