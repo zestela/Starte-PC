@@ -8,6 +8,7 @@
   <title>设置</title>
   <link href="./css/styles.css" rel="stylesheet">
   <link href="./css/settings.css" rel="stylesheet">
+  
 </head>
 
 <body>
@@ -60,14 +61,14 @@
 
   <div class="setting-contain">
     <div class="setting-left">
-        <div class="setting-nav" style="background-color: #454545;">
+        <div class="setting-nav" onclick="window.electronAPI.goToSettings()">
           <img src="./icons/settings-normal.svg">
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
             <div class="setting-nav-text-context">功能性设置</div>
           </div>
         </div>
-        <div onclick="window.electronAPI.goToAbout()" class="setting-nav" style="margin-top: 16px;">
+        <div class="setting-nav" style="margin-top: 16px;background-color: #454545;">
           <img src="./icons/settings-about.svg">
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">关于</div>
@@ -75,26 +76,51 @@
           </div>
         </div>
     </div>
-    <div class="setting-right">
-        <div class="setting-item">
-          <div>
-          <div class="setting-nav-text-title">每日自动将 Today 图片设置为桌面壁纸</div>
-          <div class="setting-nav-text-context">这需要开机自启动</div>
-          </div>
-          <div class="setting-switch">
-            <div class="switch-container">
-              <input type="checkbox" id="toggle-button" name="switch">
-              <label for="toggle-button" class="button-label">
-                  <span class="circle"></span>
-              </label>
+    <div class="setting-right" style="display: flex;justify-content: center;align-items: center;">
+      <div class="about-container">
+        
+            <div class="starte-logo">
+              <div style="margin-left: 30px;"> <!-- 文字logo+版本号 -->
+                <img style="height: 30px;" src="icons/text-logo.png">
+                <div style="margin-top:5px;font-size:13px;color: rgba(255, 255, 255, 0.436);">dev_0.0.19_0808</div>
+              </div>
+              <img style="height: 70px;margin-right: 30px;" src="icons/color-logo.png">
             </div>
+            <div class="buttons">
+              <div class="right-icons" style="border-radius: 0px 12px 0px 0px;">
+                <div><img src="icons/update.svg"><div>检查更新</div></div>
+              </div>
+              <div class="right-icons" style="border-radius: 0px 0px 12px 0px;">
+                <div><img src="icons/aboutus.svg"><div>关于我们</div></div>
+              </div>
+            </div>
+      
+        <a id="aHref" href='https:\/\/github.com/discoverse-space' class="links" style="border-radius: 12px 0px 0px 12px;" target="_blank">
+          <img src="icons/github.svg">
+          <div style="margin-left: 10px;">
+            <div class="setting-nav-text-title">GitHub</div>
+            <div class="setting-nav-text-context">开源主页</div>
           </div>
-        </div>
+        </a>
+        <a id="aHref" href='https:\/\/discoverse.space/starte' class="links" target="_blank">
+          <img src="icons/website.svg">
+          <div style="margin-left: 10px;">
+            <div class="setting-nav-text-title">官网</div>
+            <div class="setting-nav-text-context">了解更多</div>
+          </div>
+        </a>
+        <a id="aHref" href='https:\/\/qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&appChannel=share&inviteCode=1W8JdRA&businessType=9&from=246610&biz=ka' class="links" style="border-radius: 0px 12px 12px 0px;" target="_blank">
+          <img src="icons/discord.svg">
+          <div style="margin-left: 10px;">
+            <div class="setting-nav-text-title">QQ频道
+            </div>
+            <div class="setting-nav-text-context">联系我们</div>
+          </div>
+        </a>
+      
+      </div>
     </div>
   </div>
-  <script>
-
-  </script>
 </body>
 <script src="./js/topbar.js"></script>
 <script src="./js/html2canvas.min.js"></script>

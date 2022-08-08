@@ -5,6 +5,7 @@
 .wallpaper-in-list {
     background-repeat: no-repeat;
     background-size: cover;
+    background-position:center center;
     color: white;
     padding: 35px 35px 60px;
     height: 50vh;

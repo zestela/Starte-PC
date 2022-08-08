@@ -21,7 +21,7 @@ async function createWindow() {
   });
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async() => {
@@ -152,6 +152,18 @@ ipcMain.on("go-to-past-day",async () => {
 
 ipcMain.on("go-to-settings",async () => {
   await mainWindow.loadFile("src/settings.html");
+});
+
+ipcMain.on("go-to-about",async () => {
+  await mainWindow.loadFile("src/settings-about.html");
+});
+
+ipcMain.on("go-to-gx",async () => {
+  await mainWindow.loadFile("src/star-watching.html");
+});
+
+ipcMain.on("go-to-mx",async () => {
+  await mainWindow.loadFile("src/pluto-staying.html");
 });
 
 // Part of Settings
