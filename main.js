@@ -21,7 +21,7 @@ async function createWindow() {
   });
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async() => {
@@ -106,7 +106,7 @@ ipcMain.on('set-wallpaper', async (event, id) => {
   await wallpaper.set(path.join(process.cwd(), "cache/", id + ".png"));
 });
 
-ipcMain.on('window-events', async (event, type) => {
+ipcMain.on('window-events', (event, type) => {
   if (type === 1)
     mainWindow.minimize();
   else if (type === 2) {
