@@ -13,6 +13,8 @@
     padding-top: 50px;
 }
 
+
+
 .star-watching-in-list {
     white-space: unset;
     float: left;
@@ -21,4 +23,28 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position:center center;
+    display: flex;
+    align-items: center;
+}
+
+.texts {
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    align-content: space-around;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.texts div h1{
+    font-weight: lighter;
+    word-wrap:break-word;
+}
+
+.texts div h3{
+    font-weight: lighter;
+}
+
+.texts h4{
+    font-weight: lighter;
 }

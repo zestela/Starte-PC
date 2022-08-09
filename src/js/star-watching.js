@@ -15,11 +15,13 @@ window.onload = async function () {
         'beforeend',
         `
         <div class="star-watching-in-list" style="background-image: url(${mainpageData.data.url});">
-            <div>
+            <div class="texts">
+            <div style="height:20vh;width:100%;"></div>
                 <div>
                     <h1>${data.data[Object.keys(data.data).length - 1].sentence}</h1>
                     <h3>${data.data[Object.keys(data.data).length - 1].from}</h3>
                 </div>
+                <div style="height:30vh;width:100%;"></div>
                 <h4>${data.data[Object.keys(data.data).length - 1].date}</h4>
             </div>
     </div>`);
@@ -28,11 +30,14 @@ window.onload = async function () {
             'beforeend',
             `
         <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url});">
-            <div>
+            <div class="texts">
+            <div style="height:20vh;width:100%;"></div>
+                <div style="height:20%;width:100%;"></div>
                 <div>
                     <h1>${data.data[i].sentence}</h1>
                     <h3>${data.data[i].from}</h3>
                 </div>
+                <div style="height:30vh;width:100%;"></div>
                 <h4>${data.data[i].date}</h4>
             </div>
     </div>`);
