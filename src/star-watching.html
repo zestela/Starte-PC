@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>观星</title>
   <link href="./css/styles.css" rel="stylesheet">
-  <link href="./css/settings.css" rel="stylesheet">
+  <link href="./css/star-watching.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,11 +17,6 @@
       <div class="onhover"><button id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
       <div class="topbar-title">观星</div>
     </div>
-    <!-- <div class="topbar-date">
-          <year>ERROR</year>
-          <h2> / </h2>
-          <date>NOPICTURE</date>
-        </div> -->
     <div class="topbar-icons">
       <div class="onhover">
         <button onclick="window.electronAPI.windowEvents(1);">
@@ -57,11 +52,10 @@
     </div>
   </div>
   <!-- 以上是菜单的实验性制作 -->
-
-  </script>
+  <div class="star-list">
+  </div>
 </body>
 <script src="./js/topbar.js"></script>
-<script src="./js/html2canvas.min.js"></script>
-<script src="./js/settings.js"></script>
+<script src="./js/star-watching.js"></script>
 
 </html>

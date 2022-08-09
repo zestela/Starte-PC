@@ -6,9 +6,9 @@ window.electronAPI.getMainpage()
         mainpageData = resolve;
         let picUrl = (await window.electronAPI.getcwd() + "/cache/" + mainpageData.data.id + ".png");
         document.body.style.backgroundImage = `url('${picUrl}')`;
-        let time = new Date().toLocaleString().split(" ")[0];
-        $("year").innerText = time.split("/")[0] + " 年";
-        $("date").innerText = time.split("/")[1] + " 月 " + time.split("/")[2] + " 日";
+        let time = new Date();
+        $("year").innerText = time.getFullYear() + " 年";
+        $("date").innerText = (time.getMonth() + 1) + " 月 " + time.getDay() + " 日";
         $(".mainpage-text-title").innerText = mainpageData.data.title;
         $(".mainpage-text-describe").innerText = mainpageData.data.describe;
     });
