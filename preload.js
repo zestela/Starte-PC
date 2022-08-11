@@ -13,5 +13,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     goToSettings: () => ipcRenderer.send("go-to-settings"),
     goToAbout: () => ipcRenderer.send("go-to-about"),
     goToGx: () => ipcRenderer.send("go-to-gx"),
-    goToMx: () => ipcRenderer.send("go-to-mx")
+    goToMx: () => ipcRenderer.send("go-to-mx"),
+    goToCheck: () => ipcRenderer.send("go-to-check")
 });

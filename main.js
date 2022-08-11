@@ -21,7 +21,7 @@ async function createWindow() {
   });
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async() => {
@@ -163,7 +163,11 @@ ipcMain.on("go-to-gx",async () => {
 });
 
 ipcMain.on("go-to-mx",async () => {
-  await mainWindow.loadFile("src/pluto-staying.html");
+  await mainWindow.loadFile("src/pluto-relaxing.html");
+});
+
+ipcMain.on("go-to-check",async () => {
+  await mainWindow.loadFile("src/check-new.html");
 });
 
 // Part of Settings
