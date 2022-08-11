@@ -1,0 +1,18 @@
+* {
+    font-family: 'HarmonyOS Sans';
+}
+
+body {
+    background-color: #141414;
+}
+
+.contain {
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
