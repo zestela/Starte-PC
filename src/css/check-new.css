@@ -23,6 +23,10 @@ body {
 }
 
 .new-banben {
+    display: none;
+}
+
+.new-banben-checked {
     margin-top: 20px;
     width:100%;
     height: 100px;
