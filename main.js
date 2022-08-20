@@ -48,6 +48,7 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
+
 async function downloadImage(url, name) {
     const writer = fs.createWriteStream(path.join(process.cwd(), "cache/", name));
 

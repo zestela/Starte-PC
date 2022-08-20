@@ -1,15 +1,16 @@
 {
   "name": "starte",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "main": "main.js",
   "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
-    "packager": "electron-builder build --dir"
+    "packager": "electron-builder build"
   },
   "author": "Starte",
   "devDependencies": {
     "electron": "^19.0.9",
+    "electron-builder": "^23.3.3",
     "electron-packager": "^15.5.1"
   },
   "build": {
@@ -19,8 +20,31 @@
     "directories": {
       "output": "build"
     },
+    "nsis": {
+      "oneClick": false,
+      "language": "2052",
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "./src/icons/dock.ico",
+      "uninstallerIcon": "./src/icons/dock.ico",
+      "installerHeaderIcon": "./src/icons/dock.ico",
+      "shortcutName": "./src/icons/dock.ico"
+    },
+    "publish": [
+      {
+        "provider": "generic", 
+        "url": "http://api.discoverse.space/"
+      }
+    ],
     "win": {
-      "icon": "./src/icons/dock.ico"
+      "icon": "./src/icons/dock.ico",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
     }
   },
   "packageManager": "yarn@3.2.2",
