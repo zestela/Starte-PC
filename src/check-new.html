@@ -90,14 +90,18 @@
                 <div class="check-new-describe" id="check-new-describe">发布时间：1919 年 8 月 10 日</div>
             </div>
             </div>
-            <button class="get-new"><div style="color:white;font-size:15px;font-weight: lighter;" id="link-text">点击复制下载链接</div></button>
+            <div class="getbuttons">
+            <a class="get-rizhi" id="rizhi-link-text" target="_blank"><div style="color:white;font-size:15px;font-weight: lighter;">更新日志</div></a>
+            <button class="get-new"><div style="color:white;font-size:15px;font-weight: lighter;" id="link-text">复制链接</div></button>
+            </div>
             
         </div>
-        <button style="margin-top: 20px;" class="check-new" onclick="checknew()"><img src="icons/check-new-button.svg" style="width:17px;"><div style="color:white;margin-left: 8px;font-size:15px;font-weight: lighter;">检查更新</div></button>
+        <button style="margin-top: 20px;" class="check-new" onclick='checknewbutton()'><img src="icons/check-new-button.svg" style="width:17px;"><div style="color:white;margin-left: 8px;font-size:15px;font-weight: lighter;">检查更新</div></button>
       </div>
     </div>
   </div>
 </body>
+<script src="./js/jquery-3.5.1.min.js"></script>
 <script src="./clipboard.js-2.0.11/dist/clipboard.min.js"></script>
 <script src="./js/check-new.js"></script>
 <script src="./js/topbar.js"></script>

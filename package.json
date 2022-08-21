@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "main": "main.js",
   "license": "UNLICENSED",
   "scripts": {
@@ -30,7 +30,7 @@
       "installerIcon": "./src/icons/dock.ico",
       "uninstallerIcon": "./src/icons/dock.ico",
       "installerHeaderIcon": "./src/icons/dock.ico",
-      "shortcutName": "./src/icons/dock.ico"
+      "shortcutName": "观星记 DEV EDITION"
     },
     "publish": [
       {

@@ -50,15 +50,26 @@
     </div>
   </div>
   <!-- 以上是菜单的实验性制作 -->
+
   
+  <div class="update-tip" id="update-tip">
+    <div class="update-tip-text">
+      <div>现已发布新版本</div>
+      <div class="banbenhao" id="banbenhao">版本号</div>
+      <div class="updatebutton" onclick="window.electronAPI.goToCheck()">点击了解详情</div>
+    </div>
+  </div>
+
+
   <div class="mainpage-text">
     <h2 class="mainpage-text-title">这不是什么好事。</h2>
     <h4 class="mainpage-text-describe">
       如果你看到了这段话，说明程序不正常，内容被错误加载了。你应该立刻联系我们，告知具体情况以协助我们解决问题。
     </h4>
   </div>
+  <script src="./js/jquery-3.5.1.min.js"></script>
+  <script src="./js/check-new-popup.js"></script>
   <script src="./js/topbar.js"></script>
   <script src="./js/index.js"></script>
 </body>
-
 </html>

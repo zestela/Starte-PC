@@ -8,7 +8,7 @@ window.electronAPI.getMainpage()
         document.body.style.backgroundImage = `url('${picUrl}')`;
         let time = new Date();
         $("year").innerText = time.getFullYear() + " 年";
-        $("date").innerText = (time.getMonth() + 1) + " 月 " + time.getDay() + " 日";
+        $("date").innerText = (time.getMonth() + 1) + " 月 " + time.getDate() + " 日";
         $(".mainpage-text-title").innerText = mainpageData.data.title;
         $(".mainpage-text-describe").innerText = mainpageData.data.describe;
     });
