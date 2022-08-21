@@ -205,3 +205,43 @@ body {
 .all-menu.menu-focus {
     display: grid !important;
 }
+
+.update-tip {
+    display: none;
+}
+
+.update-tip-checked {
+    width: 100%;
+    background-color: none;
+    position: absolute;
+    top:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update-tip-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 50px;
+    font-weight: 300;
+    background-color: rgba(0, 0, 0, 0.655);
+    backdrop-filter: blur(50px);
+    color:rgba(255, 255, 255, 0.677);
+    font-size: 13px;
+}
+
+.banbenhao {
+    margin-left: 3px;
+}
+
+.updatebutton {
+    color:#ffffff;
+    margin-left: 10px;
+    font-weight: bold;
+}

@@ -48,6 +48,11 @@ body {
     border: none;
 }
 
+.getbuttons {
+    display: flex;
+    align-items: center;
+}
+
 .check-new:hover {
     background-color: rgb(49, 49, 49);
 }
@@ -74,4 +79,24 @@ body {
     cursor: pointer;
     border: none;
     margin-right: 23px;
+}
+
+.get-rizhi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    background-color: #606060;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    margin-right: 10px;
+}
+
+.get-rizhi:hover {
+    background-color: rgb(83, 83, 83);
+}
+
+.get-rizhi:active {
+    background-color: rgb(73, 73, 73);
 }
