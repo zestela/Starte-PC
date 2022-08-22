@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.0.23",
+  "version": "0.1.0",
   "main": "main.js",
   "license": "UNLICENSED",
   "scripts": {
@@ -14,7 +14,7 @@
     "electron-packager": "^15.5.1"
   },
   "build": {
-    "productName": "Starte",
+    "productName": "观星记 Starte",
     "appId": "discoverse.space.starte",
     "copyright": "discoverse.space",
     "directories": {
@@ -30,7 +30,7 @@
       "installerIcon": "./src/icons/dock.ico",
       "uninstallerIcon": "./src/icons/dock.ico",
       "installerHeaderIcon": "./src/icons/dock.ico",
-      "shortcutName": "观星记 DEV EDITION"
+      "shortcutName": "观星记 Starte"
     },
     "publish": [
       {

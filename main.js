@@ -176,6 +176,3 @@ ipcMain.on("go-to-check",async () => {
 // ipcMain.on('set-settings', async (event,settings) => {
 //
 // });
-
-
-

@@ -11,35 +11,53 @@ window.onload = async function () {
     const data = await (await fetch(`https://api.discoverse.space/book/get-book-sentence-list.php?month=${(time.getMonth() + 1) < 10 ? '0'  + (time.getMonth() + 1): (time.getMonth() + 1)}&year=${time.getFullYear()}`)).json();
     const mainpageData = await (await fetch('https://api.discoverse.space/mainpage/get-mainpage')).json();
     dataLst = data;
+    photoDate=new Date(dataLst.data[Object.keys(data.data).length - 1].date);
+    photoMonth=photoDate.getMonth()+1;
+    photoDay=photoDate.getDate();
+    isfromwho="—— "+data.data[Object.keys(data.data).length - 1].from;
     $(".star-list").insertAdjacentHTML(
         'beforeend',
         `
         <div class="star-watching-in-list" style="background-image: url(${mainpageData.data.url});">
             <div class="texts">
-            <div style="height:20vh;width:100%;"></div>
+
                 <div>
                     <h1>${data.data[Object.keys(data.data).length - 1].sentence}</h1>
-                    <h3>${data.data[Object.keys(data.data).length - 1].from}</h3>
+                    <h3>${isfromwho}</h3>
                 </div>
-                <div style="height:30vh;width:100%;"></div>
-                <h4>${data.data[Object.keys(data.data).length - 1].date}</h4>
+
+
             </div>
+            <div class="disPLAYDATE">
+            <div class="month">${photoMonth}</div>
+            <div class="fenge"> / </div>
+            <div class="dayte">${photoDay}</div>
+        </div>
     </div>`);
     for (let i = Object.keys(data.data).length - 2; i >= 0; i--) {
+        var photoDate1=new Date(dataLst.data[i].date);
+        var photoMonth1=photoDate1.getMonth()+1;
+        var photoDay1=photoDate1.getDate();
+        var fromwho="—— "+data.data[i].from;
+
         $(".star-list").insertAdjacentHTML(
             'beforeend',
             `
         <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url});">
             <div class="texts">
-            <div style="height:20vh;width:100%;"></div>
-                <div style="height:20%;width:100%;"></div>
+
                 <div>
                     <h1>${data.data[i].sentence}</h1>
-                    <h3>${data.data[i].from}</h3>
+                    <h3>${fromwho}</h3>
                 </div>
-                <div style="height:30vh;width:100%;"></div>
-                <h4>${data.data[i].date}</h4>
+
+
             </div>
+            <div class="disPLAYDATE">
+            <div class="month">${photoMonth1}</div>
+            <div class="fenge"> / </div>
+            <div class="dayte">${photoDay1}</div>
+        </div>
     </div>`);
     }
 };
