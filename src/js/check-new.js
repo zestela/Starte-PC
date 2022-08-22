@@ -1,8 +1,10 @@
+
 jsonbanbens = $.ajax({
   url: "https://api.discoverse.space/banben.json",
   type: "GET",
   dataType: "json",
   async: false,
+  cache:false,
   success: function(data) {
   }
 });
@@ -14,6 +16,7 @@ jsonbanbenhaos = $.ajax({
   type: "GET",
   dataType: "json",
   async: false,
+  cache:false,
   success: function(data) {
   }
 });

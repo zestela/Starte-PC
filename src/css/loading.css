@@ -5,7 +5,7 @@ html {
 body {
     height: 100%;
     user-select: none;
-    background-color: #e89f00;
+    background-color: #311E8F;
 }
 
 .loading-topbar-icons {
@@ -87,7 +87,7 @@ body {
 }
 
 .line {
-    margin-top: -9px;
+    margin-top: -2px;
 
     display: flex;
     align-items: center;

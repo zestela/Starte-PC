@@ -3,6 +3,7 @@ jsonbanbens = jQuery.ajax({
     type: "GET",
     dataType: "json",
     async: false,
+    cache:false,
     success: function(data) {
     }
   });
@@ -10,11 +11,12 @@ jsonbanbened=jsonbanbens.responseText;
 var banbenlist =jQuery.parseJSON(jsonbanbened);
 var obj = JSON.parse(jsonbanbened);
 var newbanbenname = obj.banben[0].name;
-jsonbanbenhaos = $.ajax({
+jsonbanbenhaos = jQuery.ajax({
     url: "./banbenhao.json",
     type: "GET",
     dataType: "json",
     async: false,
+    cache:false,
     success: function(data) {
     }
   });
@@ -27,5 +29,5 @@ function disappeared() {
 if (newbanbenname != seebanben) {
     document.getElementById('update-tip').setAttribute("class", "update-tip-checked");
     document.getElementById('banbenhao').innerHTML=newbanbenname;
-    setTimeout(disappeared, 5000);
+    setTimeout(disappeared, 10000);
 }

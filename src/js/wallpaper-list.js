@@ -6,6 +6,9 @@ window.onload = async function () {
     const data = await (await fetch(`https://api.discoverse.space/mainpage/get-mainpage-history-list.php?month=${(time.getMonth() + 1) < 10 ? '0'  + (time.getMonth() + 1): (time.getMonth() + 1)}&year=${time.getFullYear()}`)).json();
     dataLst = data;
     for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
+        var photoDate=new Date(dataLst.data[i].date);
+        var photoMonth=photoDate.getMonth()+1;
+        var photoDay=photoDate.getDate();
         $(".wallpaper-list").insertAdjacentHTML(
         'beforeend',
         `
@@ -13,7 +16,11 @@ window.onload = async function () {
             <div>
                 <div>
                     <h1>${dataLst.data[i].title}</h1>
-                    <h4>${dataLst.data[i].date}</h4>
+                <div class="disPLAYDATE">
+                    <div class="month">${photoMonth}</div>
+                    <div class="fenge"> / </div>
+                    <div class="dayte">${photoDay}</div>
+                </div>
                 </div>
                 <h3>${dataLst.data[i].describe}</h3>
             </div>
