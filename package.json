@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "main.js",
   "license": "UNLICENSED",
   "scripts": {
@@ -44,7 +44,8 @@
         {
           "target": "nsis"
         }
-      ]
+      ],
+      "requestedExecutionLevel": "highestAvailable"
     }
   },
   "packageManager": "yarn@3.2.2",

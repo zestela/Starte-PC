@@ -16,9 +16,9 @@
   <div class="topbar" style="background-color: #454545;">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
-      <div class="onhover"><button id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
-      <div class="onhover"><button onclick="window.electronAPI.goToAbout()"><img style="width: 13px;height: 13px;"
-        src="./icons/back.svg"></button></div>
+      <button class="onhover" id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button>
+      <button class="onhover" onclick="window.electronAPI.goToAbout()"><img style="width: 13px;height: 13px;"
+        src="./icons/back.svg"></button>
       <div class="topbar-title">检查更新</div>
     </div>
     <!-- <div class="topbar-date">
@@ -27,18 +27,9 @@
           <date>NOPICTURE</date>
         </div> -->
     <div class="topbar-icons">
-      <div class="onhover">
-        <button onclick="window.electronAPI.windowEvents(1);">
-          <img src="./icons/min.svg"></button>
-      </div>
-      <div class="onhover">
-        <button onclick="window.electronAPI.windowEvents(2);">
-          <img src="./icons/max.svg"></button>
-      </div>
-      <div class="onhover closeonhover">
-        <button onclick="window.electronAPI.windowEvents(3);">
-          <img src="./icons/close.svg"></button>
-      </div>
+      <button class="onhover" onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
+      <button class="onhover" onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
+      <button class="onhover closeonhover" onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
     </div>
   </div>
   <!-- 以下是菜单的实验性制作 -->
@@ -67,14 +58,12 @@
           <img src="./icons/settings-normal.svg">
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
-            <div class="setting-nav-text-context">功能性设置</div>
           </div>
         </div>
         <div class="setting-nav" style="margin-top: 16px;background-color: #454545;">
           <img src="./icons/settings-about.svg">
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">关于</div>
-            <div class="setting-nav-text-context">有关观星记的各种信息</div>
           </div>
         </div>
     </div>
@@ -86,8 +75,8 @@
             <div style="margin-left: 23px;display: flex;align-items: center;">
             <img src="icons/color-logo.png" width="50px">
             <div style="margin-left: 16px;">
-                <div class="check-new-title" id="check-new-title-name">dev_11.45.14_1919</div>
-                <div class="check-new-describe" id="check-new-describe">发布时间：1919 年 8 月 10 日</div>
+                <div class="check-new-title" id="check-new-title-name">版本号</div>
+                <div class="check-new-describe" id="check-new-describe">发布时间：XXXXXXXX</div>
             </div>
             </div>
             <div class="getbuttons">
@@ -96,7 +85,7 @@
             </div>
             
         </div>
-        <button style="margin-top: 20px;" class="check-new" onclick='checknewbutton()'><img src="icons/check-new-button.svg" style="width:17px;"><div style="color:white;margin-left: 8px;font-size:15px;font-weight: lighter;">检查更新</div></button>
+        <button style="margin-top: 20px;" class="check-new" onclick='checknewbutton()'><div style="color:white;font-size:15px;font-weight: lighter;">检查更新</div></button>
       </div>
     </div>
   </div>

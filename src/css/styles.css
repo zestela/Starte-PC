@@ -106,16 +106,7 @@ button {
     align-items: center;
 }
 
-.topbar .topbar-icons button {
-    color: white;
-    width: 16px;
-    height: 16px;
-    background: none;
-    padding: 0;
-    border: none;
-    margin-left: 10px;
-    margin-right: 10px;
-}
+
 
 .onhover {
     height: 50px;
@@ -123,6 +114,9 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: none;
+    padding: 0;
+    border: none;
 }
 
 .onhover:hover { 
@@ -148,13 +142,6 @@ button {
 }
 
 
-.topbar .topbar-menu button {
-    width: 13px;
-    height: 13px;
-    background: none;
-    padding: 0;
-    border: none;
-}
 
 .topbar .topbar-date date {
     font-weight: bolder;
@@ -244,4 +231,5 @@ body {
     color:#ffffff;
     margin-left: 10px;
     font-weight: bold;
+    cursor: pointer;
 }
