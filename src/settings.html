@@ -14,7 +14,7 @@
   <div class="topbar" style="background-color: #454545;">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
-      <div class="onhover"><button id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+      <button class="onhover" id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button>
       <div class="topbar-title">设置</div>
     </div>
     <!-- <div class="topbar-date">
@@ -23,18 +23,9 @@
           <date>NOPICTURE</date>
         </div> -->
     <div class="topbar-icons">
-      <div class="onhover">
-        <button onclick="window.electronAPI.windowEvents(1);">
-          <img src="./icons/min.svg"></button>
-      </div>
-      <div class="onhover">
-        <button onclick="window.electronAPI.windowEvents(2);">
-          <img src="./icons/max.svg"></button>
-      </div>
-      <div class="onhover closeonhover">
-        <button onclick="window.electronAPI.windowEvents(3);">
-          <img src="./icons/close.svg"></button>
-      </div>
+      <button class="onhover" onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
+      <button class="onhover" onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
+      <button class="onhover closeonhover" onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
     </div>
   </div>
 
@@ -64,14 +55,12 @@
           <img src="./icons/settings-normal.svg">
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
-            <div class="setting-nav-text-context">功能性设置</div>
           </div>
         </div>
         <div onclick="window.electronAPI.goToAbout()" class="setting-nav" style="margin-top: 16px;">
           <img src="./icons/settings-about.svg">
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">关于</div>
-            <div class="setting-nav-text-context">有关观星记的各种信息</div>
           </div>
         </div>
     </div>

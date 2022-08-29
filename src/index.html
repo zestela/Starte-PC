@@ -13,7 +13,7 @@
   <div class="topbar">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
-      <div class="onhover"><button id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button></div>
+      <button class="onhover" id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button>
       <img style="margin-top: 5px;" src="./icons/today.png" width="60">
       <div style="width:95px;background-color: rgba(0, 0, 0, 0);"> </div> <!-- 加入透明div，使得左边的元素和右边的元素宽度相同，达到日期居中的目的 -->
     </div>
@@ -23,11 +23,11 @@
       <date>NOPICTURE</date>
     </div>
     <div class="topbar-icons">
-      <div class="onhover"><button id="setWallpaper"><img src="./icons/setWallpaper.svg"></button></div>
-      <div class="onhover"><button id="share"><img src="./icons/share.svg"></button></div>
-      <div class="onhover"><button onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button></div>
-      <div class="onhover"><button onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button></div>
-      <div class="onhover closeonhover"><button onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button></div>
+      <button class="onhover" id="setWallpaper"><img style="width: 15px;height: 15px;" src="./icons/setWallpaper.svg"></button>
+      <button class="onhover" id="share"><img style="width: 14px;height: 14px;" src="./icons/share.svg"></button>
+      <button class="onhover" onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
+      <button class="onhover" onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
+      <button class="onhover closeonhover" onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
     </div>
   </div>
 

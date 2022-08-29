@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain, Notification, dialog } = require('electron');
+const { app, BrowserWindow, Menu, shell, ipcMain, Notification, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
@@ -13,6 +13,8 @@ async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
     minHeight: 500,
+    width: 1280,
+    height: 720,
     icon: "./src/icons/dock.ico",
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
@@ -176,3 +178,23 @@ ipcMain.on("go-to-check",async () => {
 // ipcMain.on('set-settings', async (event,settings) => {
 //
 // });
+
+
+// 用浏览器打开链接
+app.on('web-contents-created', (e, webContents) => {
+    webContents.on('new-window', (event, url) => {
+        event.preventDefault();
+        shell.openExternal(url);
+    });
+});
+
+// 开机自启动
+const exeName = path.basename(process.execPath)
+app.setLoginItemSettings({
+  openAtLogin: true,
+  openAsHidden:false,
+  path: process.execPath,
+  args: [
+    '--processStart', `"${exeName}"`,
+  ]
+})
