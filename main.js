@@ -28,12 +28,16 @@ async function createWindow() {
 
 app.whenReady().then(async() => {
   ipcMain.handle('load-mainpage', async () => {
-    const json = await axios.get('https://api.discoverse.space/mainpage/get-mainpage');
+    const json = await axios.get('https://api.discoverse.space/new-mainpage/get-mainpage');
     return JSON.stringify(json.data);
   });
 
   ipcMain.handle('get-cwd', () => {
     return process.cwd().replaceAll("\\", "/");
+  });
+
+  ipcMain.handle('get-appdata', () => {
+    return process.env.APPDATA.replaceAll("\\", "/");
   });
 
   // ipcMain.handle('get-settings', () => {
@@ -52,7 +56,7 @@ app.on('window-all-closed', function () {
 
 
 async function downloadImage(url, name) {
-    const writer = fs.createWriteStream(path.join(process.cwd(), "cache/", name));
+    const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache/', name));
 
     const response = await axios({
       url,
@@ -69,12 +73,12 @@ async function downloadImage(url, name) {
 
 
 ipcMain.on('init', async () => {
-  if (!fs.existsSync(path.join(process.cwd(), "cache")))
-    fs.mkdirSync(path.join(process.cwd(), "cache"));
-  let mainpageData = await axios.get('https://api.discoverse.space/mainpage/get-mainpage');
+  if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))
+    fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
+  let mainpageData = await axios.get('https://api.discoverse.space/new-mainpage/get-mainpage');
   mainpageData = mainpageData.data;
   if (mainpageData.code !== "0") {
-    let filename = path.join(process.cwd(), "cache", mainpageData.data.id + ".png");
+    let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
     if (!fs.existsSync(filename)) {
       console.log("Log: 开始下载(文件不存在)");
       downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
@@ -106,7 +110,7 @@ ipcMain.on('init', async () => {
 
 
 ipcMain.on('set-wallpaper', async (event, id) => {
-  await wallpaper.set(path.join(process.cwd(), "cache/", id + ".png"));
+  await wallpaper.set(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
 });
 
 ipcMain.on('window-events', (event, type) => {

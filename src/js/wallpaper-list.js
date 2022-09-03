@@ -3,7 +3,7 @@ const $ = document.querySelector.bind(document);
 
 window.onload = async function () {
     let time = new Date();
-    const data = await (await fetch(`https://api.discoverse.space/mainpage/get-mainpage-history-list.php?month=${(time.getMonth() + 1) < 10 ? '0'  + (time.getMonth() + 1): (time.getMonth() + 1)}&year=${time.getFullYear()}`)).json();
+    const data = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
     dataLst = data;
     for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
         var photoDate=new Date(dataLst.data[i].date);

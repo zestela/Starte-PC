@@ -4,7 +4,7 @@ window.electronAPI.getMainpage()
     .then(async (resolve) => {
         resolve = JSON.parse(resolve);
         mainpageData = resolve;
-        let picUrl = (await window.electronAPI.getcwd() + "/cache/" + mainpageData.data.id + ".png");
+        let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.data.id + ".png");
         document.body.style.backgroundImage = `url('${picUrl}')`;
         let time = new Date();
         $("year").innerText = time.getFullYear() + " 年";
