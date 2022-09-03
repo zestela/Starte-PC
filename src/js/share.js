@@ -4,7 +4,7 @@ window.electronAPI.getMainpage()
     .then(async (resolve) => {
         resolve = JSON.parse(resolve);
         shareData = resolve;
-        let picUrl = (await window.electronAPI.getcwd() + "/cache/" + shareData.data.id + ".png");
+        let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + shareData.data.id + ".png");
         $(".share-text-title").innerText = shareData.data.title;
         $(".share-text-describe").innerText = shareData.data.describe;
         $("#mainPicture").setAttribute("src", picUrl);

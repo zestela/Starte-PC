@@ -7,9 +7,9 @@ $(".star-list").onwheel = function (event) {
 
 window.onload = async function () {
     let time = new Date();
-    const wallpaperData = await (await fetch(`https://api.discoverse.space/mainpage/get-mainpage-history-list.php?month=${(time.getMonth() + 1) < 10 ? '0'  + (time.getMonth() + 1): (time.getMonth() + 1)}&year=${time.getFullYear()}`)).json();
-    const data = await (await fetch(`https://api.discoverse.space/book/get-book-sentence-list.php?month=${(time.getMonth() + 1) < 10 ? '0'  + (time.getMonth() + 1): (time.getMonth() + 1)}&year=${time.getFullYear()}`)).json();
-    const mainpageData = await (await fetch('https://api.discoverse.space/mainpage/get-mainpage')).json();
+    const wallpaperData = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
+    const data = await (await fetch(`https://api.discoverse.space/new-book/get-book-sentence-list.php`)).json();
+    const mainpageData = await (await fetch('https://api.discoverse.space/new-mainpage/get-mainpage')).json();
     dataLst = data;
     photoDate=new Date(dataLst.data[Object.keys(data.data).length - 1].date);
     photoMonth=photoDate.getMonth()+1;
