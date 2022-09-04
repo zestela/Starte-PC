@@ -9,6 +9,7 @@ https.globalAgent.options.rejectUnauthorized = false;
 https.globalAgent.options.family = 4;
 let mainWindow;
 
+
 async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
@@ -75,36 +76,52 @@ async function downloadImage(url, name) {
 ipcMain.on('init', async () => {
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))
     fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
-  let mainpageData = await axios.get('https://api.discoverse.space/new-mainpage/get-mainpage');
+  const url="https://api.discoverse.space/new-mainpage/get-mainpage";
+  let mainpageData = await axios.get(url,{
+    timeout: 30000
+  })
+  .catch(function(error) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+    mainWindow.loadFile('src/timeout.html');
+  });
   mainpageData = mainpageData.data;
-  if (mainpageData.code !== "0") {
+  if (mainpageData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
     if (!fs.existsSync(filename)) {
-      console.log("Log: 开始下载(文件不存在)");
+      console.log("Log: start downloading(there is no file)");
       downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
         .finally(() => {
-          console.log("Log: 下载完毕");
+          console.log("Log: download successfully");
           mainWindow.loadFile('src/index.html');
         });
     }
     else {
       if (await ufs(mainpageData.data.url) === fs.statSync(filename).size) {
-        console.log("Log: 缓存加载成功");
+        console.log("Log: load cahce successfully");
         await mainWindow.loadFile('src/index.html');
       }
       else {
-        console.log("Log: 开始下载(文件大小不符)");
+        console.log("Log: start downloading(file size can not fit)");
         downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
           .finally(() => {
-            console.log("Log: 下载完毕");
+            console.log("Log: download successfully");
             mainWindow.loadFile('src/index.html');
           });
       }
     }
   }
   else {
-    new Notification({ title: "Something is Wrong:(", body: mainpageData.msg + "因此退出了程序。将此问题反馈给我们也许会得到解决。" }).show();
-    app.quit();
+    console.log("Log: there is no data of this month");
+    mainWindow.loadFile('src/timeout.html');
   }
 });
 
@@ -163,6 +180,10 @@ ipcMain.on("go-to-settings",async () => {
 
 ipcMain.on("go-to-about",async () => {
   await mainWindow.loadFile("src/settings-about.html");
+});
+
+ipcMain.on("go-to-timeout",async () => {
+  await mainWindow.loadFile("src/timeout.html");
 });
 
 ipcMain.on("go-to-gx",async () => {
