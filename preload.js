@@ -10,6 +10,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     share: (id) => ipcRenderer.send('share',id),
     saveShare: (data) => ipcRenderer.send('save-share',data),
     backtoMainpage: () => ipcRenderer.send("back-to-mainpage"),
+    goToTimeout: () => ipcRenderer.send("go-to-timeout"),
     goToPastDay: () => ipcRenderer.send("go-to-past-day"),
     goToSettings: () => ipcRenderer.send("go-to-settings"),
     goToAbout: () => ipcRenderer.send("go-to-about"),
