@@ -46,10 +46,11 @@ button {
     position: fixed;
     z-index: 1919810114514114514;
     -webkit-app-region: drag;
-    width: 100%;
+    width: calc(100%-30px);
+    top: 15px;
+    left:15px;
+    right:15px;
     height: 50px;
-    background-color: rgba(0, 0, 0, 0.595);
-    backdrop-filter: blur(50px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,63 +60,63 @@ button {
 .topbar .topbar-menu {
     display: flex;
     align-items: center;
-    margin-left: 7px;
     user-select: none;
+}
+
+.logo-drop {
+    background-color: rgba(0,0,0,0.37);
+    backdrop-filter: blur(98px);
+    display: flex;
+    align-items: center;
+    border-style:solid;
+    border-radius: 10px;
+    border-width: 0.7px;
+    border-color: rgba(255, 255, 255, 0.212);
+    height:45px;
 }
 
 .topbar-title {
-    font-size: 25px;
+    font-size: 24px;
     color:white;
     font-weight: lighter;
-    margin-left: 7px;
+    margin-left: 15px;
 }
 
 .topbar-logo {
-    margin-left: 20px;
-    margin-top: 3px;
+    margin-left: 15px;
     margin-right: 10px;
-}
-.topbar .topbar-date * {
-    float: left;
-    font-family: 'HarmonyOS Sans';
-    color: white;
-    font-size: 15px;
-    align-content: center;
-    user-select: none;
+    width: 25px;
 }
 
-
-
-.topbar .topbar-date year {
-    color: rgb(205, 204, 207);
-    font-weight: lighter;
-}
-
-.topbar .topbar-date h2 {
-    color: rgb(213, 213, 214);
-    font-weight: 600;
-    margin: 0;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-weight: 600;
+.topbar-icons-all {
+    display: flex;
+    align-items: center;
+    gap:10px;
 }
 
 .topbar-icons {
+    background-color: rgba(0,0,0,0.37);
+    backdrop-filter: blur(98px);
     display: flex;
     justify-content: center;
     align-items: center;
+    border-style:solid;
+    border-radius: 10px;
+    border-width: 0.7px;
+    border-color: rgba(255, 255, 255, 0.212);
+    height:45px;
+    gap:10px;
 }
 
 
 
 .onhover {
-    height: 50px;
-    width: 50px;
+    border-radius:7px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: none;
-    padding: 0;
+    padding: 7.5px 7.5px 7.5px 7.5px;
     border: none;
 }
 
@@ -124,7 +125,7 @@ button {
 }
 
 .onhover:active { 
-    background-color: rgba(255, 255, 255, 0.11);
+    background-color: rgba(255, 255, 255, 0.174);
 }
 
 .closeonhover:hover { 
@@ -134,18 +135,15 @@ button {
 .closeonhover:active { 
     background-color: rgb(78, 0, 0);
 }
-.topbar .topbar-icons button img {
-    width: 13px;
-    height: 13px;
+.topbar .topbar-icons-all .topbar-icons button img {
+    width: 16px;
+    height: 16px;
     padding: 0;
     border: none;
 }
 
 
 
-.topbar .topbar-date date {
-    font-weight: bolder;
-}
 
 body {
     background-size: cover;
@@ -157,33 +155,65 @@ body {
 /* 以下是菜单的实验性制作 */
 
 .all-menu {
-    margin-top: 53px;
+    margin-top: 69px;
+    border-style:solid;
+    border-radius: 10px;
+    border-width: 0.7px;
+    background-color: rgba(0,0,0,0.37);
+    backdrop-filter: blur(98px);
+    border-color: rgba(255, 255, 255, 0.212);
     z-index: 1145141919810;
     width: auto;
     height: auto;
-    border-radius: 12px;
     position: fixed;
-    margin-left: 53px;
-    background-color: rgba(0, 0, 0, 0.655);
-    backdrop-filter: blur(50px);
+    margin-left: 15px;
     display: none;
-    grid-template-columns: 180px;
-    box-shadow: 0px 10px 55px rgba(255, 255, 255, 0.067);
+    grid-template-columns: 130px;
+    padding: 7px;
+    grid-row-gap:2px;
 }
 
 .menu-item {
-    margin-top: 7px;
+    display: flex;
     cursor: pointer;
+    height:auto;
+    border-radius: 8px;
+}
+
+.menu-item img {
     margin-left: 7px;
-    margin-right: 7px;
+    width:13px;
+    visibility: hidden;
+}
+
+.menu-item-chosen {
+    display: flex;
+    cursor: default;
     border-radius: 8px;
     height:auto;
+}
+
+.menu-item:hover { 
+    background-color: rgba(255, 255, 255, 0.299);
+}
+
+.menu-item:active { 
+    background-color: rgba(255, 255, 255, 0.174);
+}
+
+.menu-item-chosen:hover { 
+    background-color: rgba(255, 255, 255, 0.299);
+}
+
+.menu-item-chosen img {
+    margin-left: 7px;
+    width:13px;
 }
 
 .menu-text {
     margin-top: 6px;
     margin-bottom: 6px;
-    margin-left: 8px;
+    margin-left: 7px;
     font-weight: 300;
     font-size: 14px;
     color: white;
@@ -198,29 +228,21 @@ body {
 }
 
 .update-tip-checked {
-    width: 100%;
     background-color: none;
-    position: absolute;
-    top:60px;
+    background-color: rgba(0,0,0,0.37);
+    backdrop-filter: blur(98px);
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-.update-tip-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 50px;
+    padding: 15px 9px 15px 25px;
     font-weight: 300;
-    background-color: rgba(0, 0, 0, 0.655);
-    backdrop-filter: blur(50px);
     color:rgba(255, 255, 255, 0.677);
-    font-size: 13px;
+    font-size: 16px;
+    border-style:solid;
+    border-radius: 10px;
+    border-width: 0.7px;
+    border-color: rgba(255, 255, 255, 0.212);
+    margin-bottom: 6px;
+    width: 350px;
 }
 
 .banbenhao {

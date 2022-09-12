@@ -12,43 +12,43 @@
 </head>
 
 <body>
-  <div class="topbar" style="background-color: #454545;">
+  <div class="topbar">
     <div class="topbar-menu">
-      <img class="topbar-logo" src="./icons/logoBGB.svg" width="18px">
-      <button class="onhover" id="menu-button"><img style="width: 13px;height: 13px;" src="./icons/menu.svg"></button>
+      <div class="logo-drop">
+        <img class="topbar-logo" src="./icons/logoBGB.svg">
+        <button class="onhover" id="menu-button" style="margin-right: 10px;"><img style="width: 13px;height: 13px;" src="./icons/dropdown.svg"></button>
+      </div>
       <div class="topbar-title">设置</div>
     </div>
-    <!-- <div class="topbar-date">
-          <year>ERROR</year>
-          <h2> / </h2>
-          <date>NOPICTURE</date>
-        </div> -->
-    <div class="topbar-icons">
-      <button class="onhover" onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
-      <button class="onhover" onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
-      <button class="onhover closeonhover" onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
+    <div class="topbar-icons-all">
+      <div class="topbar-icons">
+        <button class="onhover" style="margin-left: 7px;margin-right: 7px;" onclick="window.electronAPI.goToSettings();"><img style="width:19px;height:19px" src="./icons/settings-icon.svg"></button>
+      </div>
+      <div class="topbar-icons">
+        <button class="onhover" style="margin-left: 10px;" onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
+        <button class="onhover" onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
+        <button class="onhover closeonhover" style="margin-right: 10px;" onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
+      </div>
     </div>
   </div>
 
   <!-- 以下是菜单的实验性制作 -->
   <div class="all-menu">
     <div class="menu-item" onclick="window.electronAPI.backtoMainpage()">
-      <h5 class="menu-text">今日</h5>
+      <img src="icons/menu-chosen.svg"><h5 class="menu-text">Today</h5>
     </div>
     <div class="menu-item" onclick="window.electronAPI.goToPastDay()">
-      <h5 class="menu-text">往日</h5>
+      <img src="icons/menu-chosen.svg"><h5 class="menu-text">往日</h5>
     </div>
     <div class="menu-item" onclick="window.electronAPI.goToGx()">
-      <h5 class="menu-text">观星</h5>
+      <img src="icons/menu-chosen.svg"><h5 class="menu-text">观星</h5>
     </div>
     <div class="menu-item" onclick="window.electronAPI.goToMx()">
-      <h5 class="menu-text">冥星</h5>
-    </div>
-    <div class="menu-item" style="background-color: #311E8F;color:white;margin-bottom: 7px;cursor: default;" >
-      <h5 class="menu-text">设置</h5>
+      <img src="icons/menu-chosen.svg"><h5 class="menu-text">冥星</h5>
     </div>
   </div>
   <!-- 以上是菜单的实验性制作 -->
+
 
   <div class="setting-contain">
     <div class="setting-left">
