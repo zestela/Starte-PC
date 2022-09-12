@@ -35,36 +35,72 @@ a:active {
 }
 
 .loading-topbar {
+    -webkit-app-region: drag;
+    width: calc(100%-30px);
+    margin-top: 15px;
+    margin-left:15px;
+    margin-right:15px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    user-select: none;
 }
 
-.loading-logo {
+.loading-topbar .topbar-menu {
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+.loading-logo-drop {
+    display: flex;
+    align-items: center;
+    height:45px;
+}
+
+.loading-topbar-title {
+    font-size: 24px;
+    color:white;
+    font-weight: lighter;
     margin-left: 15px;
 }
 
-.loading-topbar-icons {
-    -webkit-app-region: drag;
-    width: 100%;
-    display: flex;
-    justify-content: end;
+.loading-topbar-logo {
+    margin-left: 15px;
+    margin-right: 10px;
+    width: 25px;
 }
 
+.loading-topbar-icons-all {
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+.loading-topbar-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:45px;
+    gap:10px;
+}
+
+
+
 .loading-onhover {
-    height: 50px;
-    width: 50px;
+    border-radius:7px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: none;
-    padding: 0;
+    padding: 7.5px 7.5px 7.5px 7.5px;
     border: none;
 }
 
-.loading-onhover img {
-    width: 13px;
-    height: 13px;
+.loading-topbar .loading-topbar-icons-all .loading-topbar-icons button img {
+    width: 16px;
+    height: 16px;
     padding: 0;
     border: none;
 }
@@ -79,11 +115,11 @@ a:active {
     background-color: rgba(255, 255, 255, 0.11);
 }
 
-.closeonhover:hover { 
+.loading-closeonhover:hover { 
     background-color: rgba(177, 0, 0, 0.677);
 }
 
-.closeonhover:active { 
+.loading-closeonhover:active { 
     background-color: rgba(174, 0, 0, 0.351);
 }
 
