@@ -17,7 +17,7 @@
 
 
 .star-watching-in-list {
-    width: 48vw;
+    width: 45vw;
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,7 +28,7 @@
 
 .texts {
     white-space: normal;
-    width: 48vw;
+    width: 45vw;
     height:100%;
     display: flex;
     align-items: center;
@@ -41,13 +41,15 @@
 }
 
 .texts div h1{
-    font-weight: lighter;
+    font-weight: 600;
     word-wrap:break-word;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
 
 .texts div h3{
     font-weight: lighter;
     text-align: right;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
 
 .texts h4{
@@ -66,6 +68,7 @@
     margin-left: 5px;
     margin-right: 5px;
     display: inline;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
 
 .month {
@@ -73,10 +76,12 @@
     font-weight: 300;
     font-size: 20px;
     display: inline;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
 
 .dayte {
     font-weight: 300;
     font-size: 30px;
     display: inline;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
