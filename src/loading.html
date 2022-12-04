@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>观星记</title>
-    <link rel="shortcut icon" href="./icons/dev.ico">
-    <link href="./css/styles.css" rel="stylesheet">
-    <link href="./css/loading.css" rel="stylesheet">
-</head>
+    <link rel="shortcut icon" href="./icons/dev.ico" />
+    <link href="./css/styles.css" rel="stylesheet" />
+    <link href="./css/loading.css" rel="stylesheet" />
+  </head>
 
-<body>
+  <body>
     <div class="loading-container">
-    <div class="loading-topbar">
-    <div class="loading-topbar-menu">
-      <div class="loading-logo-drop">
-        <img class="loading-topbar-logo" src="./icons/logoBGB.svg">
-      </div>
-    </div>
-    <div class="loading-topbar-icons-all">
-      <div class="loading-topbar-icons">
-        <button class="loading-onhover" style="margin-left: 10px;" onclick="window.electronAPI.windowEvents(1);"><img src="./icons/min.svg"></button>
-        <button class="loading-onhover" onclick="window.electronAPI.windowEvents(2);"><img src="./icons/max.svg"></button>
-        <button class="loading-onhover loading-closeonhover" style="margin-right: 10px;" onclick="window.electronAPI.windowEvents(3);"><img src="./icons/close.svg"></button>
-      </div>
-    </div>
-  </div>
-
-        <div>
-            <div class="flex-logo"><img style="width:150px;" src="icons/text-logo.png"></div>
+      <div class="loading-topbar">
+        <div class="loading-topbar-menu">
+          <div class="loading-logo-drop">
+            <img class="loading-topbar-logo" src="./icons/logoBGB.svg" />
+          </div>
         </div>
+        <div class="loading-topbar-icons-all">
+          <div class="loading-topbar-icons">
+            <button
+              class="loading-onhover"
+              style="margin-left: 10px"
+              onclick="window.electronAPI.windowEvents(1);"
+            >
+              <img src="./icons/min.svg" />
+            </button>
+            <button
+              class="loading-onhover"
+              onclick="window.electronAPI.windowEvents(2);"
+            >
+              <img src="./icons/max.svg" />
+            </button>
+            <button
+              class="loading-onhover loading-closeonhover"
+              style="margin-right: 10px"
+              onclick="window.electronAPI.windowEvents(3);"
+            >
+              <img src="./icons/close.svg" />
+            </button>
+          </div>
+        </div>
+      </div>
 
-    <div class="loading-bottom">
+      <div>
+        <div class="flex-logo">
+          <img style="width: 150px" src="icons/text-logo.png" />
+        </div>
+      </div>
+
+      <div class="loading-bottom">
         <div class="loading"></div>
         <h3 class="text-connecting">正在加载数据</h3>
         <h3 class="text-dev">Beta Edition</h3>
+      </div>
     </div>
-    </div>
-</body>
-<script>
+  </body>
+  <script>
     window.electronAPI.init();
-</script>
-
+  </script>
 </html>

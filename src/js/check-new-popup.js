@@ -2,10 +2,7 @@ jsonbanbens = jQuery.ajax({
     url: "https://api.discoverse.space/banben.json",
     type: "GET",
     dataType: "json",
-    async: false,
-    cache:false,
-    success: function(data) {
-    }
+    cache: false
   });
 jsonbanbened=jsonbanbens.responseText;
 var banbenlist =jQuery.parseJSON(jsonbanbened);
@@ -14,11 +11,7 @@ var newbanbenname = obj.banben[0].name;
 jsonbanbenhaos = jQuery.ajax({
     url: "./banbenhao.json",
     type: "GET",
-    dataType: "json",
-    async: false,
-    cache:false,
-    success: function(data) {
-    }
+    dataType: "json"
   });
 jsonbanbenhaonow=jsonbanbenhaos.responseText;
 var banbenhow = JSON.parse(jsonbanbenhaonow);

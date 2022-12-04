@@ -34,7 +34,7 @@
     },
     "publish": [
       {
-        "provider": "generic", 
+        "provider": "generic",
         "url": "http://api.discoverse.space/"
       }
     ],
@@ -51,6 +51,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "url-file-size": "^1.0.2",
+    "v8-compile-cache": "^2.3.0",
     "wallpaper": "^5.0.1"
   }
 }

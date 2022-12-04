@@ -1,257 +1,254 @@
 @font-face {
-    font-family: 'HarmonyOS Sans';
-    src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Black.ttf");
-    font-weight: bolder;
+  font-family: "HarmonyOS Sans";
+  src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Black.woff2");
+  font-weight: bolder;
 }
 
 @font-face {
-    font-family: 'HarmonyOS Sans';
-    src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Bold.ttf");
-    font-weight: bold;
+  font-family: "HarmonyOS Sans";
+  src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Bold.woff2");
+  font-weight: bold;
 }
 
 @font-face {
-    font-family: 'HarmonyOS Sans';
-    src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Light.ttf");
-    font-weight: 300;
+  font-family: "HarmonyOS Sans";
+  src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Light.woff2");
+  font-weight: 300;
 }
 
 @font-face {
-    font-family: 'HarmonyOS Sans';
-    src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.ttf");
-    font-weight: 600;
+  font-family: "HarmonyOS Sans";
+  src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.woff2");
+  font-weight: 600;
 }
 
 @font-face {
-    font-family: 'HarmonyOS Sans';
-    src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Regular.ttf");
-    font-weight:normal;
+  font-family: "HarmonyOS Sans";
+  src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Regular.woff2");
+  font-weight: normal;
 }
 
 @font-face {
-    font-family: 'HarmonyOS Sans';
-    src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Thin.ttf");
-    font-weight: lighter;
+  font-family: "HarmonyOS Sans";
+  src: url("../HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Thin.woff2");
+  font-weight: lighter;
 }
 
 * {
-    font-family: 'HarmonyOS Sans';
+  font-family: "HarmonyOS Sans";
 }
 
 button {
-    -webkit-app-region: no-drag;
+  transition-duration: 0.2s;
+  -webkit-app-region: no-drag;
 }
 
 .topbar {
-    position: fixed;
-    z-index: 1919810114514114514;
-    -webkit-app-region: drag;
-    width: calc(100%-30px);
-    top: 15px;
-    left:15px;
-    right:15px;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
+  position: fixed;
+  z-index: 1919810114514114514;
+  -webkit-app-region: drag;
+  width: calc(100%-30px);
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
 }
 
 .topbar .topbar-menu {
-    display: flex;
-    align-items: center;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  user-select: none;
 }
 
 .logo-drop {
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    display: flex;
-    align-items: center;
-    border-style:solid;
-    border-radius: 10px;
-    border-width: 0.7px;
-    border-color: rgba(255, 255, 255, 0.212);
-    height:45px;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 0.7px;
+  border-color: rgba(255, 255, 255, 0.212);
+  height: 45px;
 }
 
 .topbar-title {
-    font-size: 24px;
-    color:white;
-    font-weight: lighter;
-    margin-left: 15px;
+  font-size: 24px;
+  color: white;
+  font-weight: lighter;
+  margin-left: 15px;
 }
 
 .topbar-logo {
-    margin-left: 15px;
-    margin-right: 10px;
-    width: 25px;
+  margin-left: 15px;
+  margin-right: 10px;
+  width: 25px;
 }
 
 .topbar-icons-all {
-    display: flex;
-    align-items: center;
-    gap:10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .topbar-icons {
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-style:solid;
-    border-radius: 10px;
-    border-width: 0.7px;
-    border-color: rgba(255, 255, 255, 0.212);
-    height:45px;
-    gap:10px;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 0.7px;
+  border-color: rgba(255, 255, 255, 0.212);
+  height: 45px;
+  gap: 10px;
 }
-
-
 
 .onhover {
-    border-radius:7px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: none;
-    padding: 7.5px 7.5px 7.5px 7.5px;
-    border: none;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  padding: 7.5px 7.5px 7.5px 7.5px;
+  border: none;
 }
 
-.onhover:hover { 
-    background-color: rgba(255, 255, 255, 0.299);
+.onhover:hover {
+  background-color: rgba(255, 255, 255, 0.299);
 }
 
-.onhover:active { 
-    background-color: rgba(255, 255, 255, 0.174);
+.onhover:active {
+  background-color: rgba(255, 255, 255, 0.174);
 }
 
-.closeonhover:hover { 
-    background-color: rgb(119, 0, 0);
+.closeonhover:hover {
+  background-color: rgb(119, 0, 0);
 }
 
-.closeonhover:active { 
-    background-color: rgb(78, 0, 0);
+.closeonhover:active {
+  background-color: rgb(78, 0, 0);
 }
 .topbar .topbar-icons-all .topbar-icons button img {
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    border: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
 }
 
-
-
-
 body {
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 0;
-    user-select: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  user-select: none;
 }
 
 /* 以下是菜单的实验性制作 */
 
 .all-menu {
-    margin-top: 69px;
-    border-style:solid;
-    border-radius: 10px;
-    border-width: 0.7px;
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    border-color: rgba(255, 255, 255, 0.212);
-    z-index: 1145141919810;
-    width: auto;
-    height: auto;
-    position: fixed;
-    margin-left: 15px;
-    display: none;
-    grid-template-columns: 130px;
-    padding: 7px;
-    grid-row-gap:2px;
+  margin-top: 69px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 0.7px;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  border-color: rgba(255, 255, 255, 0.212);
+  z-index: 1145141919810;
+  width: auto;
+  height: auto;
+  position: fixed;
+  margin-left: 15px;
+  display: none;
+  grid-template-columns: 130px;
+  padding: 7px;
+  grid-row-gap: 2px;
 }
 
 .menu-item {
-    display: flex;
-    cursor: pointer;
-    height:auto;
-    border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  height: auto;
+  transition-duration: 0.2s;
+  border-radius: 8px;
 }
 
 .menu-item img {
-    margin-left: 7px;
-    width:13px;
-    visibility: hidden;
+  margin-left: 7px;
+  width: 13px;
+  visibility: hidden;
 }
 
 .menu-item-chosen {
-    display: flex;
-    cursor: default;
-    border-radius: 8px;
-    height:auto;
+  display: flex;
+  cursor: default;
+  border-radius: 8px;
+  height: auto;
 }
 
-.menu-item:hover { 
-    background-color: rgba(255, 255, 255, 0.299);
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.299);
 }
 
-.menu-item:active { 
-    background-color: rgba(255, 255, 255, 0.174);
+.menu-item:active {
+  background-color: rgba(255, 255, 255, 0.174);
 }
 
-.menu-item-chosen:hover { 
-    background-color: rgba(255, 255, 255, 0.299);
+.menu-item-chosen:hover {
+  background-color: rgba(255, 255, 255, 0.299);
 }
 
 .menu-item-chosen img {
-    margin-left: 7px;
-    width:13px;
+  margin-left: 7px;
+  width: 13px;
 }
 
 .menu-text {
-    margin-top: 6px;
-    margin-bottom: 6px;
-    margin-left: 7px;
-    font-weight: 300;
-    font-size: 14px;
-    color: white;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 7px;
+  font-weight: 300;
+  font-size: 14px;
+  color: white;
 }
 
 .all-menu.menu-focus {
-    display: grid !important;
+  display: grid !important;
 }
 
 .update-tip {
-    display: none;
+  display: none;
 }
 
 .update-tip-checked {
-    background-color: none;
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    display: flex;
-    align-items: center;
-    padding: 15px 9px 15px 25px;
-    font-weight: 300;
-    color:rgba(255, 255, 255, 0.677);
-    font-size: 16px;
-    border-style:solid;
-    border-radius: 10px;
-    border-width: 0.7px;
-    border-color: rgba(255, 255, 255, 0.212);
-    margin-bottom: 6px;
-    width: 350px;
+  background-color: none;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  display: flex;
+  align-items: center;
+  padding: 15px 9px 15px 25px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.677);
+  font-size: 16px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 0.7px;
+  border-color: rgba(255, 255, 255, 0.212);
+  margin-bottom: 6px;
+  width: 350px;
 }
 
 .banbenhao {
-    margin-left: 3px;
+  margin-left: 3px;
 }
 
 .updatebutton {
-    color:#ffffff;
-    margin-left: 10px;
-    font-weight: bold;
-    cursor: pointer;
+  color: #ffffff;
+  margin-left: 10px;
+  font-weight: bold;
+  cursor: pointer;
 }
