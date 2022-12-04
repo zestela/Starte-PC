@@ -22,7 +22,7 @@ jsonbanbenhaos = $.ajax({
 });
 jsonbanbenhaonow=jsonbanbenhaos.responseText;
 var banbenhow = JSON.parse(jsonbanbenhaonow);
-var seebanben = banbenhow.banbenhaothis[0].edition;
+var seebanben = banbenhow.version;
 
 var newbanbenname = obj.banben[0].name;
 var newbanbenlink = obj.banben[0].url;
