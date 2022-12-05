@@ -12,31 +12,32 @@
   <body>
     <div class="topbar">
       <div class="topbar-menu">
-        <div class="logo-drop">
-          <img class="topbar-logo" src="./icons/logoBGB.svg" />
-          <button class="onhover" id="menu-button" style="margin-right: 10px">
-            <img style="width: 13px; height: 13px" src="./icons/dropdown.svg" />
-          </button>
-        </div>
-        <div class="topbar-title">设置</div>
+        <img class="topbar-logo" src="./icons/logoBGB.svg" />
+        <button class="menu-item menu-item-today-img"  onclick="window.electronAPI.backtoMainpage()">
+          <img class="today-icon" src="./icons/today.svg" />
+        </button>
+        <button class="menu-item" onclick="window.electronAPI.goToPastDay()">
+          <h5 class="menu-text">往日</h5>
+        </button>
+        <button class="menu-item" onclick="window.electronAPI.goToGx()">
+          <h5 class="menu-text">观星</h5>
+        </button>
+        <button class="menu-item"  onclick="window.electronAPI.goToMx()">
+          <h5 class="menu-text">冥星</h5>
+        </button>
       </div>
       <div class="topbar-icons-all">
         <div class="topbar-icons">
           <button
             class="onhover"
-            style="margin-left: 7px; margin-right: 7px"
-            onclick="window.electronAPI.goToSettings();"
           >
             <img
-              style="width: 19px; height: 19px"
+              style="width: 14.6px; height: 14.6px"
               src="./icons/settings-icon.svg"
             />
           </button>
-        </div>
-        <div class="topbar-icons">
           <button
             class="onhover"
-            style="margin-left: 10px"
             onclick="window.electronAPI.windowEvents(1);"
           >
             <img src="./icons/min.svg" />
@@ -46,7 +47,6 @@
           </button>
           <button
             class="onhover closeonhover"
-            style="margin-right: 10px"
             onclick="window.electronAPI.windowEvents(3);"
           >
             <img src="./icons/close.svg" />
@@ -54,27 +54,6 @@
         </div>
       </div>
     </div>
-
-    <!-- 以下是菜单的实验性制作 -->
-    <div class="all-menu">
-      <div class="menu-item" onclick="window.electronAPI.backtoMainpage()">
-        <img src="icons/menu-chosen.svg" />
-        <h5 class="menu-text">Today</h5>
-      </div>
-      <div class="menu-item" onclick="window.electronAPI.goToPastDay()">
-        <img src="icons/menu-chosen.svg" />
-        <h5 class="menu-text">往日</h5>
-      </div>
-      <div class="menu-item" onclick="window.electronAPI.goToGx()">
-        <img src="icons/menu-chosen.svg" />
-        <h5 class="menu-text">观星</h5>
-      </div>
-      <div class="menu-item" onclick="window.electronAPI.goToMx()">
-        <img src="icons/menu-chosen.svg" />
-        <h5 class="menu-text">冥星</h5>
-      </div>
-    </div>
-    <!-- 以上是菜单的实验性制作 -->
 
     <div class="setting-contain">
       <div class="setting-left">
@@ -111,7 +90,7 @@
                   color: rgba(255, 255, 255, 0.436);
                 "
               >
-                dev_0.0.19_0808
+                无法读取版本号
               </div>
             </div>
             <img
