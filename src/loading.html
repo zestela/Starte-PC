@@ -12,30 +12,24 @@
 
   <body>
     <div class="loading-container">
-      <div class="loading-topbar">
-        <div class="loading-topbar-menu">
-          <div class="loading-logo-drop">
-            <img class="loading-topbar-logo" src="./icons/logoBGB.svg" />
-          </div>
+      <div class="topbar" style="background: none;background-color: rgba(0, 0, 0, 0);
+      backdrop-filter: none;position: static;">
+        <div class="topbar-menu">
+          <img class="topbar-logo" src="./icons/logoBGB.svg" />
         </div>
-        <div class="loading-topbar-icons-all">
-          <div class="loading-topbar-icons">
+        <div class="topbar-icons-all">
+          <div class="topbar-icons">
             <button
-              class="loading-onhover"
-              style="margin-left: 10px"
+              class="onhover"
               onclick="window.electronAPI.windowEvents(1);"
             >
               <img src="./icons/min.svg" />
             </button>
-            <button
-              class="loading-onhover"
-              onclick="window.electronAPI.windowEvents(2);"
-            >
+            <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
               <img src="./icons/max.svg" />
             </button>
             <button
-              class="loading-onhover loading-closeonhover"
-              style="margin-right: 10px"
+              class="onhover closeonhover"
               onclick="window.electronAPI.windowEvents(3);"
             >
               <img src="./icons/close.svg" />
@@ -43,7 +37,6 @@
           </div>
         </div>
       </div>
-
       <div>
         <div class="flex-logo">
           <img style="width: 150px" src="icons/text-logo.png" />

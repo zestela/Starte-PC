@@ -11,5 +11,5 @@ jsonbanbenhaos = jQuery.ajax({
   });
 jsonbanbenhaonow=jsonbanbenhaos.responseText;
 var banbenhow = JSON.parse(jsonbanbenhaonow);
-var seebanben = banbenhow.banbenhaothis[0].edition;
+var seebanben = banbenhow.version;
 document.getElementById('banbenhaoinseting').innerHTML=seebanben;
