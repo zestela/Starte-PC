@@ -9,9 +9,8 @@
   },
   "author": "discoverse.space",
   "devDependencies": {
-    "electron": "^19.0.9",
-    "electron-builder": "^23.3.3",
-    "electron-packager": "^15.5.1"
+    "electron": "^21.3.3",
+    "electron-builder": "^23.6.0"
   },
   "build": {
     "productName": "观星记 Starte",
@@ -47,7 +46,6 @@
       ]
     }
   },
-  "packageManager": "yarn@3.2.2",
   "dependencies": {
     "axios": "^0.27.2",
     "url-file-size": "^1.0.2",

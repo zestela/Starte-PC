@@ -1,13 +1,13 @@
 require('v8-compile-cache');
-const { app, BrowserWindow, Menu, shell, ipcMain, Notification, dialog } = require('electron');
+const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const axios = require('axios');
 const ufs = require("url-file-size");
 const wallpaper = require("wallpaper");
-https.globalAgent.options.rejectUnauthorized = false;
-https.globalAgent.options.family = 4;
+//https.globalAgent.options.rejectUnauthorized = false;
+//https.globalAgent.options.family = 4;
 let mainWindow;
 
 
@@ -21,10 +21,12 @@ async function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },
-    frame: false
+    frame: false,
+    show: false
   });
   Menu.setApplicationMenu(null);
-  mainWindow.loadFile('src/loading.html');
+  await mainWindow.loadFile('src/loading.html');
+  mainWindow.show();
   // mainWindow.webContents.openDevTools();
 }
 
@@ -87,6 +89,7 @@ ipcMain.on('init', async () => {
       mainWindow.loadFile('src/timeout.html');
     });
   mainpageData = mainpageData.data;
+
   if (mainpageData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
     if (!fs.existsSync(filename) || !(await ufs(mainpageData.data.url) === fs.statSync(filename).size)) {
@@ -143,42 +146,36 @@ ipcMain.on('save-share', async (event, data) => {
       }]
     }), dataBuffer);
   }
-  catch {
+  catch { }
+});
+
+ipcMain.on("go-to-page", async (event, pageId) => {
+  switch (pageId) {
+    case 1:
+      mainWindow.loadFile("src/index.html");
+      break;
+    case 2:
+      mainWindow.loadFile("src/wallpaper-list.html");
+      break;
+    case 3:
+      mainWindow.loadFile("src/settings.html");
+      break;
+    case 4:
+      mainWindow.loadFile("src/settings-about.html");
+      break;
+    case 5:
+      mainWindow.loadFile("src/timeout.html");
+      break;
+    case 6:
+      mainWindow.loadFile("src/star-watching.html");
+      break;
+    case 7:
+      mainWindow.loadFile("src/pluto-relaxing.html");
+      break;
+    case 8:
+      mainWindow.loadFile("src/check-new.html");
+      break;
   }
-});
-
-// Go to the Page
-
-ipcMain.on('back-to-mainpage', async () => {
-  mainWindow.loadFile("src/index.html");
-});
-
-ipcMain.on("go-to-past-day", async () => {
-  mainWindow.loadFile("src/wallpaper-list.html");
-});
-
-ipcMain.on("go-to-settings", async () => {
-  mainWindow.loadFile("src/settings.html");
-});
-
-ipcMain.on("go-to-about", async () => {
-  mainWindow.loadFile("src/settings-about.html");
-});
-
-ipcMain.on("go-to-timeout", async () => {
-  mainWindow.loadFile("src/timeout.html");
-});
-
-ipcMain.on("go-to-gx", async () => {
-  mainWindow.loadFile("src/star-watching.html");
-});
-
-ipcMain.on("go-to-mx", async () => {
-  mainWindow.loadFile("src/pluto-relaxing.html");
-});
-
-ipcMain.on("go-to-check", async () => {
-  mainWindow.loadFile("src/check-new.html");
 });
 
 // Part of Settings

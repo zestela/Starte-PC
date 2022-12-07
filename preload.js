@@ -2,19 +2,12 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
     init: () => ipcRenderer.send('init'), // init mainpage
-    getMainpage: () => ipcRenderer.invoke('load-mainpage'), // get mainpage info 
-    setWallpaper: (id) => ipcRenderer.send('set-wallpaper',id), // set wallpaper
+    getMainpage: () => ipcRenderer.invoke('load-mainpage'), // get mainpage info
+    setWallpaper: (id) => ipcRenderer.send('set-wallpaper', id), // set wallpaper
     getcwd: () => ipcRenderer.invoke('get-cwd'), // get electron's cwd
     getappdata: () => ipcRenderer.invoke('get-appdata'), // get electron's cwd
-    windowEvents: (type) => ipcRenderer.send('window-events',type), // windows events
-    share: (id) => ipcRenderer.send('share',id),
-    saveShare: (data) => ipcRenderer.send('save-share',data),
-    backtoMainpage: () => ipcRenderer.send("back-to-mainpage"),
-    goToTimeout: () => ipcRenderer.send("go-to-timeout"),
-    goToPastDay: () => ipcRenderer.send("go-to-past-day"),
-    goToSettings: () => ipcRenderer.send("go-to-settings"),
-    goToAbout: () => ipcRenderer.send("go-to-about"),
-    goToGx: () => ipcRenderer.send("go-to-gx"),
-    goToMx: () => ipcRenderer.send("go-to-mx"),
-    goToCheck: () => ipcRenderer.send("go-to-check")
+    windowEvents: (type) => ipcRenderer.send('window-events', type), // windows events
+    share: (id) => ipcRenderer.send('share', id),
+    saveShare: (data) => ipcRenderer.send('save-share', data),
+    goToPage: (pageId) => ipcRenderer.send("go-to-page",pageId)
 });

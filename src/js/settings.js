@@ -1,7 +1,7 @@
 const $ = document.querySelector.bind(document);
 
 jsonbanbenhaos = jQuery.ajax({
-    url: "./banbenhao.json",
+    url: "./config.json",
     type: "GET",
     dataType: "json",
     cache:false,

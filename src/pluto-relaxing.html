@@ -15,16 +15,16 @@
   <div class="topbar">
     <div class="topbar-menu">
       <img class="topbar-logo" src="./icons/logoBGB.svg" />
-      <button class="menu-item menu-item-today-img" onclick="window.electronAPI.backtoMainpage()">
+      <button class="menu-item menu-item-today-img" onclick="window.electronAPI.goToPage(1)">
         <img class="today-icon" src="./icons/today.svg" />
       </button>
-      <button class="menu-item" onclick="window.electronAPI.goToPastDay()">
+      <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
         <h5 class="menu-text">往日</h5>
       </button>
-      <button class="menu-item" onclick="window.electronAPI.goToGx()">
+      <button class="menu-item" onclick="window.electronAPI.goToPage(6)">
         <h5 class="menu-text">观星</h5>
       </button>
-      <button class="menu-item-chosen" >
+      <button class="menu-item-chosen">
         <h5 class="menu-text">冥星</h5>
       </button>
     </div>
@@ -32,7 +32,7 @@
       <div class="topbar-icons">
         <button
           class="onhover"
-          onclick="window.electronAPI.goToSettings();"
+          onclick="window.electronAPI.goToPage(3);"
         >
           <img
             style="width: 14.6px; height: 14.6px"
@@ -63,7 +63,4 @@
   </div></div>
   </script>
 </body>
-<script src="./js/topbar.js"></script>
-<script src="./js/settings.js"></script>
-
 </html>
