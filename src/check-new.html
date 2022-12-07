@@ -14,28 +14,19 @@
     <div class="topbar">
       <div class="topbar-menu">
         <img class="topbar-logo" src="./icons/logoBGB.svg" />
-        <button
-          class="onhover"
-          onclick="window.electronAPI.goToAbout()"
-        >
+        <button class="onhover" onclick="window.electronAPI.goToPage(4)">
           <img style="width: 13px; height: 13px" src="./icons/back.svg" />
         </button>
       </div>
       <div class="topbar-icons-all">
         <div class="topbar-icons">
-          <button
-            class="onhover"
-            onclick="window.electronAPI.goToSettings();"
-          >
+          <button class="onhover" onclick="window.electronAPI.goToPage(3);">
             <img
               style="width: 14.6px; height: 14.6px"
               src="./icons/settings-icon.svg"
             />
           </button>
-          <button
-            class="onhover"
-            onclick="window.electronAPI.windowEvents(1);"
-          >
+          <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
             <img src="./icons/min.svg" />
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
@@ -53,7 +44,7 @@
 
     <div class="setting-contain">
       <div class="setting-left">
-        <div class="setting-nav" onclick="window.electronAPI.goToSettings()">
+        <div class="setting-nav" onclick="window.electronAPI.goToPage(3)">
           <img src="./icons/settings-normal.svg" />
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
@@ -61,8 +52,8 @@
         </div>
         <div
           class="setting-nav"
-          style="margin-top: 16px;"
-          onclick="window.electronAPI.goToAbout()"
+          style="margin-top: 16px"
+          onclick="window.electronAPI.goToPage(4)"
         >
           <img src="./icons/settings-about.svg" />
           <div class="setting-nav-text">
@@ -96,13 +87,13 @@
               </div>
             </div>
             <div class="getbuttons">
-              <a class="get-rizhi" id="rizhi-link-text" target="_blank"
-                ><div
+              <a class="get-rizhi" id="rizhi-link-text" target="_blank">
+                <div
                   style="color: white; font-size: 15px; font-weight: lighter"
                 >
                   更新日志
-                </div></a
-              >
+                </div>
+              </a>
               <button class="get-new">
                 <div
                   style="color: white; font-size: 15px; font-weight: lighter"
@@ -129,6 +120,4 @@
   <script src="./js/jquery-3.5.1.min.js"></script>
   <script src="./js/clipboard.min.js"></script>
   <script src="./js/check-new.js"></script>
-  <script src="./js/topbar.js"></script>
-  <script src="./js/settings.js"></script>
 </html>

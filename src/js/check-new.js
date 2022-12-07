@@ -4,23 +4,23 @@ jsonbanbens = $.ajax({
   type: "GET",
   dataType: "json",
   async: false,
-  cache:false,
-  success: function(data) {
+  cache: false,
+  success: function (data) {
   }
 });
-jsonbanbened=jsonbanbens.responseText;
+jsonbanbened = jsonbanbens.responseText;
 var obj = JSON.parse(jsonbanbened);
 
 jsonbanbenhaos = $.ajax({
-  url: "./banbenhao.json",
+  url: "./config.json",
   type: "GET",
   dataType: "json",
   async: false,
-  cache:false,
-  success: function(data) {
+  cache: false,
+  success: function (data) {
   }
 });
-jsonbanbenhaonow=jsonbanbenhaos.responseText;
+jsonbanbenhaonow = jsonbanbenhaos.responseText;
 var banbenhow = JSON.parse(jsonbanbenhaonow);
 var seebanben = banbenhow.version;
 
@@ -32,30 +32,30 @@ var newbanbendate = "发布时间：" + obj.banben[0].date;
 function checknew() {
   if (newbanbenname != seebanben) {
     document.getElementById("new-banben").setAttribute("class", "new-banben-checked");
-    document.getElementById('check-new-title').innerHTML="发现新版本";
-    document.getElementById('check-new-title-name').innerHTML=newbanbenname;
-    document.getElementById('check-new-describe').innerHTML=newbanbendate;
-    document.getElementById('rizhi-link-text').href=newbanbenupdateweb;
+    document.getElementById('check-new-title').innerHTML = "发现新版本";
+    document.getElementById('check-new-title-name').innerHTML = newbanbenname;
+    document.getElementById('check-new-describe').innerHTML = newbanbendate;
+    document.getElementById('rizhi-link-text').href = newbanbenupdateweb;
     var clipboard = new ClipboardJS('.get-new', {
-        text: function () {
-          return newbanbenlink;
-        },
-      });
+      text: function () {
+        return newbanbenlink;
+      },
+    });
     clipboard.on('success', function (e) {
-      document.getElementById('link-text').innerHTML="复制成功";
+      document.getElementById('link-text').innerHTML = "复制成功";
     });
     clipboard.on('error', function (e) {
-      document.getElementById('link-text').innerHTML="复制失败";
+      document.getElementById('link-text').innerHTML = "复制失败";
     });
   }
 }
 checknew();
 
 function checknewbutton() {
-    if (newbanbenname != seebanben) {
-      checknew();
-    }
-    else {
-        document.getElementById('check-new-title').innerHTML="你使用的是最新版本";
-    };
+  if (newbanbenname != seebanben) {
+    checknew();
+  }
+  else {
+    document.getElementById('check-new-title').innerHTML = "你使用的是最新版本";
+  };
 }

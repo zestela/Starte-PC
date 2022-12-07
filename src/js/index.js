@@ -20,3 +20,15 @@ document.getElementById("setWallpaper").addEventListener("click", function () {
 document.getElementById("share").addEventListener("click", function () {
     window.electronAPI.share(mainpageData.data.id);
 }, false);
+
+window.onload = async function () {
+    versionOnline = await (await fetch('https://api.discoverse.space/banben.json')).json();
+    versionNow = await (await fetch("./config.json")).json();
+    if (versionOnline.banben[0].name != versionNow.version) {
+        document
+            .getElementById("update-tip")
+            .setAttribute("class", "update-tip-checked");
+        document.getElementById("banbenhao").innerText =
+            versionOnline.banben[0].name;
+    }
+};

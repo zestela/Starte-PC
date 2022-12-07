@@ -13,16 +13,16 @@
     <div class="topbar">
       <div class="topbar-menu">
         <img class="topbar-logo" src="./icons/logoBGB.svg" />
-        <button class="menu-item menu-item-today-img" onclick="window.electronAPI.backtoMainpage()">
+        <button class="menu-item menu-item-today-img" onclick="window.electronAPI.goToPage(1)">
           <img class="today-icon" src="./icons/today.svg" />
         </button>
-        <button class="menu-item" onclick="window.electronAPI.goToPastDay()">
+        <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
           <h5 class="menu-text">往日</h5>
         </button>
-        <button class="menu-item" onclick="window.electronAPI.goToGx()">
+        <button class="menu-item" onclick="window.electronAPI.goToPage(6)">
           <h5 class="menu-text">观星</h5>
         </button>
-        <button class="menu-item"  onclick="window.electronAPI.goToMx()">
+        <button class="menu-item"  onclick="window.electronAPI.goToPage(7)">
           <h5 class="menu-text">冥星</h5>
         </button>
       </div>
@@ -64,7 +64,7 @@
           </div>
         </div>
         <div
-          onclick="window.electronAPI.goToAbout()"
+          onclick="window.electronAPI.goToPage(4)"
           class="setting-nav"
           style="margin-top: 16px"
         >
@@ -97,6 +97,5 @@
     </div>
     <script></script>
   </body>
-  <script src="./js/topbar.js"></script>
-  <script src="./js/settings.js"></script>
+  <script src="./js/jquery-3.5.1.min.js"></script>
 </html>

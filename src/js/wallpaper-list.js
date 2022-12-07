@@ -1,17 +1,15 @@
 let dataLst;
-const $ = document.querySelector.bind(document);
 
 window.onload = async function () {
-    let time = new Date();
     const data = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
     dataLst = data;
     for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
-        var photoDate=new Date(dataLst.data[i].date);
-        var photoMonth=photoDate.getMonth()+1;
-        var photoDay=photoDate.getDate();
-        $(".wallpaper-list").insertAdjacentHTML(
-        'beforeend',
-        `
+        var photoDate = new Date(dataLst.data[i].date);
+        var photoMonth = photoDate.getMonth() + 1;
+        var photoDay = photoDate.getDate();
+        document.querySelector(".wallpaper-list").insertAdjacentHTML(
+            'beforeend',
+            `
         <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url});">
             <div>
                 <div>

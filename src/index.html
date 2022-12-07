@@ -8,38 +8,37 @@
     <title>观星记</title>
   </head>
 
-  <body style="background-color: black;background-image: url(./icons/default-bg.png);">
+  <body
+    style="
+      background-color: black;
+      background-image: url(./icons/default-bg.png);
+    "
+  >
     <div class="topbar">
       <div class="topbar-menu">
         <img class="topbar-logo" src="./icons/logoBGB.svg" />
         <button class="menu-item-chosen menu-item-today-img">
           <img class="today-icon" src="./icons/today.svg" />
         </button>
-        <button class="menu-item" onclick="window.electronAPI.goToPastDay()">
+        <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
           <h5 class="menu-text">往日</h5>
         </button>
-        <button class="menu-item" onclick="window.electronAPI.goToGx()">
+        <button class="menu-item" onclick="window.electronAPI.goToPage(6)">
           <h5 class="menu-text">观星</h5>
         </button>
-        <button class="menu-item" onclick="window.electronAPI.goToMx()">
+        <button class="menu-item" onclick="window.electronAPI.goToPage(7)">
           <h5 class="menu-text">冥星</h5>
         </button>
       </div>
       <div class="topbar-icons-all">
         <div class="topbar-icons">
-          <button
-            class="onhover"
-            onclick="window.electronAPI.goToSettings();"
-          >
+          <button class="onhover" onclick="window.electronAPI.goToPage(3);">
             <img
               style="width: 14.6px; height: 14.6px"
               src="./icons/settings-icon.svg"
             />
           </button>
-          <button
-            class="onhover"
-            onclick="window.electronAPI.windowEvents(1);"
-          >
+          <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
             <img src="./icons/min.svg" />
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
@@ -55,12 +54,11 @@
       </div>
     </div>
 
-
     <div class="image-info">
       <div class="update-tip" id="update-tip">
         <div>现已发布新版本</div>
         <div class="banbenhao" id="banbenhao">版本号</div>
-        <div class="updatebutton" onclick="window.electronAPI.goToCheck()">
+        <div class="updatebutton" onclick="window.electronAPI.goToPage(8)">
           点击了解详情
         </div>
       </div>
@@ -90,9 +88,6 @@
         </div>
       </div>
     </div>
-    <script src="./js/jquery-3.5.1.min.js"></script>
-    <script src="./js/check-new-popup.js"></script>
-    <script src="./js/topbar.js"></script>
     <script src="./js/index.js"></script>
   </body>
 </html>
