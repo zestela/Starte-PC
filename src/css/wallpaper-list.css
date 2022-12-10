@@ -79,3 +79,25 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+.image-action-icons {
+    margin-left: 8px;
+    flex-direction: column;
+    justify-content: flex-end !important;
+}
+
+.image-action-icons button img{
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0.35px 0.35px 10px rgba(0, 0, 0, 0.7));
+}
+
+.onhover:hover {
+    backdrop-filter: blur(70px);
+    background-color: rgba(255, 255, 255, 0.299);
+}
+  
+.onhover:active {
+    backdrop-filter: blur(70px);
+    background-color: rgba(255, 255, 255, 0.174);
+}

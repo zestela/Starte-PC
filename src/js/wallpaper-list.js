@@ -13,7 +13,17 @@ window.onload = async function () {
         <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url});">
             <div>
                 <div>
+                <div class="title-and-icons">
                     <h1>${dataLst.data[i].title}</h1>
+                    <div class="image-action-icons">
+                        <button class="onhover" id="setWallpaper" style="padding: 3.5px 3.5px 3.5px 3.5px">
+                        <img src="./icons/setWallpaper.svg">
+                        </button>
+                        <button class="onhover" id="share" style="padding: 3.5px 3.5px 3.5px 3.5px">
+                        <img src="./icons/share.svg">
+                        </button>
+                    </div>
+                </div>
                 <div class="disPLAYDATE">
                     <div class="month">${photoMonth}</div>
                     <div class="fenge"> / </div>
