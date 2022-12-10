@@ -56,11 +56,6 @@
     font-weight: lighter;
 }
 
-.disPLAYDATE {
-    margin-bottom: 50px;
-    margin-left: 50px;
-}
-
 .fenge {
     color:rgba(255, 255, 255, 0.551);
     font-weight: 300;
@@ -84,4 +79,28 @@
     font-size: 30px;
     display: inline;
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+}
+
+.star-watching-bottom {
+    display: flex;
+    margin-bottom: 50px;
+    justify-content: space-between;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.star-watching-bottom button img {
+    width: 23px;
+    height:23px;
+    filter: drop-shadow(0.35px 0.35px 10px rgba(0, 0, 0, 0.7));
+}
+
+.onhover:hover {
+    backdrop-filter: blur(70px);
+    background-color: rgba(255, 255, 255, 0.299);
+}
+  
+.onhover:active {
+    backdrop-filter: blur(70px);
+    background-color: rgba(255, 255, 255, 0.174);
 }

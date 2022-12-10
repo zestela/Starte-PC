@@ -28,11 +28,16 @@ window.onload = async function () {
 
 
             </div>
-            <div class="disPLAYDATE">
-            <div class="month">${photoMonth}</div>
-            <div class="fenge"> / </div>
-            <div class="dayte">${photoDay}</div>
-        </div>
+            <div class="star-watching-bottom">
+                <div class="disPLAYDATE">
+                    <div class="month">${photoMonth}</div>
+                    <div class="fenge"> / </div>
+                    <div class="dayte">${photoDay}</div>
+                </div>
+                <button class="onhover" id="share" style="padding: 3px 3px 3px 3px">
+                    <img src="./icons/share.svg">
+                </button>
+            </div>
     </div>`);
     for (let i = Object.keys(data.data).length - 2; i >= 0; i--) {
         var photoDate1 = new Date(dataLst.data[i].date);
@@ -53,11 +58,16 @@ window.onload = async function () {
 
 
             </div>
-            <div class="disPLAYDATE">
-            <div class="month">${photoMonth1}</div>
-            <div class="fenge"> / </div>
-            <div class="dayte">${photoDay1}</div>
-        </div>
+            <div class="star-watching-bottom">
+                <div class="disPLAYDATE">
+                    <div class="month">${photoMonth1}</div>
+                    <div class="fenge"> / </div>
+                    <div class="dayte">${photoDay1}</div>
+                </div>
+                <button class="onhover" id="share" style="padding: 3px 3px 3px 3px">
+                    <img src="./icons/share.svg">
+                </button>
+            </div>
     </div>`);
     }
 };

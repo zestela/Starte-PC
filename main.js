@@ -27,7 +27,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
