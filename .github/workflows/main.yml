@@ -16,11 +16,6 @@ jobs:
       - run: npm install -g electron-builder
       - run: pnpm install
       - run: pnpm packager
-      - name: zip Build
-        uses: vimtor/action-zip@v1
-        with:
-            files: build/
-            dest: result.zip
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
