@@ -22,9 +22,8 @@ document.getElementById("share").addEventListener("click", function () {
 }, false);
 
 window.onload = async function () {
-    versionOnline = await (await fetch('https://api.discoverse.space/banben.json')).json();
-    versionNow = await (await fetch("./config.json")).json();
-    if (versionOnline.banben[0].name != versionNow.version) {
+    versionOnline = await (await fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })).json();
+    if (versionOnline.banben[0].name != await window.electronAPI.getVersion()) {
         document
             .getElementById("update-tip")
             .setAttribute("class", "update-tip-checked");

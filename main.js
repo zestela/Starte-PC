@@ -10,7 +10,6 @@ const wallpaper = require("wallpaper");
 //https.globalAgent.options.family = 4;
 let mainWindow;
 
-
 async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
@@ -27,7 +26,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
@@ -42,6 +41,14 @@ app.whenReady().then(async () => {
 
   ipcMain.handle('get-appdata', () => {
     return process.env.APPDATA.replaceAll("\\", "/");
+  });
+
+  ipcMain.handle('get-shareId', () => {
+    return shareId;
+  });
+
+  ipcMain.handle('get-version', () => {
+    return require("./package.json").version;
   });
 
   // ipcMain.handle('get-settings', () => {
@@ -111,11 +118,6 @@ ipcMain.on('init', async () => {
   }
 });
 
-
-ipcMain.on('set-wallpaper', async (event, id) => {
-  await wallpaper.set(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
-});
-
 ipcMain.on('window-events', (event, type) => {
   if (type === 1)
     mainWindow.minimize();
@@ -129,11 +131,49 @@ ipcMain.on('window-events', (event, type) => {
     app.quit();
 });
 
-// Part of Share
-let shareId;
+let shareId = 0;
 ipcMain.on('share', async (event, id) => {
   shareId = id;
-  mainWindow.loadFile("src/share.html");
+  let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
+    timeout: 30000
+  })
+    .catch(function (error) {
+      console.log('Error', error.message);
+      mainWindow.loadFile('src/timeout.html');
+    });
+  shareData = shareData.data;
+
+  if (shareData.code !== 0) {
+    let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
+    if (!fs.existsSync(filename) || !(await ufs(shareData.data.url) === fs.statSync(filename).size)) {
+      downloadImage(shareData.data.url, shareId + ".png")
+        .finally(() => {
+          mainWindow.loadFile('src/share.html');
+        });
+    }
+    else mainWindow.loadFile('src/share.html');
+  }
+});
+ipcMain.on('set-wallpaper', async (event, id) => {
+  let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
+    timeout: 30000
+  })
+    .catch(function (error) {
+      console.log('Error', error.message);
+      mainWindow.loadFile('src/timeout.html');
+    });
+  wallpaperData = wallpaperData.data;
+
+  if (wallpaperData.code !== 0) {
+    let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
+    if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
+      downloadImage(wallpaperData.data.url, id + ".png")
+        .finally(async () => {
+          await wallpaper.set(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
+        });
+    }
+    else await wallpaper.set(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
+  }
 });
 
 ipcMain.on('save-share', async (event, data) => {
