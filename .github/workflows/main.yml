@@ -8,10 +8,10 @@ jobs:
       matrix:
         os: [windows-2019]
     steps:
-      - name: Check out git repository
-        uses: actions/checkout@v2
-      - name: Install Node.js
-        uses: actions/setup-node@v2-beta
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
       - run: npm install pnpm --location=global
       - run: npm install electron-builder --location=global
       - run: pnpm install
@@ -22,7 +22,7 @@ jobs:
             files: build/
             dest: result.zip
       - name: upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}
-          path: build/
+          path: build/*.exe
