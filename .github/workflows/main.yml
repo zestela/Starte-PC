@@ -12,8 +12,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 14
-      - run: npm install pnpm --location=global
-      - run: npm install electron-builder --location=global
+      - run: npm install -g pnpm
+      - run: npm install -g electron-builder
       - run: pnpm install
       - run: pnpm packager
       - name: zip Build
