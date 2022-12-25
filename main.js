@@ -24,9 +24,9 @@ async function createWindow() {
     show: false
   });
   Menu.setApplicationMenu(null);
-  await mainWindow.loadFile('src/loading.html');
+  await mainWindow.loadFile('src/verify-code.html');
   mainWindow.show();
-  // mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {

@@ -92,12 +92,12 @@
     filter: drop-shadow(0.35px 0.35px 10px rgba(0, 0, 0, 0.7));
 }
 
-.onhover:hover {
+.special-onhover:hover {
     backdrop-filter: blur(70px);
     background-color: rgba(255, 255, 255, 0.299);
 }
   
-.onhover:active {
+.special-onhover:active {
     backdrop-filter: blur(70px);
     background-color: rgba(255, 255, 255, 0.174);
 }
