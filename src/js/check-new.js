@@ -9,7 +9,9 @@ jsonbanbens = $.ajax({
   });
   jsonbanbened = jsonbanbens.responseText;
   var obj = JSON.parse(jsonbanbened);
-  var seebanben = window.electronAPI.getVersion();
+  window.electronAPI.getVersion().then((result)=> {
+    seebanben = result;
+    });
 
   var newbanbenname = obj.banben[0].name;
   var newbanbenlink = obj.banben[0].url;
