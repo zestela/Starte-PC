@@ -34,7 +34,7 @@ window.onload = async function () {
                     <div class="fenge"> / </div>
                     <div class="dayte">${photoDay}</div>
                 </div>
-                <button class="onhover" id="share" style="padding: 3px 3px 3px 3px">
+                <button class="onhover special-onhover" id="share" style="padding: 3px 3px 3px 3px">
                     <img src="./icons/share.svg">
                 </button>
             </div>
@@ -64,7 +64,7 @@ window.onload = async function () {
                     <div class="fenge"> / </div>
                     <div class="dayte">${photoDay1}</div>
                 </div>
-                <button class="onhover" id="share" style="padding: 3px 3px 3px 3px">
+                <button class="onhover special-onhover" id="share" style="padding: 3px 3px 3px 3px">
                     <img src="./icons/share.svg">
                 </button>
             </div>

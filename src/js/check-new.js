@@ -1,5 +1,4 @@
-window.onload = async function () {
-  jsonbanbens = $.ajax({
+jsonbanbens = $.ajax({
     url: "https://api.discoverse.space/banben.json",
     type: "GET",
     dataType: "json",
@@ -10,7 +9,7 @@ window.onload = async function () {
   });
   jsonbanbened = jsonbanbens.responseText;
   var obj = JSON.parse(jsonbanbened);
-  var seebanben = await window.electronAPI.getVersion();
+  var seebanben = window.electronAPI.getVersion();
 
   var newbanbenname = obj.banben[0].name;
   var newbanbenlink = obj.banben[0].url;
@@ -39,12 +38,11 @@ window.onload = async function () {
   }
   checknew();
 
-  function checknewbutton() {
-    if (newbanbenname != seebanben) {
-      checknew();
-    }
-    else {
-      document.getElementById('check-new-title').innerHTML = "你使用的是最新版本";
-    }
+function checknewbutton() {
+  if (newbanbenname != seebanben) {
+    checknew();
   }
-};
+  else {
+    document.getElementById('check-new-title').innerHTML = "你使用的是最新版本";
+  }
+}
