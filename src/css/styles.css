@@ -118,8 +118,25 @@ button {
   background-color: rgba(255, 255, 255, 0.174);
 }
 
+.add-icon-onhover {
+  background: rgba(255, 255, 255, 0.229);
+  padding: 8px 12px 8px 12px;
+}
+
+.add-icon-onhover-chosen {
+  background: rgba(93, 85, 255, 0.38);
+  padding: 8px 12px 8px 12px;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+
 .closeonhover {
   margin-right: 15px;
+
 }
 
 .closeonhover:hover {
@@ -134,6 +151,11 @@ button {
   height: 13px;
   padding: 0;
   border: none;
+}
+
+.add-icon {
+  width: 14.6px;
+  height: 14.6px;
 }
 
 body {

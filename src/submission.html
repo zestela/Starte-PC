@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>观星记</title>
+  <link href="./css/styles.css" rel="stylesheet">
+  <link href="./css/settings.css" rel="stylesheet">
+  <link href="./css/submission.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-menu">
+      <img class="topbar-logo" src="./icons/logoBGB.svg" />
+      <button class="menu-item menu-item-today-img" onclick="window.electronAPI.goToPage(1)">
+        <img class="today-icon" src="./icons/today.svg" />
+      </button>
+      <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
+        <h5 class="menu-text">往日</h5>
+      </button>
+      <button class="menu-item" onclick="window.electronAPI.goToPage(6)">
+        <h5 class="menu-text">观星</h5>
+      </button>
+    </div>
+    <div class="topbar-icons-all">
+      <div class="topbar-icons">
+        <button class="add-icon-onhover-chosen " >
+          <img class="add-icon"
+            src="./icons/add.svg"
+          />
+        </button>
+        <button
+          class="onhover"
+          onclick="window.electronAPI.goToPage(3);"
+        >
+          <img
+          class="add-icon"
+            src="./icons/settings-icon.svg"
+          />
+        </button>
+        <button
+          class="onhover"
+          onclick="window.electronAPI.windowEvents(1);"
+        >
+          <img src="./icons/min.svg" />
+        </button>
+        <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
+          <img src="./icons/max.svg" />
+        </button>
+        <button
+          class="onhover closeonhover"
+          onclick="window.electronAPI.windowEvents(3);"
+        >
+          <img src="./icons/close.svg" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="contain">
+  <form class="outer-contain" action="">
+    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;gap: 8px;">
+      <div class="submission-title">图片投稿</div>
+      <div class="submission-describe">点击“提交”即代表同意<a href="https://discoverse.space/starte-agreement" target="_blank"><u>许可协议</u></a>，如被选中我们将发送邮件</div>
+    </div>
+    <div class="inner-contain">
+      <input type="text" class="input-box input-box-1" placeholder="图片标题" id="userTitle" maxlength="50">
+      <div class="input-box input-box-2">
+        <div class="hidden">
+          <input type="file" accept="image/*" placeholder="在此上传图片" id="file-uploader"></input>
+        </div>
+        <div class="dropArea">
+          <div class="tip">点击上传图片</div>
+        </div>
+      </div>
+      <div class="input-box input-box-3">
+        <textarea class="textarea-3" type="text" placeholder="图片描述" id="userDesctibe" maxlength="300"></textarea>
+	      <div class="textCount"><span id="textCount">0</span> / 300</div>
+      </div>
+      <input type="text" class="input-box input-box-4" placeholder="投稿人署名" id="userName" maxlength="50">
+      <input type="email" class="input-box input-box-5" placeholder="投稿人邮箱" id="userEmail" maxlength="50">
+      <input type="text" class="input-box input-box-6" placeholder="图片版权方 (如为原创则写本人署名)" id="userCopyright" maxlength="50">
+    </div>
+    <div style="display: flex;justify-content: center;align-items: center;">
+      <input onclick="sendEmailToOfficial()" class="submit-button" type="button" id="submit-button" value="提交">
+    </div>
+  </form>
+</body>
+<script src="./js/submission.js"></script>
+
+</html>

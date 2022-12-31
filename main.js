@@ -13,7 +13,7 @@ let mainWindow;
 async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
-    minHeight: 500,
+    minHeight: 600,
     width: 1280,
     height: 720,
     icon: "./src/icons/dock.ico",
@@ -26,7 +26,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
@@ -210,7 +210,7 @@ ipcMain.on("go-to-page", async (event, pageId) => {
       mainWindow.loadFile("src/star-watching.html");
       break;
     case 7:
-      mainWindow.loadFile("src/pluto-relaxing.html");
+      mainWindow.loadFile("src/submission.html");
       break;
     case 8:
       mainWindow.loadFile("src/check-new.html");

@@ -1,0 +1,202 @@
+a:link {
+    color:white;
+
+}
+a:visited {
+    color:white;
+
+}
+a:hover {
+    color:white;
+
+}
+a:active {
+    color:white;
+
+}
+
+.contain {
+    width: 100%;
+    position: absolute;
+    top: 45px;
+    bottom: 0px;
+    left: 0px;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer-contain {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.submission-title {
+    font-weight: bold;
+    font-size: 25px;
+    color: rgba(255, 255, 255, 0.805);
+}
+
+.submission-describe {
+    font-weight: 600;
+    font-size: 13px;
+    color:  rgba(255, 255, 255, 0.805);
+}
+
+.inner-contain {
+    display: grid;
+    grid-template-columns: 15vw 15vw 15vw 15vw;
+    grid-template-rows: 37px 37px 37px 37px 37px 37px 37px;
+    grid-row-gap: 7px;
+    grid-column-gap: 7px;
+}
+
+.input-box {
+    border: none;
+    border-radius: 10px;
+    background: rgba(82,82,82,0.38);
+    outline: 0;
+    color: rgba(255, 255, 255, 0.627);
+    padding-left: 13px;
+    font-weight: bold;
+    vertical-align: top;
+    resize: none;
+    padding-right: 13px;
+}
+
+.input-box-1 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border-radius: 10px 3.5px 3.5px 3.5px;
+}
+.input-box-2 {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 8;
+    padding: 13px;
+    border-radius: 3.5px 10px 10px 3.5px;
+}
+.input-box-3 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 6;
+    padding: 13px;
+    border-radius: 3.5px 3.5px 3.5px 3.5px;
+}
+
+.textarea-3{
+    background: none;
+    border: none;
+    width: 100%;
+    height: 92%;
+    outline: 0;
+    color: rgba(255, 255, 255, 0.627);
+    font-weight: bold;
+    vertical-align: top;
+    resize: none;
+}
+.textCount {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.627);
+    text-align: right;
+}
+
+.input-box-4 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 6;
+    grid-row-end: 7;
+    border-radius: 3.5px 3.5px 3.5px 3.5px;
+}
+.input-box-5 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 6;
+    grid-row-end: 7;
+    border-radius: 3.5px 3.5px 3.5px 3.5px;
+}
+.input-box-6 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 7;
+    grid-row-end: 8;
+    border-radius: 3.5px 3.5px 3.5px 10px;
+}
+
+.submit-button {
+    padding: 8px 16px 8px 16px;
+    background-color: rgba(93, 85, 255, 0.38);
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    color:white;
+    font-weight: 600;
+}
+		.hidden {
+			display: none;
+		}
+		.dropArea {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			background: none;
+			overflow: hidden;
+			cursor: pointer;
+			box-sizing: content-box;
+		}
+		.tip {
+            font-weight: 600;
+			position: absolute;
+            font-size: 12px;
+			height: 100%;
+			width: 100%;
+		}
+		.compress-list-item {
+			margin-top: 25px;
+			width: 100%;
+			height: 100%;
+		}
+		.compress-list-preview {
+			width: 100%;
+            height: 90%;
+            background-size: cover;
+            border-radius: 3.5px 3.5px 10px 3.5px;
+		}
+
+/* 滚动条整体 */
+.textarea-3::-webkit-scrollbar {
+    height: 20px;
+    width: 7px;
+}
+/* 两个滚动条交接处 -- x轴和y轴 */
+.textarea-3::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+/* 滚动条滑块 */
+.textarea-3::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #535353;
+}
+
+/* 滚动条轨道 */
+.textarea-3::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #2f2f2f;
+}
+
+/* 滚动条两端按钮 */
+.textarea-3::-webkit-scrollbar-button {
+    display: none;
+}
