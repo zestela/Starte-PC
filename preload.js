@@ -11,5 +11,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     share: (id) => ipcRenderer.send('share', id),
     saveShare: (data) => ipcRenderer.send('save-share', data),
     goToPage: (pageId) => ipcRenderer.send("go-to-page", pageId),
-    getVersion: () => ipcRenderer.invoke('get-version')
+    getVersion: () => ipcRenderer.invoke('get-version'),
+    outAlert: (str) => ipcRenderer.send('out-alert', str)
 });

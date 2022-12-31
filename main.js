@@ -243,3 +243,16 @@ app.on('web-contents-created', (e, webContents) => {
 //     '--processStart', `"${exeName}"`,
 //   ]
 // })
+
+
+ipcMain.on("out-alert", async (event, str) => {
+        var options = {
+          type: 'warning',
+          buttons: ["确定"],
+          defaultId: 0,
+          cancelId:0,
+          detail:str,
+          message: ''
+        }
+        dialog.showMessageBoxSync(null,options)
+});
