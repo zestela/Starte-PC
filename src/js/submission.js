@@ -98,77 +98,74 @@ function sendEmailToOfficial() {
   if (UserTitle == null || UserTitle == "" || UserDescribe == null || UserDescribe == "" || UserName == null || UserName == "" || UserEmail == null || UserEmail == "" || UserCopyright == null || UserCopyright == "" || typeof(fileName) == "undefined") {
     alert("您未将所有内容填写完整！所有内容均为必填，请填写完整。");
     return false;
-  } else {
-    if (reg.test(UserEmail)) {
-      fetch('https://api.discoverse.space/get-submission/get-submission.php', {
-        method: 'POST',
-        body: formData
-      }).then(res => {
-        if (res.ok) {
-          console.log('success');
-          console.log(res);
-          try {
-            return res.json();
-          } catch (err) { //服务器返回值不是JSON，错误代码：0x1
-            document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-            alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x1");
-            document.getElementById('submit-button').onclick = null;
-            setTimeout("location.reload()", 20000);
-            console.log(err.message);
-            console.log("NOT A JSON,0x1");
-            return 0
-          };
-        } else {
+  } else if (reg.test(UserEmail)) {
+    fetch('https://api.discoverse.space/get-submission/get-submission.php', {
+      method: 'POST',
+      body: formData
+    }).then(res => {
+      if (res.ok) {
+        console.log('success');
+        console.log(res);
+        try {
+          return res.json();
+        } catch (err) { //服务器返回值不是JSON，错误代码：0x1
           document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-          alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x2"); //本地上传失败，根本就没传到服务器上去，错误代码：0x2
+          alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x1");
           document.getElementById('submit-button').onclick = null;
-          console.log(res);
-          console.log("CANNOT TO SEVER,0x2");
-        }
-      }).then(res => {
-        const sentResult = res.msg;
-        if (sentResult == "OK") {
-          document.getElementById('submit-button').value = "提交成功 (20秒后自动刷新)";
-          alert("提交成功 (20秒后自动刷新)，如果图片入选，我们会在七天内邮件联系你。如未联系，则视为未入选。");
-          document.getElementById('submit-button').onclick = null;
-          setTimeout("location.reload()", 20000);
-          console.log("SUCCEED");
-        } else if (sentResult == "error") {
-          document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-          alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x3"); //服务器邮件发送失败，可能是SMTP问题，也可能是垃圾邮件，错误代码：0x3
-          document.getElementById('submit-button').onclick = null;
-          setTimeout("location.reload()", 20000);
-          console.log("SERVER MAIL SENT ERROR,0x3");
-        } else if (res == 0) {
-          setTimeout("location.reload()", 20000);
-        } else if (sentResult == "outoffile") {
-          document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-          alert("提交失败(20秒后自动刷新)，上传的不是图片，或者大小超过5M。如多次重试依旧失败，请联系我们。错误代码：0x5"); //后端判断上传的不是图片，或者大小超过5M，错误代码：0x5
-          document.getElementById('submit-button').onclick = null;
-          setTimeout("location.reload()", 20000);
-          console.log("BACKEND SAYS IT IS NOT A PHOTO OR IT IS TOO LARGE,0x5");
-        } else {
-          document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-          alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x6"); //真不知道什么原因，错误代码：0x6
-          document.getElementById('submit-button').onclick = null;
-          setTimeout("location.reload()", 20000);
-          console.log("WHAT THE FUCK,0x6");
+          console.log(err.message);
+          console.log("NOT A JSON,0x1");
+          return 0
         };
-      });
-      document.getElementById('submit-button').value = "提交中，请等待…… (预计需要至少 40 秒，切勿切换或关闭页面)";
-
-      function timeoutle() {
-        document.getElementById('submit-button').value = "提交超时, 请重试 (20秒后自动刷新)";
-        alert("提交超时, 请重试 (20秒后自动刷新)。错误代码：0x4"); //本地上传超时5分钟，错误代码：0x4
+      } else {
+        document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
+        alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x2"); //本地上传失败，根本就没传到服务器上去，错误代码：0x2
+        document.getElementById('submit-button').onclick = null;
+        console.log(res);
+        console.log("CANNOT TO SEVER,0x2");
+      }
+    }).then(res => {
+      const sentResult = res.msg;
+      if (sentResult == "OK") {
+        document.getElementById('submit-button').value = "提交成功 (20秒后自动刷新)";
+        alert("提交成功 (20秒后自动刷新)，如果图片入选，我们会在七天内邮件联系你。如未联系，则视为未入选。");
         document.getElementById('submit-button').onclick = null;
         setTimeout("location.reload()", 20000);
-        console.log("OVER FIVE MINUTES,0x4");
-      }
+        console.log("SUCCEED");
+      } else if (sentResult == "error") {
+        document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
+        alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x3"); //服务器邮件发送失败，可能是SMTP问题，也可能是垃圾邮件，错误代码：0x3
+        document.getElementById('submit-button').onclick = null;
+        setTimeout("location.reload()", 20000);
+        console.log("SERVER MAIL SENT ERROR,0x3");
+      } else if (res == 0) {
+        setTimeout("location.reload()", 20000);
+      } else if (sentResult == "outoffile") {
+        document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
+        alert("提交失败(20秒后自动刷新)，上传的不是图片，或者大小超过5M。如多次重试依旧失败，请联系我们。错误代码：0x5"); //后端判断上传的不是图片，或者大小超过5M，错误代码：0x5
+        document.getElementById('submit-button').onclick = null;
+        setTimeout("location.reload()", 20000);
+        console.log("BACKEND SAYS IT IS NOT A PHOTO OR IT IS TOO LARGE,0x5");
+      } else {
+        document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
+        alert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x6"); //真不知道什么原因，错误代码：0x6
+        document.getElementById('submit-button').onclick = null;
+        setTimeout("location.reload()", 20000);
+        console.log("WHAT THE FUCK,0x6");
+      };
+    });
+    document.getElementById('submit-button').value = "提交中，请等待…… (预计需要至少 40 秒，切勿切换或关闭页面)";
+
+    function timeoutle() {
+      document.getElementById('submit-button').value = "提交超时, 请重试 (20秒后自动刷新)";
+      alert("提交超时, 请重试 (20秒后自动刷新)。错误代码：0x4"); //本地上传超时5分钟，错误代码：0x4
       document.getElementById('submit-button').onclick = null;
-      setTimeout("timeoutle()", 300000);
-    } else {
-      alert("电子邮件格式错误！");
-      return false
+      setTimeout("location.reload()", 20000);
+      console.log("OVER FIVE MINUTES,0x4");
     }
-  };
+    document.getElementById('submit-button').onclick = null;
+    setTimeout("timeoutle()", 300000);
+  } else {
+    alert("电子邮件格式错误！");
+    return false
+  }
 }
