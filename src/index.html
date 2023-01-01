@@ -56,15 +56,19 @@
       </div>
     </div>
 
-    <div class="image-info">
-      <div class="update-tip" id="update-tip">
-        <div>现已发布新版本</div>
-        <div class="banbenhao" id="banbenhao">版本号</div>
-        <div class="updatebutton" onclick="window.electronAPI.goToPage(8)">
-          点击了解详情
-        </div>
+    <div class="update-tip-bored">
+    <div class="update-tip" id="update-tip">
+      <img src="./icons/updatecheck.svg" width="10px" style="margin-right: 10px;">
+      <div>现已发布新版本</div>
+      <div class="banbenhao" id="banbenhao">版本号</div>
+      <div class="updatebutton" onclick="window.electronAPI.goToPage(8)">
+        点击了解详情
       </div>
-      <div class="mainpage-text">
+    </div>
+    </div>
+
+    <div class="image-info">
+      <div class="mainpage-text" id="mainpage-text">
         <div class="mainpage-title">
           <div class="mainpage-text-title">不好</div>
           <div class="image-action-icons">
@@ -83,10 +87,15 @@
           如果你看到了这段话，说明程序不正常，内容被错误加载了。你应该立刻联系我们，告知具体情况以协助我们解决问题。
         </div>
       </div>
-      <div class="mainpage-text-info">
-        <img src="./icons/date.svg" />
-        <div class="image-date">
-          <date>NOPICTURE</date>
+      <div class="bottom-line">
+        <button class="mainpage-text-disappear" id="mainpage-text-disappear" onclick="textDisappeaed()">
+          <img id="disaImg" src="./icons/expand.svg" />
+        </button>
+        <div class="mainpage-text-info" id="mainpage-text-info">
+          <img src="./icons/date.svg" />
+          <div class="image-date">
+            <date>NOPICTURE</date>
+          </div>
         </div>
       </div>
     </div>

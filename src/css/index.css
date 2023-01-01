@@ -9,9 +9,12 @@ body {
     position: absolute;
     left:15px;
     bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
 }
 .mainpage-text {
-    width: 48vw;
+    width: 40vw;
     background-color: rgba(0,0,0,0.37);
     backdrop-filter: blur(98px);
     border-style:solid;
@@ -20,6 +23,32 @@ body {
     border-color: rgba(255, 255, 255, 0.212);
     padding: 25px 25px 25px 25px;
 }
+
+.mainpage-text-disappering {
+    animation:fadenum 1s forwards;
+}
+
+.mainpage-text-showing {
+    animation:fadenumshow 1s forwards;
+}
+
+.mainpage-text-disappered {
+    display: none;
+}
+
+.mainpage-text-showed {
+    margin-left: -400px !important;
+    opacity: 0;
+}
+
+@keyframes fadenum{
+    100%{transform:translateX(-400px);opacity:0;}
+  }
+
+@keyframes fadenumshow{
+    100%{transform:translateX(400px);opacity:100;}
+  }
+
 .image-action-icons {
     display: flex;
     align-items: center;
@@ -56,11 +85,53 @@ body {
     background-color: rgba(0,0,0,0.37);
     backdrop-filter: blur(98px);
     border-style: solid;
-    border-radius: 10px;
+    border-radius: 500px;
     border-width: 0.7px;
     border-color: rgba(255, 255, 255, 0.212);
-    padding: 15px 9px 15px 25px;
-    width:200px;
+    padding: 0px 25px 0px 15px;
+    height: 45px;
+}
+
+.mainpage-text-disappear {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.37);
+    backdrop-filter: blur(98px);
+    border-style: solid;
+    border-radius: 100px;
+    border-width: 0.7px;
+    border-color: rgba(255, 255, 255, 0.212);
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+
+.mainpage-text-show {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.37);
+    backdrop-filter: blur(98px);
+    border-style: solid;
+    border-radius: 100px;
+    border-width: 0.7px;
+    border-color: rgba(255, 255, 255, 0.212);
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+
+.disImg {
+    transform: rotate(180deg)
+}
+
+.bottom-line {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .image-date {
