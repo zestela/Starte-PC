@@ -3,8 +3,8 @@ const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require('electron')
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
-const ufs = require("url-file-size");
-const wallpaper = import('wallpaper');
+const ufs = require("./packages/url-file-size/index.js");
+const wallpaper = import("./packages/wallpaper/index.js");
 let mainWindow;
 
 async function createWindow() {
@@ -23,7 +23,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
@@ -247,6 +247,6 @@ ipcMain.on("out-alert", async (event, str) => {
 ipcMain.on("set-setting", async (event, configName, value) => {
   console.log(configName,value);
   const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-  config.infoHide = value;
+  config[configName] = value;
   fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"),JSON.stringify(config));
 });

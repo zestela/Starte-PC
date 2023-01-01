@@ -14,9 +14,6 @@ const mainpageInfo = document.getElementById("mainpage-text-info");
 let mainpageDisappearClass = document.getElementById("mainpage-text-disappear").className;
 let mainpageDisappearImg = document.getElementById("disaImg");
 
-async function textDisplayNone() {
-
-};
 async function isDisappeard() {
     mainpageText.className = "mainpage-text-disappered";
     mainpageInfo.className = "mainpage-text-disappered";
