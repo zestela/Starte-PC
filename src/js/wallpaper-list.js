@@ -19,7 +19,7 @@ window.onload = async function () {
                         <button class="onhover special-onhover" id="setWallpaper" style="padding: 3.5px 3.5px 3.5px 3.5px" onclick="window.electronAPI.setWallpaper(${dataLst.data[i].id})">
                         <img src="./icons/setWallpaper.svg">
                         </button>
-                        <button class="onhover special-onhover" id="share" style="padding: 3.5px 3.5px 3.5px 3.5px" onclick="window.electronAPI.share(${dataLst.data[i].id})">
+                        <button class="onhover special-onhover" id="share" style="padding: 3.5px 3.5px 3.5px 3.5px" onclick="window.electronAPI.share(${dataLst.data[i].id},0)">
                         <img src="./icons/share.svg">
                         </button>
                     </div>
