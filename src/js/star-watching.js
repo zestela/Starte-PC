@@ -6,16 +6,14 @@ $(".star-list").onwheel = function (event) {
 };
 
 window.onload = async function () {
-    let time = new Date();
     const wallpaperData = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
     const data = await (await fetch(`https://api.discoverse.space/new-book/get-book-sentence-list.php`)).json();
-    const mainpageData = await (await fetch('https://api.discoverse.space/new-mainpage/get-mainpage')).json();
     dataLst = data;
     photoDate = new Date(dataLst.data[Object.keys(data.data).length - 1].date);
     photoMonth = photoDate.getMonth() + 1;
     photoDay = photoDate.getDate();
     isfromwho = "—— " + data.data[Object.keys(data.data).length - 1].from;
-    
+
     for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
         var photoDate1 = new Date(dataLst.data[i].date);
         var photoMonth1 = photoDate1.getMonth() + 1;
@@ -41,7 +39,7 @@ window.onload = async function () {
                     <div class="fenge"> / </div>
                     <div class="dayte">${photoDay1}</div>
                 </div>
-                <button class="onhover special-onhover" id="share" style="padding: 3px 3px 3px 3px">
+                <button class="onhover special-onhover" id="share" style="padding: 3px 3px 3px 3px" onclick="window.electronAPI.share(${wallpaperData.data[i].id},1)">
                     <img src="./icons/share.svg">
                 </button>
             </div>

@@ -2,12 +2,9 @@ require('v8-compile-cache');
 const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const https = require('https');
 const axios = require('axios');
 const ufs = require("url-file-size");
-const wallpaper = require("wallpaper");
-//https.globalAgent.options.rejectUnauthorized = false;
-//https.globalAgent.options.family = 4;
+const wallpaper = import('wallpaper');
 let mainWindow;
 
 async function createWindow() {
@@ -47,13 +44,17 @@ app.whenReady().then(async () => {
     return shareId;
   });
 
+  ipcMain.handle('get-shareType', () => {
+    return shareType;
+  });
+
   ipcMain.handle('get-version', () => {
     return require("./package.json").version;
   });
 
-  // ipcMain.handle('get-settings', () => {
-  //
-  // });
+  ipcMain.handle('get-setting', (configName) => {
+    return JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).configName;
+  });
 
   createWindow();
 
@@ -87,6 +88,8 @@ async function downloadImage(url, name) {
 ipcMain.on('init', async () => {
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))
     fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
+  if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache", "config.json")))
+    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify({ infoHide: false }));
   const url = "https://api.discoverse.space/new-mainpage/get-mainpage";
   let mainpageData = await axios.get(url, {
     timeout: 30000
@@ -132,8 +135,10 @@ ipcMain.on('window-events', (event, type) => {
 });
 
 let shareId = 0;
-ipcMain.on('share', async (event, id) => {
+let shareType = 0;
+ipcMain.on('share', async (event, id, type) => {
   shareId = id;
+  shareType = type;
   let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
     timeout: 30000
   })
@@ -169,10 +174,10 @@ ipcMain.on('set-wallpaper', async (event, id) => {
     if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
       downloadImage(wallpaperData.data.url, id + ".png")
         .finally(async () => {
-          await wallpaper.set(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
+          (await wallpaper).setWallpaper(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
         });
     }
-    else await wallpaper.set(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
+    else (await wallpaper).setWallpaper(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
   }
 });
 
@@ -218,13 +223,6 @@ ipcMain.on("go-to-page", async (event, pageId) => {
   }
 });
 
-// Part of Settings
-
-// ipcMain.on('set-settings', async (event,settings) => {
-//
-// });
-
-
 // 用浏览器打开链接
 app.on('web-contents-created', (e, webContents) => {
   webContents.on('new-window', (event, url) => {
@@ -233,26 +231,21 @@ app.on('web-contents-created', (e, webContents) => {
   });
 });
 
-// 开机自启动
-// const exeName = path.basename(process.execPath)
-// app.setLoginItemSettings({
-//   openAtLogin: true,
-//   openAsHidden: false,
-//   path: process.execPath,
-//   args: [
-//     '--processStart', `"${exeName}"`,
-//   ]
-// })
-
-
 ipcMain.on("out-alert", async (event, str) => {
-        var options = {
-          type: 'warning',
-          buttons: ["确定"],
-          defaultId: 0,
-          cancelId:0,
-          detail:str,
-          message: ''
-        }
-        dialog.showMessageBoxSync(null,options)
+  var options = {
+    type: 'warning',
+    buttons: ["确定"],
+    defaultId: 0,
+    cancelId: 0,
+    detail: str,
+    message: ''
+  };
+  dialog.showMessageBoxSync(null, options);
+});
+
+ipcMain.on("set-setting", async (event, configName, value) => {
+  console.log(configName,value);
+  const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
+  config.configName = value;
+  fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"),JSON.stringify(config));
 });

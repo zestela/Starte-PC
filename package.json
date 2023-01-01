@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.2.8-dev.0101",
+  "version": "0.2.8-beta.0101",
   "main": "main.js",
   "license": "MIT",
   "scripts": {
@@ -47,9 +47,9 @@
     }
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "url-file-size": "^1.0.2",
+    "axios": "^1.2.2",
+    "url-file-size": "^1.0.5",
     "v8-compile-cache": "^2.3.0",
-    "wallpaper": "^5.0.1"
+    "wallpaper": "^6.1.1"
   }
 }
