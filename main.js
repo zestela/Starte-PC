@@ -220,6 +220,9 @@ ipcMain.on("go-to-page", async (event, pageId) => {
     case 8:
       mainWindow.loadFile("src/check-new.html");
       break;
+    case 9:
+      mainWindow.loadFile("src/vwo50.html");
+      break;
   }
 });
 
