@@ -1,17 +1,5 @@
 const $ = document.querySelector.bind(document);
 let mainpageData;
-window.electronAPI.getMainpage()
-    .then(async (resolve) => {
-        resolve = JSON.parse(resolve);
-        mainpageData = resolve;
-        let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.data.id + ".png");
-        document.body.style.backgroundImage = `url('${picUrl}')`;
-        let time = new Date();
-        $("date").innerText = time.getFullYear() + " 年 " + (time.getMonth() + 1) + " 月 " + time.getDate() + " 日";
-        $(".mainpage-text-title").innerText = mainpageData.data.title;
-        $(".mainpage-text-describe").innerText = mainpageData.data.describe;
-    });
-
 
 document.getElementById("setWallpaper").addEventListener("click", function () {
     window.electronAPI.setWallpaper(mainpageData.data.id);
@@ -22,6 +10,15 @@ document.getElementById("share").addEventListener("click", function () {
 }, false);
 
 window.onload = async function () {
+    mainpageData = await (await fetch('https://api.discoverse.space/new-mainpage/get-mainpage', { cache: 'no-cache' })).json();
+    let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.data.id + ".png");
+    document.body.style.backgroundImage = `url('${picUrl}')`;
+    let date = mainpageData.data.date;
+    date = date.split("-");
+    $("date").innerText = date[0]  + " 年 " + date[1] + " 月 " + date[2] + " 日";
+    $(".mainpage-text-title").innerText = mainpageData.data.title;
+    $(".mainpage-text-describe").innerText = mainpageData.data.describe;
+
     versionOnline = await (await fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })).json();
     if (versionOnline.banben[0].name != await window.electronAPI.getVersion()) {
         document
