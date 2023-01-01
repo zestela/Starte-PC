@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>观星记</title>
+    <link href="./css/styles.css" rel="stylesheet" />
+    <link href="./css/settings.css" rel="stylesheet" />
+    <link href="./css/check-new.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="topbar">
+      <div class="topbar-menu">
+        <img class="topbar-logo" src="./icons/logoBGB.svg" />
+        <button class="onhover" onclick="window.electronAPI.goToPage(4)">
+          <img style="width: 13px; height: 13px" src="./icons/back.svg" />
+        </button>
+      </div>
+      <div class="topbar-icons-all">
+        <div class="topbar-icons">
+          <button class="onhover add-icon-onhover" onclick="window.electronAPI.goToPage(7);">
+            <img class="add-icon"
+              src="./icons/add.svg"
+            />
+          </button>
+          <button class="onhover" onclick="window.electronAPI.goToPage(3);">
+            <img
+            class="add-icon"
+              src="./icons/settings-icon.svg"
+            />
+          </button>
+          <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
+            <img src="./icons/min.svg" />
+          </button>
+          <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
+            <img src="./icons/max.svg" />
+          </button>
+          <button
+            class="onhover closeonhover"
+            onclick="window.electronAPI.windowEvents(3);"
+          >
+            <img src="./icons/close.svg" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-contain">
+      <div class="setting-left">
+        <div class="setting-nav" onclick="window.electronAPI.goToPage(3)">
+          <img src="./icons/settings-normal.svg" />
+          <div class="setting-nav-text">
+            <div class="setting-nav-text-title">功能</div>
+          </div>
+        </div>
+        <div
+          class="setting-nav"
+          style="margin-top: 16px"
+          onclick="window.electronAPI.goToPage(4)"
+        >
+          <img src="./icons/settings-about.svg" />
+          <div class="setting-nav-text">
+            <div class="setting-nav-text-title">关于</div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="setting-right"
+        style="display: flex; justify-content: center; align-items: center"
+      >
+        <div class="vwo50-container">
+          <div class="vwo50">
+            <div style="font-weight: 600;font-size: 30px;">赞助者鸣谢</div>
+            <div class="vwo50-users">
+            <div class="vwo50-user">
+              <img src="./icons/qrcode.png">
+              <div>STARTE</div>
+            </div>
+            <div class="vwo50-user">
+              <img src="./icons/qrcode.png">
+              <div>STARTE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

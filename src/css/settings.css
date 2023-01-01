@@ -27,7 +27,7 @@ body {
 .setting-contain {
     width: 100%;
     position: absolute;
-    top: 78px;
+    top: 64px;
     bottom: 0px;
     left: 0px;
 }
@@ -158,11 +158,41 @@ body {
     background-color: #383838;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .links img {
     width:25px;
     margin-left: 25px;
+}
+
+.vwo50 {
+    align-items: flex-start !important;
+}
+.vwo50-users{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-row-gap: 7px;
+    grid-column-gap: 7px;
+}
+.vwo50-user {
+    display: flex;
+    padding: 6px 58px 8px 0px;
+    align-items: center;
+    gap:7px;
+}
+.vwo50-user img{
+    border-radius: 50px;
+    width: 25px;
+    height: 25px;
+}
+
+.vwo50-user div{
+    font-weight:normal;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 17px;
 }
 
 @media screen and (max-width: 900px){ /*自适应大小*/
