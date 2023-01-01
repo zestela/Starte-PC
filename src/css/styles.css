@@ -225,26 +225,34 @@ body {
   display: grid !important;
 }
 
+.update-tip-bored {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  margin-top: 55px;
+}
+
 .update-tip {
   display: none;
 }
 
 .update-tip-checked {
-  background-color: none;
   background-color: rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(98px);
   display: flex;
   align-items: center;
-  padding: 15px 9px 15px 25px;
-  font-weight: 300;
+  justify-content: center;
+  padding: 0px 27px 0px 27px;
   color: rgba(255, 255, 255, 0.677);
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 600;
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 50px;
   border-width: 0.7px;
   border-color: rgba(255, 255, 255, 0.212);
-  margin-bottom: 6px;
-  width: 350px;
+  height: 40px;
 }
 
 .banbenhao {

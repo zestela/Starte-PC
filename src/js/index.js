@@ -31,3 +31,28 @@ window.onload = async function () {
             versionOnline.banben[0].name;
     }
 };
+
+const mainpageText = document.getElementById("mainpage-text");
+const mainpageInfo = document.getElementById("mainpage-text-info");
+let mainpageDisappearClass = document.getElementById("mainpage-text-disappear").className;
+let mainpageDisappearImg = document.getElementById("disaImg");
+
+function textDisplayNone() {
+    mainpageText.className = "mainpage-text-disappered";
+    mainpageInfo.className = "mainpage-text-disappered";
+};
+
+function textDisappeaed() {
+    if (mainpageDisappearClass=="mainpage-text-disappear") {
+        mainpageText.className = "mainpage-text mainpage-text-disappering";
+        mainpageInfo.className = "mainpage-text-info mainpage-text-disappering";
+        setTimeout("textDisplayNone()", 1000);
+        mainpageDisappearClass = "mainpage-text-show";
+        mainpageDisappearImg.setAttribute("src", "./icons/expanded.svg");
+    } else {
+        mainpageText.className = "mainpage-text-showed mainpage-text mainpage-text-showing";
+        mainpageInfo.className = "mainpage-text-showed mainpage-text-info mainpage-text-showing";
+        mainpageDisappearClass = "mainpage-text-disappear";
+        mainpageDisappearImg.setAttribute("src", "./icons/expand.svg");
+    }
+};
