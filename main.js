@@ -23,7 +23,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(async () => {
@@ -48,7 +48,7 @@ app.whenReady().then(async () => {
   });
 
   ipcMain.handle('get-setting', (configName) => {
-    return JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).configName;
+    return JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).infoHide;
   });
 
   createWindow();
@@ -125,8 +125,11 @@ ipcMain.on('window-events', (event, type) => {
     else
       mainWindow.maximize();
   }
-  else if (type === 3)
-    app.quit();
+  else if (type === 3) {
+    const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
+    config.infoHide = false;
+    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"),JSON.stringify(config));
+    app.quit();}
 });
 
 let shareId = 0;
@@ -244,6 +247,6 @@ ipcMain.on("out-alert", async (event, str) => {
 ipcMain.on("set-setting", async (event, configName, value) => {
   console.log(configName,value);
   const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-  config.configName = value;
+  config.infoHide = value;
   fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"),JSON.stringify(config));
 });

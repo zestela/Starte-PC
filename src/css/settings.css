@@ -172,14 +172,14 @@ body {
 .vwo50-users{
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
     grid-row-gap: 7px;
     grid-column-gap: 7px;
 }
 .vwo50-user {
     display: flex;
-    padding: 6px 58px 8px 0px;
+    padding: 11px 2px 11px 0px;
     align-items: center;
     gap:7px;
 }
@@ -192,7 +192,7 @@ body {
 .vwo50-user div{
     font-weight:normal;
     color: rgba(255, 255, 255, 0.74);
-    font-size: 17px;
+    font-size: 15px;
 }
 
 @media screen and (max-width: 900px){ /*自适应大小*/
