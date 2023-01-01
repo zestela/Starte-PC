@@ -2,7 +2,6 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
     init: () => ipcRenderer.send('init'), // init mainpage
-    getMainpage: () => ipcRenderer.invoke('load-mainpage'), // get mainpage info
     setWallpaper: (id) => ipcRenderer.send('set-wallpaper', id), // set wallpaper
     getcwd: () => ipcRenderer.invoke('get-cwd'), // get electron's cwd
     getSetting: (name) => ipcRenderer.invoke('get-setting', name),

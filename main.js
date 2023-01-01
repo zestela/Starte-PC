@@ -27,11 +27,6 @@ async function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  ipcMain.handle('load-mainpage', async () => {
-    const json = await axios.get('https://api.discoverse.space/new-mainpage/get-mainpage');
-    return JSON.stringify(json.data);
-  });
-
   ipcMain.handle('get-cwd', () => {
     return process.cwd().replaceAll("\\", "/");
   });
@@ -197,31 +192,31 @@ ipcMain.on('save-share', async (event, data) => {
 ipcMain.on("go-to-page", async (event, pageId) => {
   switch (pageId) {
     case 1:
-      mainWindow.loadFile("src/index.html");
+      await mainWindow.loadFile("src/index.html");
       break;
     case 2:
-      mainWindow.loadFile("src/wallpaper-list.html");
+      await mainWindow.loadFile("src/wallpaper-list.html");
       break;
     case 3:
-      mainWindow.loadFile("src/settings.html");
+      await mainWindow.loadFile("src/settings.html");
       break;
     case 4:
-      mainWindow.loadFile("src/settings-about.html");
+      await mainWindow.loadFile("src/settings-about.html");
       break;
     case 5:
-      mainWindow.loadFile("src/timeout.html");
+      await mainWindow.loadFile("src/timeout.html");
       break;
     case 6:
-      mainWindow.loadFile("src/star-watching.html");
+      await mainWindow.loadFile("src/star-watching.html");
       break;
     case 7:
-      mainWindow.loadFile("src/submission.html");
+      await mainWindow.loadFile("src/submission.html");
       break;
     case 8:
-      mainWindow.loadFile("src/check-new.html");
+      await mainWindow.loadFile("src/check-new.html");
       break;
     case 9:
-      mainWindow.loadFile("src/vwo50.html");
+      await mainWindow.loadFile("src/vwo50.html");
       break;
   }
 });
