@@ -165,6 +165,6 @@ function sendEmailToOfficial() {
     setTimeout("timeoutle()", 300000);
   } else {
     window.electronAPI.outAlert("电子邮件格式错误！");
-    return false
+    return false;
   }
 }
