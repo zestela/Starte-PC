@@ -29,7 +29,7 @@ function timeoutle() {
   document.getElementById('submit-button').value = "提交超时, 请重试 (20秒后自动刷新)";
   window.electronAPI.outAlert("提交超时, 请重试 (20秒后自动刷新)。错误代码：0x4"); //本地上传超时5分钟，错误代码：0x4
   document.getElementById('submit-button').onclick = null;
-  setTimeout(location.reload(), 20000);
+  setTimeout(() => { location.reload(); }, 20000);
   console.log("OVER FIVE MINUTES,0x4");
 }
 
@@ -136,27 +136,27 @@ function sendEmailToOfficial() {
         document.getElementById('submit-button').value = "提交成功 (20秒后自动刷新)";
         window.electronAPI.outAlert("提交成功 (20秒后自动刷新)，如果图片入选，我们会在七天内邮件联系你。如未联系，则视为未入选。");
         document.getElementById('submit-button').onclick = null;
-        setTimeout(location.reload(), 20000);
+        setTimeout(() => { location.reload(); }, 20000);
         console.log("SUCCEED");
       } else if (sentResult == "error") {
         document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
         window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x3"); //服务器邮件发送失败，可能是SMTP问题，也可能是垃圾邮件，错误代码：0x3
         document.getElementById('submit-button').onclick = null;
-        setTimeout(location.reload(), 20000);
+        setTimeout(() => { location.reload(); }, 20000);
         console.log("SERVER MAIL SENT ERROR,0x3");
       } else if (res == 0) {
-        setTimeout(location.reload(), 20000);
+        setTimeout(() => { location.reload(); }, 20000);
       } else if (sentResult == "outoffile") {
         document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
         window.electronAPI.outAlert("提交失败(20秒后自动刷新)，上传的不是图片，或者大小超过5M。如多次重试依旧失败，请联系我们。错误代码：0x5"); //后端判断上传的不是图片，或者大小超过5M，错误代码：0x5
         document.getElementById('submit-button').onclick = null;
-        setTimeout(location.reload(), 20000);
+        setTimeout(() => { location.reload(); }, 20000);
         console.log("BACKEND SAYS IT IS NOT A PHOTO OR IT IS TOO LARGE,0x5");
       } else {
         document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
         window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请联系我们。错误代码：0x6"); //真不知道什么原因，错误代码：0x6
         document.getElementById('submit-button').onclick = null;
-        setTimeout(location.reload(), 20000);
+        setTimeout(() => { location.reload(); }, 20000);
         console.log("WHAT THE FUCK,0x6");
       }
     });
