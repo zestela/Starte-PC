@@ -6,7 +6,8 @@ const {
   shell,
   ipcMain,
   dialog,
-  Tray
+  Tray,
+  nativeImage
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -35,11 +36,10 @@ async function createWindow() {
   // mainWindow.webContents.openDevTools();
 
   //以下全部都是系统托盘菜单
-  if (process.platform === 'win32') {
     //设置托盘图标和菜单
     var trayMenuTemplate = [{
         label: '打开主界面',
-        icon: 'src/icons/toHome.png',
+        icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toHome.png")),
         click: function() {
           mainWindow.loadFile("src/index.html");
           mainWindow.show();
@@ -47,7 +47,7 @@ async function createWindow() {
       },
       {
         label: '投稿',
-        icon: 'src/icons/toSUb.png',
+        icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toSUb.png")),
         click: function() {
           mainWindow.loadFile("src/submission.html");
           mainWindow.show();
@@ -55,7 +55,7 @@ async function createWindow() {
       },
       {
         label: '退出观星记',
-        icon: 'src/icons/toExit.png',
+        icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toExit.png")),
         click: function() {
           const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
           config.infoHide = false;
@@ -66,8 +66,7 @@ async function createWindow() {
       }
     ];
     //系统托盘图标
-    trayIcon = path.join(__dirname, 'src/icons');
-    appTray = new Tray(path.join(trayIcon, 'dock.ico'));
+    appTray = new Tray(nativeImage.createFromPath(path.join(__dirname, "src/icons/dock.ico")));
     //图标的上下文菜单
     const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
     //设置此托盘图标的悬停提示内容
@@ -82,7 +81,7 @@ async function createWindow() {
     appTray.on('right-click', () => {
       appTray.popUpContextMenu(trayMenuTemplate);
     });
-  }; //以上全部都是系统托盘菜单
+ //以上全部都是系统托盘菜单
 }
 
 app.whenReady().then(async () => {
