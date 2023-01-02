@@ -13,7 +13,7 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 const ufs = require("./packages/url-file-size/index.js");
-const wallpaper = require("./packages/wallpaper/index.js");
+const starte = require("./packages/starte/index.js");
 let mainWindow;
 let appTray = null;
 
@@ -113,44 +113,6 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
-async function setWallPaperOut(id) {
-  let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-    timeout: 30000
-  })
-    .catch(function (error) {
-      console.log('Error', error.message);
-      mainWindow.loadFile('src/timeout.html');
-    });
-  wallpaperData = wallpaperData.data;
-
-  if (wallpaperData.code !== 0) {
-    let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
-    if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
-      downloadImage(wallpaperData.data.url, id + ".png")
-        .finally(() => {
-          wallpaper.setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
-        });
-    } else wallpaper.setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
-  }
-}
-
-async function downloadImage(url, name) {
-  const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache', name));
-
-  const response = await axios({
-    url,
-    method: 'GET',
-    responseType: 'stream'
-  });
-
-  response.data.pipe(writer);
-  return new Promise((resolve, reject) => {
-    writer.on('finish', resolve);
-    writer.on('error', reject);
-  });
-}
-
-
 ipcMain.on('init', async () => {
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))
     fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
@@ -169,21 +131,20 @@ ipcMain.on('init', async () => {
   mainpageData = mainpageData.data;
   const ifOpenConfig = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).isSelfopen;
 
-
   if (mainpageData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
     if (!fs.existsSync(filename) || !(await ufs(mainpageData.data.url) === fs.statSync(filename).size)) {
       console.log("Log: start downloading");
-      downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
+      starte.downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
         .finally(() => {
           console.log("Log: download successfully");
           mainWindow.loadFile('src/index.html');
         });
-      if (ifOpenConfig == true) setWallPaperOut(mainpageData.data.id);
+      if (ifOpenConfig == true) starte.setWallPaperOut(mainpageData.data.id);
     } else {
       console.log("Log: load cache successfully");
       mainWindow.loadFile('src/index.html');
-      if (ifOpenConfig == true) setWallPaperOut(mainpageData.data.id);
+      if (ifOpenConfig == true) starte.setWallPaperOut(mainpageData.data.id);
     }
   } else {
     console.log("Log: there is no data of this month");
@@ -219,7 +180,7 @@ ipcMain.on('share', async (event, id, type) => {
   if (shareData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
     if (!fs.existsSync(filename) || !(await ufs(shareData.data.url) === fs.statSync(filename).size)) {
-      downloadImage(shareData.data.url, shareId + ".png")
+      starte.downloadImage(shareData.data.url, shareId + ".png")
         .finally(() => {
           mainWindow.loadFile('src/share.html');
         });
@@ -228,7 +189,7 @@ ipcMain.on('share', async (event, id, type) => {
 });
 
 ipcMain.on('set-wallpaper', async (event, id) => {
-  setWallPaperOut(id);
+  starte.setWallPaperOut(id);
 });
 
 ipcMain.on('save-share', async (event, data) => {
