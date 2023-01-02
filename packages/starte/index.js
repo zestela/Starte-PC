@@ -2,9 +2,10 @@ const fs = require("fs");
 const path = require("path");
 const axios = require('axios');
 const process = require("process");
+const ufs = require("../url-file-size/index.js");
 const { execSync } = require('child_process');
 
-module.exports.setWallpaper = function (url) {
+function setWallpaper (url) {
     if (process.platform == "win32") {
         const script = `
 $code = @'
@@ -44,9 +45,9 @@ module.exports.setWallPaperOut = async function (id) {
         if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
             downloadImage(wallpaperData.data.url, id + ".png")
                 .finally(() => {
-                    wallpaper.setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
+                    setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
                 });
-        } else wallpaper.setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
+        } else setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
     }
 };
 
