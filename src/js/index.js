@@ -29,7 +29,7 @@ async function textDisappeaed() {
         setTimeout(() => {
             mainpageText.className = "mainpage-text-disappered";
             mainpageInfo.className = "mainpage-text-disappered";
-        }, 500);
+        }, 1000);
         mainpageDisappearClass = "mainpage-text-show";
         mainpageDisappearImg.setAttribute("src", "./icons/expanded.svg");
     } else {
@@ -58,5 +58,5 @@ window.onload = async function () {
         document.getElementById("banbenhao").innerText =
             versionOnline.banben[0].name;
     }
-    if (await window.electronAPI.getSetting("infoHide") == true) {isDisappeard()};
+    if (await window.electronAPI.getSetting('infoHide') == true) {isDisappeard()};
 };
