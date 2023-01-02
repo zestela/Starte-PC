@@ -99,6 +99,7 @@ body {
 
 .setting-item {
     margin-top: 10px;
+    margin-bottom: 15px;
     margin-right: 25px;
     margin-left: 25px;
     display: flex;
@@ -237,7 +238,6 @@ body {
 }
 
 /*以下是网上抄的按钮*/
-        #toggle-button{ display: none; }
         .button-label{
             position: relative;
             display: inline-block;
@@ -247,6 +247,7 @@ body {
             box-shadow: rgba(0, 0, 0, 0.358) 0px 0px 0px 2px;
             border-radius: 30px;
             overflow: hidden;
+            cursor: pointer;
         }
         .circle{
             position: absolute;
@@ -256,15 +257,16 @@ body {
             height: 20px;
             border-radius: 50%;
             background-color: #fff;
-        }
-        .button-label .circle{
             left: 0;
             transition: all 0.3s;
         }
-        #toggle-button:checked + label.button-label .circle{
-            left: 18px;
+        .circle-not-click{
+            transition: all 0s !important;
         }
-        #toggle-button:checked + label.button-label{
+        .circleClicked {
+            left: 18px !important;
+        }
+        .labelClicked{
             background-color: #311E8F;
         }
 /*以上是网上抄的按钮*/

@@ -80,17 +80,33 @@
         <div class="setting-item">
           <div>
             <div class="setting-nav-text-title">
-              每日自动将 Today 图片设置为桌面壁纸（未开发）
+              每日自动将 Today 图片设置为桌面壁纸
             </div>
             <div class="setting-nav-text-context">
-              这需要开机自启动（尚未开发，开关无用）
+              开启后，在系统设置 / 第三方软件中关闭开机自启动无效，须在此处关闭才可生效
             </div>
           </div>
           <div class="setting-switch">
             <div class="switch-container">
-              <input type="checkbox" id="toggle-button" name="switch" />
-              <label for="toggle-button" class="button-label">
-                <span class="circle"></span>
+              <label onclick="ischeck()" id="toggle-button" class="button-label">
+                <span id="circle" class="circle"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="setting-item">
+          <div>
+            <div class="setting-nav-text-title">
+              关闭时自动收起到系统托盘菜单
+            </div>
+            <div class="setting-nav-text-context">
+              默认开启，暂时无法关闭（开启时，关闭后须在系统托盘菜单右键才可完全退出）
+            </div>
+          </div>
+          <div class="setting-switch">
+            <div class="switch-container">
+              <label id="toggle-button" style="cursor: default;" class="button-label labelClicked">
+                <span id="circle" class="circle circle-not-click circleClicked"></span>
               </label>
             </div>
           </div>
@@ -98,5 +114,6 @@
       </div>
     </div>
     <script></script>
+    <script src="./js/settings-another.js"></script>
   </body>
 </html>

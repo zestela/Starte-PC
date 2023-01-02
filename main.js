@@ -1,11 +1,20 @@
 require('v8-compile-cache');
-const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require('electron');
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  shell,
+  ipcMain,
+  dialog,
+  Tray
+} = require('electron');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 const ufs = require("./packages/url-file-size/index.js");
 const wallpaper = import("./packages/wallpaper/index.js");
 let mainWindow;
+var appTray = null; //系统托盘菜单
 
 async function createWindow() {
   mainWindow = new BrowserWindow({
@@ -23,7 +32,57 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+
+  //以下全部都是系统托盘菜单
+  if (process.platform === 'win32') {
+    //设置托盘图标和菜单
+    var trayMenuTemplate = [{
+        label: '打开主界面',
+        icon: 'src/icons/toHome.png',
+        click: function() {
+          mainWindow.loadFile("src/index.html");
+          mainWindow.show();
+        } //打开相应页面
+      },
+      {
+        label: '投稿',
+        icon: 'src/icons/toSUb.png',
+        click: function() {
+          mainWindow.loadFile("src/submission.html");
+          mainWindow.show();
+        } //打开相应页面
+      },
+      {
+        label: '退出观星记',
+        icon: 'src/icons/toExit.png',
+        click: function() {
+          const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
+          config.infoHide = false;
+          fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify(config));
+          app.quit();
+          app.quit(); //因为程序设定关闭为最小化，所以调用两次关闭，防止最大化时一次不能关闭的情况
+        }
+      }
+    ];
+    //系统托盘图标
+    trayIcon = path.join(__dirname, 'src/icons');
+    appTray = new Tray(path.join(trayIcon, 'dock.ico'));
+    //图标的上下文菜单
+    const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
+    //设置此托盘图标的悬停提示内容
+    appTray.setToolTip('观星记 Starte');
+    //设置此图标的上下文菜单
+    appTray.setContextMenu(contextMenu);
+    //单击右下角小图标显示应用左键
+    appTray.on('click', function() {
+      mainWindow.show();
+    })
+    //右键
+    appTray.on('right-click', () => {
+      appTray.popUpContextMenu(trayMenuTemplate);
+    });
+  }; //以上全部都是系统托盘菜单
 }
 
 app.whenReady().then(async () => {
@@ -47,21 +106,45 @@ app.whenReady().then(async () => {
     return require("./package.json").version;
   });
 
-  ipcMain.handle('get-setting', (configName) => {
-    return JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).infoHide;
+  ipcMain.handle('get-setting', (event, configName) => {
+    const jsonValue = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
+    return jsonValue[configName];
   });
 
   createWindow();
 
-  app.on('activate', function () {
+  app.on('activate', function() {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+
 });
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
   if (process.platform !== 'darwin') app.quit();
 });
 
+//以下全部都是单独出来的设置壁纸函数
+async function setWallPaperOut(id) {
+  let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
+      timeout: 30000
+    })
+    .catch(function(error) {
+      console.log('Error', error.message);
+      mainWindow.loadFile('src/timeout.html');
+    });
+  wallpaperData = wallpaperData.data;
+
+  if (wallpaperData.code !== 0) {
+    let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
+    if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
+      downloadImage(wallpaperData.data.url, id + ".png")
+        .finally(async () => {
+          (await wallpaper).setWallpaper(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
+        });
+    } else(await wallpaper).setWallpaper(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
+  }
+}
+//以上全部都是单独出来的设置壁纸函数
 
 async function downloadImage(url, name) {
   const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache/', name));
@@ -84,16 +167,20 @@ ipcMain.on('init', async () => {
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))
     fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache", "config.json")))
-    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify({ infoHide: false }));
+    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify({
+      infoHide: false
+    }));
   const url = "https://api.discoverse.space/new-mainpage/get-mainpage";
   let mainpageData = await axios.get(url, {
-    timeout: 30000
-  })
-    .catch(function (error) {
+      timeout: 30000
+    })
+    .catch(function(error) {
       console.log('Error', error.message);
       mainWindow.loadFile('src/timeout.html');
     });
   mainpageData = mainpageData.data;
+  const ifOpenConfig = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).isSelfopen;
+
 
   if (mainpageData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
@@ -104,13 +191,18 @@ ipcMain.on('init', async () => {
           console.log("Log: download successfully");
           mainWindow.loadFile('src/index.html');
         });
-    }
-    else {
+      if (ifOpenConfig == true) {
+        setWallPaperOut(mainpageData.data.id);
+      } //如果开机自启则自动设置壁纸
+
+    } else {
       console.log("Log: load cache successfully");
       mainWindow.loadFile('src/index.html');
+      if (ifOpenConfig == true) {
+        setWallPaperOut(mainpageData.data.id);
+      } //如果开机自启则自动设置壁纸
     }
-  }
-  else {
+  } else {
     console.log("Log: there is no data of this month");
     mainWindow.loadFile('src/timeout.html');
   }
@@ -124,12 +216,9 @@ ipcMain.on('window-events', (event, type) => {
       mainWindow.unmaximize();
     else
       mainWindow.maximize();
+  } else if (type === 3) {
+    mainWindow.hide(); //关闭按钮隐藏而非退出
   }
-  else if (type === 3) {
-    const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-    config.infoHide = false;
-    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"),JSON.stringify(config));
-    app.quit();}
 });
 
 let shareId = 0;
@@ -138,9 +227,9 @@ ipcMain.on('share', async (event, id, type) => {
   shareId = id;
   shareType = type;
   let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-    timeout: 30000
-  })
-    .catch(function (error) {
+      timeout: 30000
+    })
+    .catch(function(error) {
       console.log('Error', error.message);
       mainWindow.loadFile('src/timeout.html');
     });
@@ -153,30 +242,12 @@ ipcMain.on('share', async (event, id, type) => {
         .finally(() => {
           mainWindow.loadFile('src/share.html');
         });
-    }
-    else mainWindow.loadFile('src/share.html');
+    } else mainWindow.loadFile('src/share.html');
   }
 });
-ipcMain.on('set-wallpaper', async (event, id) => {
-  let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-    timeout: 30000
-  })
-    .catch(function (error) {
-      console.log('Error', error.message);
-      mainWindow.loadFile('src/timeout.html');
-    });
-  wallpaperData = wallpaperData.data;
 
-  if (wallpaperData.code !== 0) {
-    let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
-    if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
-      downloadImage(wallpaperData.data.url, id + ".png")
-        .finally(async () => {
-          (await wallpaper).setWallpaper(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
-        });
-    }
-    else (await wallpaper).setWallpaper(path.join(process.env.APPDATA, "starte-cache/", id + ".png"));
-  }
+ipcMain.on('set-wallpaper', async (event, id) => {
+  setWallPaperOut(id); //使用上文的函数
 });
 
 ipcMain.on('save-share', async (event, data) => {
@@ -188,8 +259,7 @@ ipcMain.on('save-share', async (event, data) => {
         extensions: ['jpeg']
       }]
     }), dataBuffer);
-  }
-  catch { }
+  } catch {}
 });
 
 ipcMain.on("go-to-page", async (event, pageId) => {
@@ -245,8 +315,37 @@ ipcMain.on("out-alert", async (event, str) => {
 });
 
 ipcMain.on("set-setting", async (event, configName, value) => {
-  console.log(configName,value);
+  console.log(configName, value);
   const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
   config[configName] = value;
-  fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"),JSON.stringify(config));
+  fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify(config));
+  //以下设置开机自启动
+  const ifOpenConfig = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).isSelfopen;
+  if (ifOpenConfig == true) {
+    // 开机自启动
+    try {
+      const exeName = path.basename(process.execPath)
+      app.setLoginItemSettings({
+        openAtLogin: true,
+        openAsHidden: true,
+        path: process.execPath,
+        args: [
+          '--processStart', `"${exeName}"`,
+        ]
+      })
+      console.log("ifOpenConfig==true")
+    } catch (err) {
+      console.log("err")
+    }
+  } else if (ifOpenConfig == false) {
+    try {
+      app.setLoginItemSettings({
+        openAtLogin: false
+      })
+    } catch (err) {
+      console.log("err")
+    }
+    console.log("ifOpenConfig==false")
+  }
+  //设置开机自启动
 });
