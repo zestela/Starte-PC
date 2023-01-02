@@ -11,15 +11,15 @@ const { URL } = require('url');
  */
 const ufs = (url, timeout = 10000, maxRedirects = 5) => {
     return new Promise((res, rej) => {
-        if(url instanceof URL) {
+        if (url instanceof URL) {
             url = url.toString();
         }
-        if(typeof url !== 'string') rej(new TypeError('url must be a string or instance of URL'));
-        if(typeof timeout !== 'number') rej(new TypeError('timeout must be a number'));
-        if(typeof maxRedirects !== 'number') rej(new TypeError('maxRedirects must be a number'));
-        if(maxRedirects < 0) rej(new Error('maxRedirects must be greater than 0'));
+        if (typeof url !== 'string') rej(new TypeError('url must be a string or instance of URL'));
+        if (typeof timeout !== 'number') rej(new TypeError('timeout must be a number'));
+        if (typeof maxRedirects !== 'number') rej(new TypeError('maxRedirects must be a number'));
+        if (maxRedirects < 0) rej(new Error('maxRedirects must be greater than 0'));
 
-        let req = url.startsWith('https://') ? https.get(url, {timeout}) : http.get(url, {timeout});
+        let req = url.startsWith('https://') ? https.get(url, { timeout }) : http.get(url, { timeout });
         req.once("response", r => {
             req.destroy();
             if (r.statusCode >= 300 && r.statusCode < 400 && r.headers.location) {

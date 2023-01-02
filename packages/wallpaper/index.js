@@ -1,15 +1,29 @@
-import process from 'node:process';
-import * as macos from './source/macos.js';
-import * as linux from './source/linux/index.js';
-import * as windows from './source/windows.js';
+const fs = require("fs");
+const path = require("path");
+const process = require("process");
+const { execSync } = require('child_process');
 
-let wallpaper;
-if (process.platform === 'darwin') {
-	wallpaper = macos;
-} else if (process.platform === 'win32') {
-	wallpaper = windows;
-} else {
-	wallpaper = linux;
+module.exports.setWallpaper = function (url) {
+    if (process.platform == "win32") {
+        const script = `
+$code = @'
+using System.Runtime.InteropServices;
+namespace Win32{
+public class Wallpaper {
+    [DllImport("user32.dll", CharSet=CharSet.Auto)]
+    static extern int SystemParametersInfo (int uAction , int uParam , string lpvParam , int fuWinIni) ;
+        public static void SetWallpaper(string thePath) {
+            SystemParametersInfo(20,0,thePath,3);
+        }
+    }
 }
-
-export const {getWallpaper, setWallpaper, setSolidColorWallpaper, screens} = wallpaper;
+'@
+add-type $code
+[Win32.Wallpaper]::SetWallpaper("${path.normalize(url)}")
+        `;
+        const scriptPath = path.join(process.env.APPDATA, "starte-cache", "wallpaper.ps1");
+        fs.writeFileSync(scriptPath, script);
+        execSync(`powershell ${ scriptPath }`);
+        fs.rmSync(scriptPath);
+    }
+};
