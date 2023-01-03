@@ -51,7 +51,7 @@ module.exports.setWallPaperOut = async function (id) {
     }
 };
 
-module.exports.downloadImage = async function (url, name) {
+async function downloadImage (url, name) {
     const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache', name));
     const response = await axios({
         url,
@@ -64,6 +64,8 @@ module.exports.downloadImage = async function (url, name) {
         writer.on('error', reject);
     });
 };
+
+module.exports.downloadImage = downloadImage;
 
 module.exports.getSetting = async function (configName) {
     const jsonValue = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
