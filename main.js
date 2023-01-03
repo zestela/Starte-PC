@@ -35,6 +35,7 @@ async function createWindow() {
   mainWindow.show();
   if (!app.isPackaged) mainWindow.webContents.openDevTools();
 
+  
   let trayMenuTemplate = [{
     label: '打开主界面',
     icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toHome.png")),
