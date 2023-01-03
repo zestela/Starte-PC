@@ -6,7 +6,7 @@
     display: none;
 }
 
-.star-list {
+#star-list {
     overflow-x: scroll;
     display: flex;
     flex-direction: row;
