@@ -170,7 +170,7 @@ body {
 .vwo50 {
     align-items: flex-start !important;
 }
-.vwo50-users{
+#vwo50-users{
     margin-top: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

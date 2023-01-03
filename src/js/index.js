@@ -1,4 +1,3 @@
-const $ = document.querySelector.bind(document);
 let mainpageData;
 
 document.getElementById("setWallpaper").addEventListener("click", function () {
@@ -46,9 +45,9 @@ window.onload = async function () {
     document.body.style.backgroundImage = `url('${picUrl}')`;
     let date = mainpageData.data.date;
     date = date.split("-");
-    $("date").innerText = date[0]  + " 年 " + date[1] + " 月 " + date[2] + " 日";
-    $(".mainpage-text-title").innerText = mainpageData.data.title;
-    $(".mainpage-text-describe").innerText = mainpageData.data.describe;
+    document.getElementById("date").innerText = date[0]  + " 年 " + date[1] + " 月 " + date[2] + " 日";
+    document.getElementById("mainpage-text-title").innerText = mainpageData.data.title;
+    document.getElementById("mainpage-text-describe").innerText = mainpageData.data.describe;
 
     versionOnline = await (await fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })).json();
     if (versionOnline.banben[0].name != await window.electronAPI.getVersion()) {
@@ -58,5 +57,5 @@ window.onload = async function () {
         document.getElementById("banbenhao").innerText =
             versionOnline.banben[0].name;
     }
-    if (await window.electronAPI.getSetting('infoHide') == true) {isDisappeard()};
+    if (await window.electronAPI.getSetting('infoHide') == true) isDisappeard();
 };

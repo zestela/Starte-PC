@@ -7,7 +7,7 @@ window.onload = async function () {
         var photoDate = new Date(dataLst.data[i].date);
         var photoMonth = photoDate.getMonth() + 1;
         var photoDay = photoDate.getDate();
-        document.querySelector(".wallpaper-list").insertAdjacentHTML(
+        document.getElementById("wallpaper-list").insertAdjacentHTML(
             'beforeend',
             `
         <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url});">

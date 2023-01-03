@@ -19,20 +19,17 @@ function checknew() {
     document.getElementById('check-new-title-name').innerHTML = newbanbenname;
     document.getElementById('check-new-describe').innerHTML = newbanbendate;
     document.getElementById('rizhi-link-text').href = newbanbenupdateweb;
-    var clipboard = new ClipboardJS('.get-new', {
-      text: function () {
-        return newbanbenlink;
-      },
-    });
-    clipboard.on('success', function (e) {
-      document.getElementById('link-text').innerHTML = "复制成功";
-    });
-    clipboard.on('error', function (e) {
-      document.getElementById('link-text').innerHTML = "复制失败";
-    });
   }
 }
 checknew();
+
+function copyLink() {
+  navigator.clipboard.writeText(newbanbenlink).then(function () {
+    document.getElementById('link-text').innerHTML = "复制成功";
+  }, function () {
+    document.getElementById('link-text').innerHTML = "复制失败";
+  });
+}
 
 function checknewbutton() {
   if (newbanbenname != seebanben) checknew();

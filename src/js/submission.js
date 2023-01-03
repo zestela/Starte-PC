@@ -1,6 +1,6 @@
-const dropArea = document.querySelector('.dropArea');
-const tip = document.querySelector('.tip');
-const file = document.querySelector('input[type="file"]');
+const dropArea = document.getElementById('dropArea');
+const tip = document.getElementById('tip');
+const file = document.getElementById('file-uploader');
 function testIfPhoto(filenames) {
   if (!/\.(jpg|png|tiff|pjp|jfif|bmp|gif|svg|png|jpeg|xbm|jxl|svgz|ico|tif|pjpeg|avif)$/.test(filenames)) {
     return true;

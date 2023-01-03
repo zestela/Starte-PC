@@ -33,7 +33,7 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
   await mainWindow.loadFile('src/loading.html');
   mainWindow.show();
-  if(!app.isPackaged) mainWindow.webContents.openDevTools();
+  if (!app.isPackaged) mainWindow.webContents.openDevTools();
 
   let trayMenuTemplate = [{
     label: '打开主界面',
@@ -55,9 +55,6 @@ async function createWindow() {
     label: '退出观星记',
     icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toExit.png")),
     click: function () {
-      const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-      config.infoHide = false;
-      fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify(config));
       app.quit();
       app.quit(); //因为程序设定关闭为最小化，所以调用两次关闭，防止最大化时一次不能关闭的情况
     }
@@ -96,9 +93,8 @@ app.whenReady().then(async () => {
     return require("./package.json").version;
   });
 
-  ipcMain.handle('get-setting', (event, configName) => {
-    const jsonValue = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-    return jsonValue[configName];
+  ipcMain.handle('get-setting', async (event, configName) => {
+    return await starte.getSetting(configName);
   });
 
   createWindow();
@@ -113,15 +109,22 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
+app.on('web-contents-created', (e, webContents) => {
+  webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+});
+
 ipcMain.on('init', async () => {
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))
     fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache", "config.json")))
-    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify({
-      infoHide: false
-    }));
-  const url = "https://api.discoverse.space/new-mainpage/get-mainpage";
-  let mainpageData = await axios.get(url, {
+    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify({}));
+
+  const ifOpenConfig = await starte.getSetting("isSelfopen");
+
+  let mainpageData = await axios.get("https://api.discoverse.space/new-mainpage/get-mainpage", {
     timeout: 30000
   })
     .catch(function (error) {
@@ -129,11 +132,10 @@ ipcMain.on('init', async () => {
       mainWindow.loadFile('src/timeout.html');
     });
   mainpageData = mainpageData.data;
-  const ifOpenConfig = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).isSelfopen;
-
+  const pictureSize = await ufs(mainpageData.data.url);
   if (mainpageData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
-    if (!fs.existsSync(filename) || !(await ufs(mainpageData.data.url) === fs.statSync(filename).size)) {
+    if (!fs.existsSync(filename) || (pictureSize != fs.statSync(filename).size)) {
       console.log("Log: start downloading");
       starte.downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
         .finally(() => {
@@ -143,7 +145,7 @@ ipcMain.on('init', async () => {
       if (ifOpenConfig == true) starte.setWallPaperOut(mainpageData.data.id);
     } else {
       console.log("Log: load cache successfully");
-      mainWindow.loadFile('src/index.html');
+      await mainWindow.loadFile('src/index.html');
       if (ifOpenConfig == true) starte.setWallPaperOut(mainpageData.data.id);
     }
   } else {
@@ -166,6 +168,7 @@ ipcMain.on('window-events', (event, type) => {
 let shareId = 0;
 let shareType = 0;
 ipcMain.on('share', async (event, id, type) => {
+
   shareId = id;
   shareType = type;
   let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
@@ -177,15 +180,18 @@ ipcMain.on('share', async (event, id, type) => {
     });
   shareData = shareData.data;
 
-  if (shareData.code !== 0) {
-    let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
-    if (!fs.existsSync(filename) || !(await ufs(shareData.data.url) === fs.statSync(filename).size)) {
-      starte.downloadImage(shareData.data.url, shareId + ".png")
-        .finally(() => {
-          mainWindow.loadFile('src/share.html');
-        });
-    } else mainWindow.loadFile('src/share.html');
-  }
+  ufs(shareData.data.url)
+    .finally(async (fileSize) => {
+      if (shareData.code !== 0) {
+        let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
+        if (!fs.existsSync(filename) || (fileSize != fs.statSync(filename).size)) {
+          starte.downloadImage(shareData.data.url, shareId + ".png")
+            .finally(async () => {
+              await mainWindow.loadFile('src/share.html');
+            });
+        } else await mainWindow.loadFile('src/share.html');
+      }
+    });
 });
 
 ipcMain.on('set-wallpaper', async (event, id) => {
@@ -193,15 +199,13 @@ ipcMain.on('set-wallpaper', async (event, id) => {
 });
 
 ipcMain.on('save-share', async (event, data) => {
-  try {
-    let dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-    fs.writeFileSync(dialog.showSaveDialogSync({
-      filters: [{
-        name: 'img',
-        extensions: ['jpeg']
-      }]
-    }), dataBuffer);
-  } catch { }
+  let dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+  fs.writeFile(dialog.showSaveDialogSync({
+    filters: [{
+      name: 'img',
+      extensions: ['jpeg']
+    }]
+  }), dataBuffer,() => {});
 });
 
 ipcMain.on("go-to-page", async (event, pageId) => {
@@ -236,14 +240,6 @@ ipcMain.on("go-to-page", async (event, pageId) => {
   }
 });
 
-// 用浏览器打开链接
-app.on('web-contents-created', (e, webContents) => {
-  webContents.on('new-window', (event, url) => {
-    event.preventDefault();
-    shell.openExternal(url);
-  });
-});
-
 ipcMain.on("out-alert", async (event, str) => {
   let options = {
     type: 'warning',
@@ -257,13 +253,10 @@ ipcMain.on("out-alert", async (event, str) => {
 });
 
 ipcMain.on("set-setting", async (event, configName, value) => {
-  console.log(configName, value);
-  const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-  config[configName] = value;
-  fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify(config));
-  const ifOpenConfig = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"))).isSelfopen;
+  starte.setSetting(configName, value);
+
+  const ifOpenConfig = starte.getSetting("isSelfopen");
   if (ifOpenConfig == true) {
-    // 开机自启动
     try {
       const exeName = path.basename(process.execPath);
       app.setLoginItemSettings({
@@ -274,7 +267,6 @@ ipcMain.on("set-setting", async (event, configName, value) => {
           '--processStart', `"${exeName}"`,
         ]
       });
-      console.log("ifOpenConfig==true");
     } catch (err) {
       console.log(err);
     }
@@ -286,6 +278,5 @@ ipcMain.on("set-setting", async (event, configName, value) => {
     } catch (err) {
       console.log(err);
     }
-    console.log("ifOpenConfig==false");
   }
 });

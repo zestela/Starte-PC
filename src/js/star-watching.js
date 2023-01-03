@@ -1,6 +1,4 @@
-const $ = document.querySelector.bind(document);
-
-$(".star-list").onwheel = function (event) {
+document.getElementById("star-list").onwheel = function (event) {
     event.preventDefault();
     this.scrollLeft += event.deltaY;
 };
@@ -20,7 +18,7 @@ window.onload = async function () {
         var photoDay1 = photoDate1.getDate();
         var fromwho = "—— " + data.data[i].from;
 
-        $(".star-list").insertAdjacentHTML(
+        document.getElementById("star-list").insertAdjacentHTML(
             'beforeend',
             `
         <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url});">

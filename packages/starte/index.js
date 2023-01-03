@@ -3,9 +3,9 @@ const path = require("path");
 const axios = require('axios');
 const process = require("process");
 const ufs = require("../url-file-size/index.js");
-const { execSync } = require('child_process');
+const { exec } = require('child_process');
 
-function setWallpaper (url) {
+function setWallpaper(url) {
     if (process.platform == "win32") {
         const script = `
 $code = @'
@@ -24,11 +24,11 @@ add-type $code
 [Win32.Wallpaper]::SetWallpaper("${path.normalize(url)}")
         `;
         const scriptPath = path.join(process.env.APPDATA, "starte-cache", "wallpaper.ps1");
-        fs.writeFileSync(scriptPath, script);
-        execSync(`powershell ${scriptPath}`);
-        fs.rmSync(scriptPath);
+        fs.writeFile(scriptPath, script, () => {
+            exec(`powershell ${scriptPath}`,() => { fs.rm(scriptPath, () => { }); });
+        });
     }
-};
+}
 
 module.exports.setWallPaperOut = async function (id) {
     let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
@@ -63,4 +63,16 @@ module.exports.downloadImage = async function (url, name) {
         writer.on('finish', resolve);
         writer.on('error', reject);
     });
+};
+
+module.exports.getSetting = async function (configName) {
+    const jsonValue = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
+    return jsonValue[configName];
+};
+
+module.exports.setSetting = async function (configName, value) {
+    console.log(configName, value);
+    const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
+    config[configName] = value;
+    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify(config));
 };

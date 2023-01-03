@@ -62,14 +62,14 @@ body {
     width: calc(100%-50px);
 }
 
-.mainpage-text-title {
+#mainpage-text-title {
     color: white;
     font-weight: bold;
     font-size: 45px;
     user-select: none;
 }
 
-.mainpage-text-describe {
+#mainpage-text-describe {
     margin-top: 5px;
     color: rgba(255, 255, 255, 0.707);
     word-break: break-all;
