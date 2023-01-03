@@ -7,14 +7,18 @@
     <title>观星记</title>
     <link href="./css/styles.css" rel="stylesheet" />
     <link href="./css/settings.css" rel="stylesheet" />
+    <link href="./css/icons.css" rel="stylesheet" />
   </head>
 
   <body>
     <div class="topbar">
       <div class="topbar-menu">
-        <img class="topbar-logo" src="./icons/logoBGB.svg" />
-        <button class="menu-item menu-item-today-img" onclick="window.electronAPI.goToPage(1)">
-          <img class="today-icon" src="./icons/today.svg" />
+        <img class="topbar-logo icon-logo" />
+        <button
+          class="menu-item menu-item-today-img"
+          onclick="window.electronAPI.goToPage(1)"
+        >
+        <img class="today-icon icon-today"/>
         </button>
         <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
           <h5 class="menu-text">往日</h5>
@@ -25,33 +29,26 @@
       </div>
       <div class="topbar-icons-all">
         <div class="topbar-icons">
-          <button class="onhover add-icon-onhover" onclick="window.electronAPI.goToPage(7);">
-            <img class="add-icon"
-              src="./icons/add.svg"
-            />
-          </button>
           <button
-            class="onhover"
+            class="onhover add-icon-onhover"
+            onclick="window.electronAPI.goToPage(7);"
           >
-            <img
-            class="add-icon"
-              src="./icons/settings-icon.svg"
-            />
+          <img class="add-icon icon-add"/>
           </button>
-          <button
-            class="onhover"
-            onclick="window.electronAPI.windowEvents(1);"
-          >
-            <img src="./icons/min.svg" />
+          <button class="onhover">
+            <img class="add-icon icon-settings" />
+          </button>
+          <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
+            <img class="icon-min" />
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-            <img src="./icons/max.svg" />
+            <img class="icon-max" />
           </button>
           <button
             class="onhover closeonhover"
             onclick="window.electronAPI.windowEvents(3);"
           >
-            <img src="./icons/close.svg" />
+          <img class="icon-close" />
           </button>
         </div>
       </div>
@@ -60,7 +57,7 @@
     <div class="setting-contain">
       <div class="setting-left">
         <div class="setting-nav" style="background-color: #454545">
-          <img src="./icons/settings-normal.svg" />
+          <img class="icon-settings-normal" />
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
           </div>
@@ -70,7 +67,7 @@
           class="setting-nav"
           style="margin-top: 16px"
         >
-          <img src="./icons/settings-about.svg" />
+          <img class="icon-settings-about" />
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">关于</div>
           </div>
@@ -83,12 +80,17 @@
               每日自动将 Today 图片设置为桌面壁纸
             </div>
             <div class="setting-nav-text-context">
-              开启后，在系统设置 / 第三方软件中关闭开机自启动无效，须在此处关闭才可生效
+              开启后，在系统设置 /
+              第三方软件中关闭开机自启动无效，须在此处关闭才可生效
             </div>
           </div>
           <div class="setting-switch">
             <div class="switch-container">
-              <label onclick="ischeck()" id="toggle-button" class="button-label">
+              <label
+                onclick="ischeck()"
+                id="toggle-button"
+                class="button-label"
+              >
                 <span id="circle" class="circle"></span>
               </label>
             </div>
@@ -105,8 +107,15 @@
           </div>
           <div class="setting-switch">
             <div class="switch-container">
-              <label id="toggle-button" style="cursor: default;" class="button-label labelClicked">
-                <span id="circle" class="circle circle-not-click circleClicked"></span>
+              <label
+                id="toggle-button"
+                style="cursor: default"
+                class="button-label labelClicked"
+              >
+                <span
+                  id="circle"
+                  class="circle circle-not-click circleClicked"
+                ></span>
               </label>
             </div>
           </div>

@@ -10,17 +10,17 @@ window.onload = async function () {
         document.getElementById("wallpaper-list").insertAdjacentHTML(
             'beforeend',
             `
-        <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url});">
+        <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url}),url(./icons/default-bg.png);">
             <div>
                 <div>
                 <div class="title-and-icons">
                     <h1>${dataLst.data[i].title}</h1>
                     <div class="image-action-icons">
                         <button class="onhover special-onhover" id="setWallpaper" style="padding: 3.5px 3.5px 3.5px 3.5px" onclick="window.electronAPI.setWallpaper(${dataLst.data[i].id})">
-                        <img src="./icons/setWallpaper.svg">
+                        <img class="icon-set-wallpaper">
                         </button>
                         <button class="onhover special-onhover" id="share" style="padding: 3.5px 3.5px 3.5px 3.5px" onclick="window.electronAPI.share(${dataLst.data[i].id},0)">
-                        <img src="./icons/share.svg">
+                        <img class="icon-share">
                         </button>
                     </div>
                 </div>

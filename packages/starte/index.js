@@ -63,7 +63,7 @@ async function downloadImage (url, name) {
         writer.on('finish', resolve);
         writer.on('error', reject);
     });
-};
+}
 
 module.exports.downloadImage = downloadImage;
 

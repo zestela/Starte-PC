@@ -9,14 +9,15 @@
   <link href="./css/styles.css" rel="stylesheet">
   <link href="./css/settings.css" rel="stylesheet">
   <link href="./css/submission.css" rel="stylesheet">
+  <link href="./css/icons.css" rel="stylesheet" />
 </head>
 
 <body>
   <div class="topbar">
     <div class="topbar-menu">
-      <img class="topbar-logo" src="./icons/logoBGB.svg" />
+      <img class="topbar-logo icon-logo"/>
       <button class="menu-item menu-item-today-img" onclick="window.electronAPI.goToPage(1)">
-        <img class="today-icon" src="./icons/today.svg" />
+        <img class="today-icon icon-today"/>
       </button>
       <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
         <h5 class="menu-text">往日</h5>
@@ -28,33 +29,28 @@
     <div class="topbar-icons-all">
       <div class="topbar-icons">
         <button class="add-icon-onhover-chosen " >
-          <img class="add-icon"
-            src="./icons/add.svg"
-          />
+          <img class="add-icon icon-add"/>
         </button>
         <button
           class="onhover"
           onclick="window.electronAPI.goToPage(3);"
         >
-          <img
-          class="add-icon"
-            src="./icons/settings-icon.svg"
-          />
+        <img class="add-icon icon-settings"/>
         </button>
         <button
           class="onhover"
           onclick="window.electronAPI.windowEvents(1);"
         >
-          <img src="./icons/min.svg" />
+        <img class="icon-min"/>
         </button>
         <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-          <img src="./icons/max.svg" />
+          <img class="icon-max"/>
         </button>
         <button
           class="onhover closeonhover"
           onclick="window.electronAPI.windowEvents(3);"
         >
-          <img src="./icons/close.svg" />
+        <img class="icon-close" />
         </button>
       </div>
     </div>
