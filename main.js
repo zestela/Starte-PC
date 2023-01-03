@@ -11,11 +11,34 @@ const {
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const os = require('os')
 const axios = require('axios');
 const ufs = require("./packages/url-file-size/index.js");
 const starte = require("./packages/starte/index.js");
+const Main = require('electron/main');
 let mainWindow;
 let appTray = null;
+function returnDATETIME(d) {
+  const fullYear = d.getFullYear();
+  const month = d.getMonth()+1;
+  const date = d.getDate();
+  const hour = d.getHours();
+  const minute = d.getMinutes();
+  const second = d.getSeconds();
+  const DATETIME = fullYear+"-"+month+"-"+date+"%20"+hour+":"+minute+":"+second;
+  return DATETIME;
+}; // 获取Datetime格式的日期函数
+function reportError(errorMsg) {
+  let options = {
+    type: 'warning',
+    buttons: ["确定"],
+    defaultId: 0,
+    cancelId: 0,
+    detail: errorMsg,
+    message: ''
+  };
+  dialog.showMessageBoxSync(null, options);
+}; // 弹窗函数，在投稿页面也有使用，建议别改
 
 async function createWindow() {
   mainWindow = new BrowserWindow({
@@ -70,6 +93,7 @@ async function createWindow() {
   appTray.on('right-click', () => {
     appTray.popUpContextMenu(trayMenuTemplate);
   });
+
 }
 
 app.whenReady().then(async () => {
@@ -103,6 +127,50 @@ app.whenReady().then(async () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 
+  async function infoToServer() {
+    if (app.isPackaged) { //判断是否打包，如打包则执行
+      const userVersion = require("./package.json").version; //获取观星记版本
+      const userOS = os.version().replace(/ /g,'%20')+"%20"+os.release().replace(/ /g,'%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
+      const presentDate = returnDATETIME(new Date()); //通过上文函数获取sql Datetime格式的日期
+      const getipAddress = await axios.get('https://ipapi.co/json/', {timeout: 30000})
+        .catch(function (error) {
+          const errorMsg = "向服务器存储数据时出现错误，请向我们反馈错误信息："+error;
+          reportError(errorMsg);
+      });//通过API获取IP地址
+      const ipAddress=getipAddress.data.ip;//从上文的json中读取IP地址
+      const timestamp = new Date().getTime(); //获取时间戳
+      const stampLength = timestamp.toString().length;//获取时间戳长度
+      const dotInUniqueUserSession = ipAddress.replace(/\./g,'')+Math.floor(Math.random()*100)+timestamp.toString().substring(stampLength-3, stampLength);//生成唯一识别码，replace是为了去掉点号
+      const uniqueUserSession = dotInUniqueUserSession.replace(/\./g,'');//优化唯一识别码格式，replace是为了去掉点号
+      let mac = ''//mac地址初始化
+      //以下获取mac地址
+      let networkInterfaces=os.networkInterfaces();
+      for(let i in networkInterfaces){
+        for(let j in networkInterfaces[i]){
+          if(networkInterfaces[i][j]["family"]==="IPv4" && networkInterfaces[i][j]["mac"]!=="00:00:00:00:00:00" && networkInterfaces[i][j]["address"]!=="127.0.0.1"){
+            mac = networkInterfaces[i][j]["mac"]
+        }}};
+      //以下整合api地址
+      const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${presentDate}&getdeviceId=${mac}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
+      let sendInfoResult = await axios.get(getUrl, {
+        timeout: 30000
+      }).catch(function (error) {
+        const errorMsg = "向服务器存储数据时出现错误，请向我们反馈错误信息："+error;
+        reportError(errorMsg);
+      }); //使用api
+      sendInfoError = sendInfoResult.data.msg; //获取错误报告
+      sendInfoResult = sendInfoResult.data.code; //获取状态代码
+      if (sendInfoResult==1) {
+        return 0; //如状态正常则不做事
+      } else {
+        const errorMsg = "向服务器存储数据时出现错误，请向我们反馈错误信息："+sendInfoError;
+        reportError(errorMsg); //如状态错误则报错
+      }
+    } else {
+      return 0;//若未打包（开发状态）则不发送数据
+    }
+  };
+  infoToServer();
 });
 
 app.on('window-all-closed', function () {
@@ -241,15 +309,7 @@ ipcMain.on("go-to-page", async (event, pageId) => {
 });
 
 ipcMain.on("out-alert", async (event, str) => {
-  let options = {
-    type: 'warning',
-    buttons: ["确定"],
-    defaultId: 0,
-    cancelId: 0,
-    detail: str,
-    message: ''
-  };
-  dialog.showMessageBoxSync(null, options);
+  reportError(str);
 });
 
 ipcMain.on("set-setting", async (event, configName, value) => {
