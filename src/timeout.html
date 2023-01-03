@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="./icons/dev.ico">
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/loading.css" rel="stylesheet">
+    <link href="./css/icons.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -17,7 +18,7 @@
           <div class="topbar" style="background: none;background-color: rgba(0, 0, 0, 0);
           backdrop-filter: none;position: static;">
             <div class="topbar-menu">
-              <img class="topbar-logo" src="./icons/logoBGB.svg" />
+              <img class="topbar-logo icon-logo"/>
             </div>
             <div class="topbar-icons-all">
               <div class="topbar-icons">
@@ -25,16 +26,16 @@
                   class="onhover"
                   onclick="window.electronAPI.windowEvents(1);"
                 >
-                  <img src="./icons/min.svg" />
+                <img class="icon-min"/>
                 </button>
                 <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-                  <img src="./icons/max.svg" />
+                  <img class="icon-max"/>
                 </button>
                 <button
                   class="onhover closeonhover"
                   onclick="window.electronAPI.windowEvents(3);"
                 >
-                  <img src="./icons/close.svg" />
+                <img class="icon-close" />
                 </button>
               </div>
             </div>
@@ -43,7 +44,7 @@
     <div class="timeout-container">
         <div style="width: 50vw;">
 
-            <img src="icons/connecting-timeout.svg" width="52px">
+            <img class="icon-timeout" width="52px">
             <div class="timeout-h1">加载失败</div>
             <p class="timeout-text">加载失败了！您可以尝试如下操作：</p>
             <p class="timeout-text">· 检查您的网络连接<br>· 检查您的网络服务是否正确运作<br>· 检查观星记是否在防火墙内</p>

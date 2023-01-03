@@ -8,40 +8,36 @@
     <link href="./css/styles.css" rel="stylesheet" />
     <link href="./css/settings.css" rel="stylesheet" />
     <link href="./css/check-new.css" rel="stylesheet" />
+    <link href="./css/icons.css" rel="stylesheet" />
   </head>
 
   <body>
     <div class="topbar">
       <div class="topbar-menu">
-        <img class="topbar-logo" src="./icons/logoBGB.svg" />
+        <img class="topbar-logo icon-logo"/>
         <button class="onhover" onclick="window.electronAPI.goToPage(4)">
-          <img style="width: 13px; height: 13px" src="./icons/back.svg" />
+          <img style="width: 13px; height: 13px" class="icon-back"/>
         </button>
       </div>
       <div class="topbar-icons-all">
         <div class="topbar-icons">
           <button class="onhover add-icon-onhover" onclick="window.electronAPI.goToPage(7);">
-            <img class="add-icon"
-              src="./icons/add.svg"
-            />
+            <img class="add-icon icon-add"/>
           </button>
           <button class="onhover" onclick="window.electronAPI.goToPage(3);">
-            <img
-            class="add-icon"
-              src="./icons/settings-icon.svg"
-            />
+            <img class="add-icon icon-settings"/>
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
-            <img src="./icons/min.svg" />
+            <img class="icon-min"/>
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-            <img src="./icons/max.svg" />
+            <img class="icon-max"/>
           </button>
           <button
             class="onhover closeonhover"
             onclick="window.electronAPI.windowEvents(3);"
           >
-            <img src="./icons/close.svg" />
+            <img class="icon-close" />
           </button>
         </div>
       </div>
@@ -50,7 +46,7 @@
     <div class="setting-contain">
       <div class="setting-left">
         <div class="setting-nav" onclick="window.electronAPI.goToPage(3)">
-          <img src="./icons/settings-normal.svg" />
+          <img class="icon-settings-normal" />
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
           </div>
@@ -60,7 +56,7 @@
           style="margin-top: 16px"
           onclick="window.electronAPI.goToPage(4)"
         >
-          <img src="./icons/settings-about.svg" />
+          <img class="icon-settings-about"/>
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">关于</div>
           </div>

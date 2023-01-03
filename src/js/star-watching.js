@@ -21,7 +21,7 @@ window.onload = async function () {
         document.getElementById("star-list").insertAdjacentHTML(
             'beforeend',
             `
-        <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url});">
+        <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url}),url(./icons/default-bg.png);;">
             <div class="texts">
 
                 <div>
@@ -38,7 +38,7 @@ window.onload = async function () {
                     <div class="dayte">${photoDay1}</div>
                 </div>
                 <button class="onhover special-onhover" id="share" style="padding: 3px 3px 3px 3px" onclick="window.electronAPI.share(${wallpaperData.data[i].id},1)">
-                    <img src="./icons/share.svg">
+                    <img class="icon-share">
                 </button>
             </div>
     </div>`);

@@ -7,17 +7,18 @@
     <title>观星记</title>
     <link href="./css/styles.css" rel="stylesheet" />
     <link href="./css/settings.css" rel="stylesheet" />
+    <link href="./css/icons.css" rel="stylesheet" />
   </head>
 
   <body>
     <div class="topbar">
       <div class="topbar-menu">
-        <img class="topbar-logo" src="./icons/logoBGB.svg" />
+        <img class="topbar-logo icon-logo" />
         <button
           class="menu-item menu-item-today-img"
           onclick="window.electronAPI.goToPage(1)"
         >
-          <img class="today-icon" src="./icons/today.svg" />
+        <img class="today-icon icon-today"/>
         </button>
         <button class="menu-item" onclick="window.electronAPI.goToPage(2)">
           <h5 class="menu-text">往日</h5>
@@ -32,22 +33,22 @@
             class="onhover add-icon-onhover"
             onclick="window.electronAPI.goToPage(7);"
           >
-            <img class="add-icon" src="./icons/add.svg" />
+          <img class="add-icon icon-add"/>
           </button>
           <button class="onhover">
-            <img class="add-icon" src="./icons/settings-icon.svg" />
+            <img class="add-icon icon-settings" />
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
-            <img src="./icons/min.svg" />
+            <img class="icon-min" />
           </button>
           <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-            <img src="./icons/max.svg" />
+            <img class="icon-max" />
           </button>
           <button
             class="onhover closeonhover"
             onclick="window.electronAPI.windowEvents(3);"
           >
-            <img src="./icons/close.svg" />
+          <img class="icon-close" />
           </button>
         </div>
       </div>
@@ -56,7 +57,7 @@
     <div class="setting-contain">
       <div class="setting-left">
         <div class="setting-nav" onclick="window.electronAPI.goToPage(3)">
-          <img src="./icons/settings-normal.svg" />
+          <img class="icon-settings-normal" />
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">功能</div>
           </div>
@@ -65,7 +66,7 @@
           class="setting-nav"
           style="margin-top: 16px; background-color: #454545"
         >
-          <img src="./icons/settings-about.svg" />
+          <img class="icon-settings-about" />
           <div class="setting-nav-text">
             <div class="setting-nav-text-title">关于</div>
           </div>
@@ -108,7 +109,7 @@
               onclick="window.electronAPI.goToPage(8)"
             >
               <div>
-                <img src="icons/update.svg" />
+                <img class="icon-update" />
                 <div class="setting-nav-text-title">检查更新</div>
               </div>
             </div>
@@ -121,7 +122,7 @@
             style="border-radius: 12px 0px 0px 12px"
             target="_blank"
           >
-            <img src="icons/github.svg" />
+            <img class="icon-github" />
             <div style="margin-left: 10px">
               <div class="setting-nav-text-title">GitHub</div>
               <div class="setting-nav-text-context">开源主页</div>
@@ -133,7 +134,7 @@
             class="links"
             target="_blank"
           >
-            <img src="icons/website.svg" />
+            <img class="icon-website" />
             <div style="margin-left: 10px">
               <div class="setting-nav-text-title">官网</div>
               <div class="setting-nav-text-context">了解更多</div>
@@ -145,7 +146,7 @@
             class="links"
             style="border-radius: 0px 12px 12px 0px"
           >
-            <img src="icons/group.svg" />
+            <img class="icon-group" />
             <div style="margin-left: 10px">
               <div class="setting-nav-text-title">赞助者</div>
               <div class="setting-nav-text-context">感谢支持</div>
