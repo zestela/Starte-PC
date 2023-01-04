@@ -30,6 +30,8 @@ add-type $code
     }
 }
 
+module.exports.setWallpaper = setWallpaper;
+
 module.exports.setWallPaperOut = async function (id) {
     let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
         timeout: 30000
@@ -40,7 +42,7 @@ module.exports.setWallPaperOut = async function (id) {
         });
     wallpaperData = wallpaperData.data;
 
-    if (wallpaperData.code !== 0) {
+    if (wallpaperData.code == 1) {
         let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
         if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
             downloadImage(wallpaperData.data.url, id + ".png")

@@ -1,16 +1,18 @@
 let dataLst;
 
 window.onload = async function () {
-    const data = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
-    dataLst = data;
-    for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
-        var photoDate = new Date(dataLst.data[i].date);
-        var photoMonth = photoDate.getMonth() + 1;
-        var photoDay = photoDate.getDate();
-        document.getElementById("wallpaper-list").insertAdjacentHTML(
-            'beforeend',
-            `
-        <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url}),url(./icons/default-bg.png);">
+    fetch('https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php')
+        .then(response => response.json())
+        .then(data => {
+            dataLst = data;
+            for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
+                let photoDate = new Date(dataLst.data[i].date);
+                let photoMonth = photoDate.getMonth() + 1;
+                let photoDay = photoDate.getDate();
+                document.getElementById("wallpaper-list").insertAdjacentHTML(
+                    'beforeend',
+                    `
+        <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url}),url(./icons/loading-bg.png);">
             <div>
                 <div>
                 <div class="title-and-icons">
@@ -32,6 +34,7 @@ window.onload = async function () {
                 </div>
                 <h3>${dataLst.data[i].describe}</h3>
             </div>
-    </div>`);
-    }
+        </div>`);
+            }
+        });
 };
