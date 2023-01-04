@@ -17,6 +17,7 @@ body {
 }
 
 .share-main #mainPicture {
+    -webkit-user-drag:none;
     width: 100%;
 }
 
@@ -44,5 +45,6 @@ body {
 }
 
 img.share-qrcode {
+    -webkit-user-drag:none;
     width: 64px;
 }

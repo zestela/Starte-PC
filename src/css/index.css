@@ -1,124 +1,129 @@
 body {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position:center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
 }
 
 .image-info {
-    position: absolute;
-    left:20px;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap:10px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .mainpage-text {
-    width: 40vw;
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    border-style:solid;
-    border-radius: 10px;
-    border-width: 0.7px;
-    border-color: rgba(255, 255, 255, 0.212);
-    padding: 25px 25px 25px 25px;
+  width: 40vw;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 0.7px;
+  border-color: rgba(255, 255, 255, 0.212);
+  padding: 25px 25px 25px 25px;
 }
 
 .mainpage-text-disappering {
-    animation:fadenum 1s forwards;
+  animation: fadenum 1s forwards;
 }
 
 .mainpage-text-showing {
-    animation:fadenumshow 1s forwards;
+  animation: fadenumshow 1s forwards;
 }
 
 .mainpage-text-disappered {
-    display: none;
+  display: none;
 }
 
 .mainpage-text-showed {
-    margin-left: -400px !important;
-    opacity: 0;
+  margin-left: -400px !important;
+  opacity: 0;
 }
 
-@keyframes fadenum{
-    100%{transform:translateX(-400px);opacity:0;}
+@keyframes fadenum {
+  100% {
+    transform: translateX(-400px);
+    opacity: 0;
   }
+}
 
-@keyframes fadenumshow{
-    100%{transform:translateX(400px);opacity:100;}
+@keyframes fadenumshow {
+  100% {
+    transform: translateX(400px);
+    opacity: 100;
   }
+}
 
 .image-action-icons {
-    display: flex;
-    align-items: center;
-    gap:10px;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 .mainpage-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(100%-50px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100%-50px);
 }
 
 #mainpage-text-title {
-    color: white;
-    font-weight: bold;
-    font-size: 45px;
-    user-select: none;
+  color: white;
+  font-weight: bold;
+  font-size: 45px;
+  user-select: none;
 }
 
 #mainpage-text-describe {
-    margin-top: 5px;
-    color: rgba(255, 255, 255, 0.707);
-    word-break: break-all;
-    font-size: 16.5px;
-    font-weight: normal;
-    user-select: none;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.707);
+  word-break: break-all;
+  font-size: 16.5px;
+  font-weight: normal;
+  user-select: none;
 }
 
 .mainpage-text-info {
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    border-style: solid;
-    border-radius: 500px;
-    border-width: 0.7px;
-    border-color: rgba(255, 255, 255, 0.212);
-    padding: 0px 25px 0px 15px;
-    height: 45px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  border-style: solid;
+  border-radius: 500px;
+  border-width: 0.7px;
+  border-color: rgba(255, 255, 255, 0.212);
+  padding: 0px 25px 0px 15px;
+  height: 45px;
 }
 
 .mainpage-text-disappear {
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.37);
-    backdrop-filter: blur(98px);
-    border-style: solid;
-    border-radius: 100px;
-    border-width: 0.7px;
-    border-color: rgba(255, 255, 255, 0.212);
-    height: 45px;
-    width: 45px;
-    cursor: pointer;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  border-style: solid;
+  border-radius: 100px;
+  border-width: 0.7px;
+  border-color: rgba(255, 255, 255, 0.212);
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
 }
 
-
 .bottom-line {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .image-date {
-    margin-left: 7px;
-    display: flex;
-    color:white;
-    font-weight: 600;
-    font-size: 14px;
+  margin-left: 7px;
+  display: flex;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
 }

@@ -1,11 +1,12 @@
 let mainpageData;
 
 document.getElementById("setWallpaper").addEventListener("click", function () {
-    window.electronAPI.setWallpaper(mainpageData.data.id);
+    window.electronAPI.setWallpaper(mainpageData.id);
 }, false);
 
 document.getElementById("share").addEventListener("click", function () {
-    window.electronAPI.share(mainpageData.data.id);
+    document.getElementById("share").disabled = true;
+    window.electronAPI.share(mainpageData.id);
 }, false);
 
 const mainpageText = document.getElementById("mainpage-text");
@@ -18,7 +19,7 @@ async function isDisappeard() {
     mainpageInfo.className = "mainpage-text-disappered";
     mainpageDisappearClass = "mainpage-text-show";
     mainpageDisappearImg.setAttribute("src", "./icons/expanded.svg");
-};
+}
 
 async function textDisappeaed() {
     if (mainpageDisappearClass == "mainpage-text-disappear") {
@@ -39,23 +40,30 @@ async function textDisappeaed() {
         mainpageDisappearImg.setAttribute("src", "./icons/expand.svg");
     }
 }
-window.onload = async function () {
-    mainpageData = await (await fetch('https://api.discoverse.space/new-mainpage/get-mainpage', { cache: 'no-cache' })).json();
-    let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.data.id + ".png");
-    document.body.style.backgroundImage = `url('${picUrl}')`;
-    let date = mainpageData.data.date;
-    date = date.split("-");
-    document.getElementById("date").innerText = date[0]  + " 年 " + date[1] + " 月 " + date[2] + " 日";
-    document.getElementById("mainpage-text-title").innerText = mainpageData.data.title;
-    document.getElementById("mainpage-text-describe").innerText = mainpageData.data.describe;
 
-    versionOnline = await (await fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })).json();
-    if (versionOnline.banben[0].name != await window.electronAPI.getVersion()) {
-        document
-            .getElementById("update-tip")
-            .setAttribute("class", "update-tip-checked");
-        document.getElementById("banbenhao").innerText =
-            versionOnline.banben[0].name;
-    }
+window.onload = async function () {
+    mainpageData = await window.electronAPI.getMainpageData();
+    let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.id + ".png");
+    document.body.style.backgroundImage = `url('${picUrl}')`;
+    let date = mainpageData.date;
+    date = date.split("-");
+    document.getElementById("date").innerText = date[0] + " 年 " + date[1] + " 月 " + date[2] + " 日";
+    document.getElementById("mainpage-text-title").innerText = mainpageData.title;
+    document.getElementById("mainpage-text-describe").innerText = mainpageData.describe;
+
     if (await window.electronAPI.getSetting('infoHide') == true) isDisappeard();
 };
+
+window.requestIdleCallback(() => {
+    fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })
+    .then(response => response.json())
+    .then(async (versionOnline) => {
+        if (versionOnline.banben[0].name != await window.electronAPI.getVersion()) {
+            document
+                .getElementById("update-tip")
+                .setAttribute("class", "update-tip-checked");
+            document.getElementById("banbenhao").innerText =
+                versionOnline.banben[0].name;
+        }
+    });
+});

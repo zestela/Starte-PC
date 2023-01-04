@@ -16,6 +16,7 @@ const axios = require('axios');
 const ufs = require("./packages/url-file-size/index.js");
 const starte = require("./packages/starte/index.js");
 let mainWindow;
+let mainpageRendererData = {};
 let appTray = null;
 
 function reportError(errorMsg) {
@@ -34,7 +35,7 @@ async function infoToServer() {
   if (app.isPackaged) {
     const userVersion = require("./package.json").version;
     const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
-    const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 30000 })
+    const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 5000 })
       .catch(function (error) {
         const errorMsg = "向服务器存储数据时出现错误，请向我们反馈错误信息：" + error;
         reportError(errorMsg);
@@ -45,7 +46,7 @@ async function infoToServer() {
     const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
     console.log(getUrl);
     let sendInfoResult = await axios.get(getUrl, {
-      timeout: 30000
+      timeout: 5000
     }).catch(function (error) {
       reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
     });
@@ -134,6 +135,10 @@ app.whenReady().then(async () => {
     return require("./package.json").version;
   });
 
+  ipcMain.handle('get-mainpage-data', () => {
+    return mainpageRendererData;
+  });
+
   ipcMain.handle('get-setting', async (event, configName) => {
     return await starte.getSetting(configName);
   });
@@ -163,36 +168,45 @@ ipcMain.on('init', async () => {
     fs.mkdirSync(path.join(process.env.APPDATA, "starte-cache"));
   if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache", "config.json")))
     fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify({}));
+  if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json")))
+    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json"), JSON.stringify({}));
 
   const ifOpenConfig = await starte.getSetting("isSelfopen");
+  let mainpageCache = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json")));
 
   let mainpageData = await axios.get("https://api.discoverse.space/new-mainpage/get-mainpage", {
-    timeout: 30000
+    timeout: 10000
   })
     .catch(function (error) {
       console.log('Error', error.message);
       mainWindow.loadFile('src/timeout.html');
     });
+
   mainpageData = mainpageData.data;
-  const pictureSize = await ufs(mainpageData.data.url);
+  mainpageRendererData = mainpageData.data;
+
   if (mainpageData.code !== 0) {
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
-    if (!fs.existsSync(filename) || (pictureSize != fs.statSync(filename).size)) {
+    if (mainpageCache.date != mainpageData.data.date || !fs.existsSync(filename) || (mainpageCache.size != fs.statSync(filename).size)) {
       console.log("Log: start downloading");
+
+      mainpageCache.date = mainpageData.data.date;
+      mainpageCache.size = await ufs(mainpageData.data.url);
+      fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json"), JSON.stringify(mainpageCache));
+
       starte.downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
         .finally(() => {
           console.log("Log: download successfully");
           mainWindow.loadFile('src/index.html');
         });
-      if (ifOpenConfig == true) starte.setWallPaperOut(mainpageData.data.id);
+      if (ifOpenConfig == true) starte.setWallpaper(filename);
     } else {
       console.log("Log: load cache successfully");
       await mainWindow.loadFile('src/index.html');
-      if (ifOpenConfig == true) starte.setWallPaperOut(mainpageData.data.id);
     }
   } else {
     console.log("Log: there is no data of this month");
-    mainWindow.loadFile('src/timeout.html');
+    await mainWindow.loadFile('src/timeout.html');
   }
 });
 
@@ -213,7 +227,7 @@ ipcMain.on('share', async (event, id, type) => {
   shareId = id;
   shareType = type;
   let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-    timeout: 30000
+    timeout: 10000
   })
     .catch(function (error) {
       console.log('Error', error.message);
@@ -241,12 +255,14 @@ ipcMain.on('set-wallpaper', async (event, id) => {
 
 ipcMain.on('save-share', async (event, data) => {
   let dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-  fs.writeFile(dialog.showSaveDialogSync({
+  let filePath = dialog.showSaveDialogSync({
     filters: [{
       name: 'img',
       extensions: ['jpeg']
     }]
-  }), dataBuffer, () => { });
+  });
+  if(filePath != undefined)
+    fs.writeFile(filePath, dataBuffer, () => { });
 });
 
 ipcMain.on("go-to-page", async (event, pageId) => {

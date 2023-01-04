@@ -4,32 +4,31 @@ document.getElementById("star-list").onwheel = function (event) {
 };
 
 window.onload = async function () {
-    const wallpaperData = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
-    const data = await (await fetch(`https://api.discoverse.space/new-book/get-book-sentence-list.php`)).json();
-    dataLst = data;
-    photoDate = new Date(dataLst.data[Object.keys(data.data).length - 1].date);
-    photoMonth = photoDate.getMonth() + 1;
-    photoDay = photoDate.getDate();
-    isfromwho = "—— " + data.data[Object.keys(data.data).length - 1].from;
+    fetch('https://api.discoverse.space/new-book/get-book-sentence-list.php')
+        .then(response => response.json())
+        .then(async (data) => {
+            dataLst = data;
+            const wallpaperData = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
+            photoDate = new Date(dataLst.data[Object.keys(data.data).length - 1].date);
+            photoMonth = photoDate.getMonth() + 1;
+            photoDay = photoDate.getDate();
+            isfromwho = "—— " + data.data[Object.keys(data.data).length - 1].from;
 
-    for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
-        var photoDate1 = new Date(dataLst.data[i].date);
-        var photoMonth1 = photoDate1.getMonth() + 1;
-        var photoDay1 = photoDate1.getDate();
-        var fromwho = "—— " + data.data[i].from;
+            for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
+                let photoDate1 = new Date(dataLst.data[i].date);
+                let photoMonth1 = photoDate1.getMonth() + 1;
+                let photoDay1 = photoDate1.getDate();
+                let fromwho = "—— " + data.data[i].from;
 
-        document.getElementById("star-list").insertAdjacentHTML(
-            'beforeend',
-            `
-        <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url}),url(./icons/default-bg.png);;">
+                document.getElementById("star-list").insertAdjacentHTML(
+                    'beforeend',
+                    `
+        <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url}),url(./icons/loading-bg.png);;">
             <div class="texts">
-
                 <div>
                     <h1>${data.data[i].sentence}</h1>
                     <h3>${fromwho}</h3>
                 </div>
-
-
             </div>
             <div class="star-watching-bottom">
                 <div class="disPLAYDATE">
@@ -41,6 +40,9 @@ window.onload = async function () {
                     <img class="icon-share">
                 </button>
             </div>
-    </div>`);
-    }
+        </div>`);
+            }
+        });
+
+
 };

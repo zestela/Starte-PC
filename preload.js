@@ -1,14 +1,15 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    init: () => ipcRenderer.send('init'), // init mainpage
-    setWallpaper: (id) => ipcRenderer.send('set-wallpaper', id), // set wallpaper
-    getcwd: () => ipcRenderer.invoke('get-cwd'), // get electron's cwd
+    init: () => ipcRenderer.send('init'),
+    setWallpaper: (id) => ipcRenderer.send('set-wallpaper', id),
+    getcwd: () => ipcRenderer.invoke('get-cwd'),
     getSetting: (name) => ipcRenderer.invoke('get-setting', name),
-    getappdata: () => ipcRenderer.invoke('get-appdata'), // get electron's cwd
+    getappdata: () => ipcRenderer.invoke('get-appdata'),
     getId: () => ipcRenderer.invoke('get-shareId'),
+    getMainpageData: () => ipcRenderer.invoke('get-mainpage-data'),
     getShareType: () => ipcRenderer.invoke('get-shareType'),
-    windowEvents: (type) => ipcRenderer.send('window-events', type), // windows events
+    windowEvents: (type) => ipcRenderer.send('window-events', type),
     share: (id, type) => ipcRenderer.send('share', id, type),
     saveShare: (data) => ipcRenderer.send('save-share', data),
     goToPage: (pageId) => ipcRenderer.send("go-to-page", pageId),
