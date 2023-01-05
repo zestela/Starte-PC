@@ -12,38 +12,8 @@
   </head>
 
   <body>
-    <div class="topbar">
-      <div class="topbar-menu">
-        <img class="topbar-logo icon-logo" />
-        <button class="onhover" onclick="window.electronAPI.goToPage(4)">
-          <img style="width: 13px; height: 13px" class="icon-back" />
-        </button>
-      </div>
-      <div class="topbar-icons-all">
-        <div class="topbar-icons">
-          <button
-            class="onhover add-icon-onhover"
-            onclick="window.electronAPI.goToPage(7);"
-          >
-          <img class="add-icon icon-add"/>
-          </button>
-          <button class="onhover" onclick="window.electronAPI.goToPage(3);">
-            <img class="add-icon icon-settings" />
-          </button>
-          <button class="onhover" onclick="window.electronAPI.windowEvents(1);">
-            <img class="icon-min" />
-          </button>
-          <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-            <img class="icon-max" />
-          </button>
-          <button
-            class="onhover closeonhover"
-            onclick="window.electronAPI.windowEvents(3);"
-          >
-          <img class="icon-close" />
-          </button>
-        </div>
-      </div>
+    <div class="topbar" id="topbar">
+      
     </div>
 
     <div class="setting-contain">
@@ -72,11 +42,17 @@
         <div class="vwo50-container">
           <div class="vwo50">
             <div style="font-weight: 600; font-size: 30px">赞助者鸣谢</div>
-            <div id="vwo50-users"></div>
+            <div id="vwo50-users">
+              <div class="vwo50-user">
+                <img src="./icons/linluAvatar.jpg">
+                <div>凌禄</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="./js/unique-topbar.js"></script>
   <script src="./js/vwo50.js"></script>
 </html>

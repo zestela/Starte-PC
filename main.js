@@ -86,7 +86,7 @@ async function createWindow() {
   },
   {
     label: '投稿',
-    icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toSUb.png")),
+    icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toSubmission.png")),
     click: function () {
       mainWindow.loadFile("src/submission.html");
       mainWindow.show();
@@ -97,7 +97,7 @@ async function createWindow() {
     icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toExit.png")),
     click: function () {
       app.quit();
-      app.quit(); //因为程序设定关闭为最小化，所以调用两次关闭，防止最大化时一次不能关闭的情况
+      app.quit();  // 因为程序设定关闭为最小化，所以调用两次关闭，防止最大化时一次不能关闭的情况
     }
   }
   ];
@@ -293,6 +293,9 @@ ipcMain.on("go-to-page", async (event, pageId) => {
       break;
     case 9:
       await mainWindow.loadFile("src/vwo50.html");
+      break;
+    case 10:
+      await mainWindow.loadFile("src/vicissitudes.html");
       break;
   }
 });

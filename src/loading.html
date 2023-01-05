@@ -21,32 +21,9 @@
           backdrop-filter: none;
           position: static;
         "
+        id="topbar"
       >
-        <div class="topbar-menu">
-          <img class="topbar-logo icon-logo" />
-        </div>
-        <div class="topbar-icons-all">
-          <div class="topbar-icons">
-            <button
-              class="onhover"
-              onclick="window.electronAPI.windowEvents(1);"
-            >
-              <img class="icon-min" />
-            </button>
-            <button
-              class="onhover"
-              onclick="window.electronAPI.windowEvents(2);"
-            >
-              <img class="icon-max" />
-            </button>
-            <button
-              class="onhover closeonhover"
-              onclick="window.electronAPI.windowEvents(3);"
-            >
-            <img class="icon-close" />
-            </button>
-          </div>
-        </div>
+        
       </div>
       <div>
         <div class="flex-logo">
@@ -58,9 +35,11 @@
         <div class="loading"></div>
         <h3 class="text-connecting">正在加载数据</h3>
         <h3 class="text-dev">Beta Edition</h3>
+        <h3 class="text-dev" style="margin-top: -10px;">使用即视为同意<a href="https://discoverse.space/starte-agreement/">许可协议</a></h3>
       </div>
     </div>
   </body>
+  <script src="./js/unique-topbar.js"></script>
   <script>
     window.electronAPI.init();
   </script>
