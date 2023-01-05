@@ -58,6 +58,8 @@ button {
 }
 
 .topbar .topbar-menu {
+  margin-left: 18px;
+  gap: 2px;
   display: flex;
   align-items: center;
   user-select: none;
@@ -81,9 +83,8 @@ button {
 }
 
 .topbar-logo {
-  margin-left: 18px;
-  margin-right: 16px;
   width: 18px;
+  margin-right: 10px;
 }
 
 .topbar-icons-all {
@@ -169,7 +170,6 @@ body {
 
 .menu-item {
   cursor: pointer;
-  margin-right: 10px;
   border-radius: 7px;
   background: none;
   padding: 14px 9px 14px 9px;
@@ -193,7 +193,6 @@ body {
   background: none;
   padding: 14px 9px 14px 9px;
   border: none;
-  margin-right: 10px;
 }
 
 .menu-item:hover {

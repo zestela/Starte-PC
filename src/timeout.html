@@ -16,29 +16,8 @@
     <div class="loading-container">
         <div class="loading-container">
           <div class="topbar" style="background: none;background-color: rgba(0, 0, 0, 0);
-          backdrop-filter: none;position: static;">
-            <div class="topbar-menu">
-              <img class="topbar-logo icon-logo"/>
-            </div>
-            <div class="topbar-icons-all">
-              <div class="topbar-icons">
-                <button
-                  class="onhover"
-                  onclick="window.electronAPI.windowEvents(1);"
-                >
-                <img class="icon-min"/>
-                </button>
-                <button class="onhover" onclick="window.electronAPI.windowEvents(2);">
-                  <img class="icon-max"/>
-                </button>
-                <button
-                  class="onhover closeonhover"
-                  onclick="window.electronAPI.windowEvents(3);"
-                >
-                <img class="icon-close" />
-                </button>
-              </div>
-            </div>
+          backdrop-filter: none;position: static;" id="topbar">
+            
           </div>
 
     <div class="timeout-container">
@@ -57,6 +36,7 @@
     </div>
     </div>
 </body>
+<script src="./js/unique-topbar.js"></script>
 <script>
 
 </script>
