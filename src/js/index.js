@@ -29,7 +29,7 @@ async function textDisappeaed() {
         setTimeout(() => {
             mainpageText.className = "mainpage-text-disappered";
             mainpageInfo.className = "mainpage-text-disappered";
-        }, 1000);
+        }, 500);
         mainpageDisappearClass = "mainpage-text-show";
         mainpageDisappearImg.setAttribute("src", "./icons/expanded.svg");
     } else {
