@@ -24,5 +24,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     goToPage: (pageId) => ipcRenderer.send("go-to-page", pageId),
     getVersion: () => ipcRenderer.invoke('get-version'),
     outAlert: (str) => ipcRenderer.send('out-alert', str),
-    setSetting: (name, value) => ipcRenderer.send('set-setting', name, value)
+    setSetting: (name, value) => ipcRenderer.send('set-setting', name, value),
+    goToPageWithArgs: (page, id) => ipcRenderer.send('go-to-page-with-args', page, id),
+    getIfArgs: () => ipcRenderer.invoke('get-if-args')
 });

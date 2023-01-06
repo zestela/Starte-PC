@@ -10,12 +10,20 @@
 let fileUrl = location.href.split('/');
 let fileName = fileUrl[fileUrl.length - 1];
 
-const commonTopbarFile = new Array("index.html","settings-about.html","settings.html","star-watching.html","submission.html","vicissitudes.html","wallpaper-list.html");
+const commonTopbarFile = new Array("index.html","settings-about.html","settings.html","star-watching.html","submission.html","vicissitudes.html","wallpaper-list.html","search.html");
 const loadingTopbarFile = new Array("loading.html","timeout.html");
 const backTopbarFile = new Array("share.html","check-new.html","vwo50.html");
 let isCommonFile = commonTopbarFile.indexOf(fileName);
 let isLoadingFile = loadingTopbarFile.indexOf(fileName);
 let isBackFile = backTopbarFile.indexOf(fileName);
+
+function sendToSearch() {
+  const keyword = document.getElementById("search-content").value;
+   const hits = window.electronAPI.algoliaSearch(keyword);
+   console.log(hits);
+   const resjs = hits[0].title;
+   window.electronAPI.outAlert(resjs);
+}
 
 if (isCommonFile > -1) {
 	document.getElementById("topbar").insertAdjacentHTML(
@@ -41,6 +49,9 @@ if (isCommonFile > -1) {
           <button class="onhover add-icon-onhover" onclick="window.electronAPI.goToPage(7);" id="sub-icon">
             <img class="add-icon icon-add"
             />
+          </button>
+          <button class="onhover" onclick="window.electronAPI.goToPage(11);">
+            <img class="icon-search"/>
           </button>
           <button class="onhover" onclick="window.electronAPI.goToPage(3);">
             <img class="add-icon icon-settings"/>

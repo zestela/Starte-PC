@@ -25,11 +25,11 @@ body {
 }
 
 .mainpage-text-disappering {
-  animation: fadenum 1s forwards;
+  animation: fadenum 0.5s forwards;
 }
 
 .mainpage-text-showing {
-  animation: fadenumshow 1s forwards;
+  animation: fadenumshow 0.5s forwards;
 }
 
 .mainpage-text-disappered {

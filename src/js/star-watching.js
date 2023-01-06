@@ -23,7 +23,7 @@ window.onload = async function () {
                 document.getElementById("star-list").insertAdjacentHTML(
                     'beforeend',
                     `
-        <div class="star-watching-in-list" style="background-image: url(${wallpaperData.data[i].url}),url(./icons/loading-bg.png);;">
+        <div class="star-watching-in-list" id="${data.data[i].id}" style="background-image: url(${wallpaperData.data[i].url}),url(./icons/loading-bg.png);;">
             <div class="texts">
                 <div>
                     <h1>${data.data[i].sentence}</h1>
@@ -42,6 +42,17 @@ window.onload = async function () {
             </div>
         </div>`);
             }
+
+            let pageAnchor;
+            window.electronAPI.getIfArgs().then((result) => {
+            pageAnchor = result;
+            if (pageAnchor=="114514") {
+                console.log("114514");
+            } else {
+                // 本案例默认滚动元素是　html ，你可以根据你需要的滚动元素进行设置。
+                document.getElementById(pageAnchor.toString()).scrollIntoView({ behavior: 'smooth' , block: "start", inline: "start"});
+            }
+            });
         });
 
 

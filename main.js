@@ -152,6 +152,14 @@ app.whenReady().then(async () => {
     return await starte.getSetting(configName);
   });
 
+  ipcMain.handle('get-if-args', () => {
+    if (typeof(pageAnchor) == "undefined") {
+      return "114514";
+    } else {
+      return pageAnchor;
+    }
+  });
+
   createWindow();
 
   app.on('activate', function () {
@@ -306,6 +314,18 @@ ipcMain.on("go-to-page", async (event, pageId) => {
     case 10:
       await mainWindow.loadFile("src/vicissitudes.html");
       break;
+    case 11:
+      await mainWindow.loadFile("src/search.html");
+      break;
+  }
+});
+
+ipcMain.on("go-to-page-with-args", async (event, page, id) => {
+  pageAnchor = id;
+  if (page=="wallpaper-list") {
+    await mainWindow.loadFile("src/wallpaper-list.html");
+  } else if (page=="sentence") {
+    await mainWindow.loadFile("src/star-watching.html");
   }
 });
 

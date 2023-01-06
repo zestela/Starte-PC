@@ -12,7 +12,7 @@ window.onload = async function () {
                 document.getElementById("wallpaper-list").insertAdjacentHTML(
                     'beforeend',
                     `
-        <div class="wallpaper-in-list" style="background-image: url(${dataLst.data[i].url}),url(./icons/loading-bg.png);">
+        <div class="wallpaper-in-list" id="${dataLst.data[i].id}" style="background-image: url(${dataLst.data[i].url}),url(./icons/loading-bg.png);">
             <div>
                 <div>
                 <div class="title-and-icons">
@@ -36,5 +36,15 @@ window.onload = async function () {
             </div>
         </div>`);
             }
+            let pageAnchor;
+            window.electronAPI.getIfArgs().then((result) => {
+            pageAnchor = result;
+            if (pageAnchor=="114514") {
+                console.log("114514");
+            } else {
+                document.getElementById(pageAnchor.toString()).scrollIntoView({ behavior: 'smooth' , block: "start", inline: "start"});
+            }
+            });
         });
 };
+ 
