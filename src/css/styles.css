@@ -264,3 +264,54 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+
+.date-all {
+  margin-top: 45px;
+  margin-left: 5vw;
+}
+
+.date {
+  text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.777);
+  color:white;
+  font-weight: 600;
+  font-size: 23px;
+}
+
+.day {
+  color:white;
+  font-weight: 300;
+  font-size: 14px;
+  text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.777);
+}
+
+.go-to-today {
+  margin-top: 45px;
+  margin-right: 5vw;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(98px);
+  border-style: solid;
+  border-radius: 13px;
+  border-width: 0.6px;
+  border-color: rgba(255, 255, 255, 0.212);
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap:10px;
+  cursor: pointer;
+}
+
+
+.top-photo-title{
+  color: rgba(255, 255, 255, 0.60);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.view-icon {
+  opacity: 0.6;
+}
+
+.go-to-icon {
+  opacity: 0.6;
+}

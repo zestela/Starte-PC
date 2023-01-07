@@ -18,9 +18,33 @@
   </head>
 
   <body>
-    <div class="topbar" id="topbar">
-      
+    <div class="topbar" id="topbar"></div>
+    <div class="top-bg-photo" id="top-bg-photo">
+      <div class="date-all" id="date-all">
+        <div class="date" id="date"></div>
+        <div class="day" id="day"></div>
+      </div>
+      <div class="go-to-today" id="go-to-today" onclick="window.electronAPI.goToPage(1)">
+        <img class="icon-view view-icon"/>
+        <div class="top-photo-title" id="photo-title"></div>
+        <img class="icon-go-to go-to-icon"/>
+      </div>
+    </div>
+
+    <div class="vicissitudes-container">
+      <div class="vicissitudes-left">
+        <div class="vicissitudes-left-title"><divv id="article-menu" class="vicissitudes-left-title-current">推荐</divv><divv id="article-menu">小说</divv><divv id="article-menu">科普</divv></div>
+        <divs class="vicissitudes-left-content" id="left-content-rec"></divs>
+        <divs class="vicissitudes-left-card-notshow" id="left-content-novel"></divs>
+        <divs class="vicissitudes-left-card-notshow" id="left-content-kepu"></divs>
+      </div>
+      <div class="vicissitudes-right">
+        <div class="vicissitudes-right-title"><img class="icon-latest-posts"/><div>近期更新</div></div>
+        <div class="vicissitudes-right-content" id="right-content">
+        </div>
+      </div>
     </div>
   </body>
   <script src="./js/unique-topbar.js"></script>
+  <script src="./js/vicissitudes.js"></script>
 </html>

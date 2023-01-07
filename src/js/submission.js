@@ -8,6 +8,10 @@ function testIfPhoto(filenames) {
     return false;
   }
 }
+let UserMachineId;
+window.electronAPI.getMachineId().then((result) => {
+  UserMachineId = result;
+});
 let el = document.getElementById('userDesctibe');
 el.addEventListener('input', function () {
   let len = txtCount(this); //   调用函数 
@@ -97,7 +101,7 @@ function sendEmailToOfficial() {
   let UserName = document.getElementById("userName").value;
   let UserEmail = document.getElementById("userEmail").value;
   let UserCopyright = document.getElementById("userCopyright").value;
-  let sendMessage = "标题：" + UserTitle + "，描述：" + UserDescribe + "，署名：" + UserName + "，邮箱：" + UserEmail + "，版权方：" + UserCopyright;
+  let sendMessage = "标题：" + UserTitle + "，描述：" + UserDescribe + "，署名：" + UserName + "，邮箱：" + UserEmail + "，版权方：" + UserCopyright+"，机器码："+UserMachineId;
   formData = new FormData();
   formData.append("file", document.getElementById('file-uploader').files[0]);
   formData.append("SendMessage", sendMessage); //需要上传的多个参数
@@ -162,7 +166,7 @@ function sendEmailToOfficial() {
     });
     document.getElementById('submit-button').value = "提交中，请等待…… (预计需要至少 40 秒，切勿切换或关闭页面)";
     document.getElementById('submit-button').onclick = null;
-    setTimeout(timeoutle(), 300000);
+    setTimeout(() => { timeoutle(); }, 300000);
   } else {
     window.electronAPI.outAlert("电子邮件格式错误！");
     return false;

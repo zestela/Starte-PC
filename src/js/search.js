@@ -1,4 +1,8 @@
-
+window.onload = async function () {
+    let mainpageData = await window.electronAPI.getMainpageData();
+    let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.id + ".png");
+    document.getElementById("search-box-container").style.backgroundImage = `url('${picUrl}')`;
+}
 
 const client = algoliasearch('F5COT69QR9', '84da8bc86878d16cce3804fcbe35cf05');
 const index = client.initIndex('startePhotoDatabase');
@@ -18,6 +22,8 @@ function searchAlgolia() {
         index.search(searchKeyword, {
             attributesToRetrieve: ['title', 'describe', 'url', 'objectID'],
         }).then(({ hits }) => {
+        document.getElementById("search-box-container").className = "search-box-container-after";
+        document.getElementById("search-results").className = "search-results-after";
         console.log(hits);
         document.getElementById("photos-result-title").innerHTML = "图片";
         document.getElementById("photos-results").innerHTML = null;

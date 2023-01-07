@@ -67,6 +67,21 @@ async function infoToServer() {
   }
 }
 
+async function ifBeBanned() {
+    const getUrl = `https://api.discoverse.space/banned-machine-id/banned.php?machine-id=${require("node-machine-id").machineIdSync({ original: true })}`;
+    let sendInfoResult = await axios.get(getUrl, {
+      timeout: 5000
+    }).catch(function (error) {
+      reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
+    });
+    sendInfoResult = sendInfoResult.data;
+    if (sendInfoResult.msg == "OK") {
+      reportError("您已经被禁止使用观星记。原因："+sendInfoResult.data.reason+"，封禁时间持续到："+sendInfoResult.data.toTime+"，如有疑问请联系我们。");
+      app.quit();
+      app.quit();
+    } else {return 0};
+}
+
 async function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 900,
@@ -160,12 +175,20 @@ app.whenReady().then(async () => {
     }
   });
 
+  ipcMain.handle('get-vici-detail', () => {
+    return viciId;
+  });
+
+  ipcMain.handle('get-machine-id', () => {
+    return require("node-machine-id").machineIdSync({ original: true });
+  });
+
   createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-
+  ifBeBanned();
   infoToServer();
 });
 
@@ -360,4 +383,9 @@ ipcMain.on("set-setting", async (event, configName, value) => {
       console.log(err);
     }
   }
+});
+
+ipcMain.on("go-vici-detail", async (event, Id) => {
+  viciId = Id;
+  await mainWindow.loadFile("src/vicissitudes-detail.html");
 });
