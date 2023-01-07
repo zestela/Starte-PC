@@ -1,0 +1,118 @@
+body {
+    background-color: #181818;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.article {
+    margin-top: 100px;
+    width: 55vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    font-size: 26px;
+    color: white;
+    font-weight: bold;
+}
+
+.detail {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.625);
+    font-weight: bold;
+}
+
+.content {
+    user-select: text;
+    font-size: 14.5px;
+    line-height: 22px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    padding-bottom: 45px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+h4 {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.content img {
+    border-radius: 10px;
+    width: 55vw;
+}
+
+
+p {
+    text-align:justify;
+}
+
+h1::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+h2::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+h3::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+h4::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+h5::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+p::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+
+@media screen and (max-width: 1000px){ 
+    .article {
+        margin-top: 100px;
+        width: 65vw;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .content img {
+        border-radius: 10px;
+        width: 65vw;
+    }
+}

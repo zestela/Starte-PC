@@ -12,7 +12,7 @@ let fileName = fileUrl[fileUrl.length - 1];
 
 const commonTopbarFile = new Array("index.html","settings-about.html","settings.html","star-watching.html","submission.html","vicissitudes.html","wallpaper-list.html","search.html");
 const loadingTopbarFile = new Array("loading.html","timeout.html");
-const backTopbarFile = new Array("share.html","check-new.html","vwo50.html");
+const backTopbarFile = new Array("share.html","check-new.html","vwo50.html","vicissitudes-detail.html");
 let isCommonFile = commonTopbarFile.indexOf(fileName);
 let isLoadingFile = loadingTopbarFile.indexOf(fileName);
 let isBackFile = backTopbarFile.indexOf(fileName);
@@ -134,6 +134,9 @@ if (isCommonFile > -1) {
           >
           <img class="add-icon icon-add"/>
           </button>
+          <button class="onhover" onclick="window.electronAPI.goToPage(11);">
+            <img class="icon-search"/>
+          </button>
           <button class="onhover" onclick="window.electronAPI.goToPage(3);">
             <img class="add-icon icon-settings" />
           </button>
@@ -158,6 +161,8 @@ if (isCommonFile > -1) {
         document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(4)");
       } else if (fileName=="check-new.html") {
         document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(4)");
+      } else if (fileName=="vicissitudes-detail.html") {
+        document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(10)");
       }
 } else {
     console.log("什么玩意？")
