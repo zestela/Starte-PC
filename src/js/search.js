@@ -2,7 +2,7 @@ window.onload = async function () {
     let mainpageData = await window.electronAPI.getMainpageData();
     let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + mainpageData.id + ".png");
     document.getElementById("search-box-container").style.backgroundImage = `url('${picUrl}')`;
-}
+};
 
 const client = algoliasearch('F5COT69QR9', '84da8bc86878d16cce3804fcbe35cf05');
 const index = client.initIndex('startePhotoDatabase');
@@ -36,11 +36,11 @@ function searchAlgolia() {
                   <div class="photo-describe">${hits[i].describe.substring(0,20) + "..."}</div>
                 </div>
                 </div>
-                `)
+                `);
             }
         } else {
             document.getElementById("photos-results").innerHTML = "无数据";
-        } })
+        } });
 
         sentenceIndex.search(searchKeyword, {
             attributesToRetrieve: ['sentence', 'from'],
@@ -57,10 +57,10 @@ function searchAlgolia() {
                     <div class="photo-describe" style="text-align: end;">${"——"+hits[i].from}</div>
                     </div>
                     </div>
-                    `)
+                    `);
                 }
             } else {
                 document.getElementById("sentence-results").innerHTML = "无数据";
-        } })
+        } });
     }
 }
