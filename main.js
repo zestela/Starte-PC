@@ -44,7 +44,7 @@ async function infoToServer() {
   if (app.isPackaged) {
     const userVersion = require("./package.json").version;
     const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
-    const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 5000 })
+    const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
       .catch(function (error) {
         const errorMsg = "向服务器存储数据时出现错误，请向我们反馈错误信息：" + error;
         reportError(errorMsg);
@@ -52,10 +52,10 @@ async function infoToServer() {
     const ipAddress = getipAddress.data.ip;
     const timestamp = Math.round(new Date().getTime() / 1000);
     const uniqueUserSession = String(ipAddress.replace(/\./g, '') + Math.floor(Math.random() * 100) + timestamp % 1000).replace(/\./g, '');
-    const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
+    const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({original:true})}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
     console.log(getUrl);
     let sendInfoResult = await axios.get(getUrl, {
-      timeout: 5000
+      timeout: 30000
     }).catch(function (error) {
       reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
     });
@@ -68,9 +68,9 @@ async function infoToServer() {
 }
 
 async function ifBeBanned() {
-    const getUrl = `https://api.discoverse.space/banned-machine-id/banned.php?machine-id=${require("node-machine-id").machineIdSync({ original: true })}`;
+    const getUrl = `https://api.discoverse.space/banned-machine-id/banned.php?machine-id=${require("node-machine-id").machineIdSync({original: true})}`;
     let sendInfoResult = await axios.get(getUrl, {
-      timeout: 5000
+      timeout: 30000
     }).catch(function (error) {
       reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
     });
@@ -182,14 +182,13 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-machine-id', () => {
     return require("node-machine-id").machineIdSync({ original: true });
   });
-
+  ifBeBanned()
   createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-  ifBeBanned();
-  infoToServer();
+  infoToServer()
 });
 
 app.on('window-all-closed', function () {
@@ -215,7 +214,7 @@ ipcMain.on('init', async () => {
   let mainpageCache = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json")));
 
   let mainpageData = await axios.get("https://api.discoverse.space/new-mainpage/get-mainpage", {
-    timeout: 10000
+    timeout: 30000
   })
     .catch(function (error) {
       console.log('Error', error.message);
@@ -242,7 +241,9 @@ ipcMain.on('init', async () => {
       if (ifOpenConfig == true) starte.setWallpaper(filename);
     } else {
       console.log("Log: load cache successfully");
-      await mainWindow.loadFile('src/index.html');
+      await mainWindow.loadFile('src/index.html').catch(function (error) {
+        console.log(error);
+      });
     }
   } else {
     console.log("Log: there is no data of this month");
@@ -267,7 +268,7 @@ ipcMain.on('share', async (event, id, type) => {
   shareId = id;
   shareType = type;
   let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-    timeout: 10000
+    timeout: 30000
   })
     .catch(function (error) {
       console.log('Error', error.message);
