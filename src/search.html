@@ -5,56 +5,53 @@
     基于 MIT License 开源
     任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
  -->
- <!DOCTYPE html>
- <html lang="zh-CN">
-   <head>
-     <meta charset="UTF-8" />
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>观星记</title>
-     <link href="./css/styles.css" rel="stylesheet" />
-     <link href="./css/search.css" rel="stylesheet" />
-     <link href="./css/icons.css" rel="stylesheet" />
-   </head>
- 
-   <body>
-      <div class="topbar" id="topbar"></div>
-      <div class="search-box-container" id="search-box-container">
-        <div class="input-box">
-          <input type="text" class="inputing" placeholder="搜索往日图片或观星句子..." id="search-input" maxlength="20">
-          <img class="icon-search search-icon" onclick="searchAlgolia()" id="search-button"/>
-        </div>
-      </div>
-      <div class="search-results" id="search-results">
-        <div class="photos-results-container">
-          <div class="photos-result-title" id="photos-result-title"></div>
-          <div class="photos-results" id="photos-results">
-          </div>
-        </div>
-        <div class="photos-results-container">
-          <div class="photos-result-title" id="sentence-result-title"></div>
-          <div class="photos-results" id="sentence-results">
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>观星记</title>
+    <link href="./css/styles.css" rel="stylesheet" />
+    <link href="./css/search.css" rel="stylesheet" />
+    <link href="./css/icons.css" rel="stylesheet" />
+  </head>
 
-          </div>
-        </div>
+  <body>
+    <div class="topbar" id="topbar"></div>
+    <div class="search-box-container" id="search-box-container">
+      <div class="input-box">
+        <input
+          type="text"
+          class="inputing"
+          placeholder="搜索往日图片或观星句子..."
+          id="search-input"
+          maxlength="20"
+        />
+        <img
+          class="icon-search search-icon"
+          onclick="searchAlgolia()"
+          id="search-button"
+        />
       </div>
-
-    </body>
-    <!-- search only version -->
-    <script
+    </div>
+    <div class="search-results" id="search-results">
+      <div class="photos-results-container">
+        <div class="photos-result-title" id="photos-result-title"></div>
+        <div class="photos-results" id="photos-results"></div>
+      </div>
+      <div class="photos-results-container">
+        <div class="photos-result-title" id="sentence-result-title"></div>
+        <div class="photos-results" id="sentence-results"></div>
+      </div>
+    </div>
+  </body>
+  <!-- search only version -->
+  <script
     src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js"
     integrity="sha256-dImjLPUsG/6p3+i7gVKBiDM8EemJAhQ0VvkRK2pVsQY="
     crossorigin="anonymous"
-    ></script>
-    <!-- default version -->
-    <script
-    src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-    integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-    crossorigin="anonymous"
-    ></script>
-    <script src="./js/search.js"></script>
-    <script src="./js/unique-topbar.js"></script>
- </html>
-
-
- 
+  ></script>
+  <script src="./js/search.js"></script>
+  <script src="./js/unique-topbar.js"></script>
+</html>

@@ -1,5 +1,5 @@
 /**
- * 
+ *
     观星记 Starte
     Copyright (c) 2022-2023, discoverse.space.
     网站: https://discoverse.space/starte/
@@ -52,7 +52,7 @@ async function infoToServer() {
     const ipAddress = getipAddress.data.ip;
     const timestamp = Math.round(new Date().getTime() / 1000);
     const uniqueUserSession = String(ipAddress.replace(/\./g, '') + Math.floor(Math.random() * 100) + timestamp % 1000).replace(/\./g, '');
-    const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({original:true})}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
+    const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
     console.log(getUrl);
     let sendInfoResult = await axios.get(getUrl, {
       timeout: 30000
@@ -65,21 +65,6 @@ async function infoToServer() {
   } else {
     return 0;
   }
-}
-
-async function ifBeBanned() {
-    const getUrl = `https://api.discoverse.space/banned-machine-id/banned.php?machine-id=${require("node-machine-id").machineIdSync({original: true})}`;
-    let sendInfoResult = await axios.get(getUrl, {
-      timeout: 30000
-    }).catch(function (error) {
-      reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
-    });
-    sendInfoResult = sendInfoResult.data;
-    if (sendInfoResult.msg == "OK") {
-      reportError("您已经被禁止使用观星记。原因："+sendInfoResult.data.reason+"，封禁时间持续到："+sendInfoResult.data.toTime+"，如有疑问请联系我们。");
-      app.quit();
-      app.quit();
-    } else {return 0};
 }
 
 async function createWindow() {
@@ -168,7 +153,7 @@ app.whenReady().then(async () => {
   });
 
   ipcMain.handle('get-if-args', () => {
-    if (typeof(pageAnchor) == "undefined") {
+    if (typeof (pageAnchor) == "undefined") {
       return "114514";
     } else {
       return pageAnchor;
@@ -182,13 +167,25 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-machine-id', () => {
     return require("node-machine-id").machineIdSync({ original: true });
   });
-  ifBeBanned()
+
+  let sendInfoResult = await axios.get(`https://api.discoverse.space/banned-machine-id/banned.php?machine-id=${require("node-machine-id").machineIdSync({ original: true })}`, {
+    timeout: 30000
+  }).catch(function (error) {
+    reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
+  });
+  sendInfoResult = sendInfoResult.data;
+  if (sendInfoResult.msg == "OK") {
+    reportError("您已经被禁止使用观星记。原因：" + sendInfoResult.data.reason + "，封禁时间持续到：" + sendInfoResult.data.toTime + "，如有疑问请联系我们。");
+    app.quit();
+    app.quit();
+  }
+  
   createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-  infoToServer()
+  infoToServer();
 });
 
 app.on('window-all-closed', function () {
@@ -234,16 +231,14 @@ ipcMain.on('init', async () => {
       fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json"), JSON.stringify(mainpageCache));
 
       starte.downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
-        .finally(() => {
+        .finally(async () => {
           console.log("Log: download successfully");
-          mainWindow.loadFile('src/index.html');
+          await mainWindow.loadFile('src/index.html');
         });
       if (ifOpenConfig == true) starte.setWallpaper(filename);
     } else {
       console.log("Log: load cache successfully");
-      await mainWindow.loadFile('src/index.html').catch(function (error) {
-        console.log(error);
-      });
+      await mainWindow.loadFile('src/index.html');
     }
   } else {
     console.log("Log: there is no data of this month");
@@ -302,7 +297,7 @@ ipcMain.on('save-share', async (event, data) => {
       extensions: ['jpeg']
     }]
   });
-  if(filePath != undefined)
+  if (filePath != undefined)
     fs.writeFile(filePath, dataBuffer, () => { });
 });
 
@@ -346,9 +341,9 @@ ipcMain.on("go-to-page", async (event, pageId) => {
 
 ipcMain.on("go-to-page-with-args", async (event, page, id) => {
   pageAnchor = id;
-  if (page=="wallpaper-list") {
+  if (page == "wallpaper-list") {
     await mainWindow.loadFile("src/wallpaper-list.html");
-  } else if (page=="sentence") {
+  } else if (page == "sentence") {
     await mainWindow.loadFile("src/star-watching.html");
   }
 });

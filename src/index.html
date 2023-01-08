@@ -14,18 +14,6 @@
     <link href="./css/styles.css" rel="stylesheet" />
     <link href="./css/index.css" rel="stylesheet" />
     <link href="./css/icons.css" rel="stylesheet" />
-    <script
-  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js"
-  integrity="sha256-dImjLPUsG/6p3+i7gVKBiDM8EemJAhQ0VvkRK2pVsQY="
-  crossorigin="anonymous"
-></script>
-
-<!-- default version -->
-<script
-  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-  integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-  crossorigin="anonymous"
-></script>
     <title>观星记</title>
   </head>
 
@@ -35,19 +23,21 @@
       background-image: url(./icons/default-bg.png);
     "
   >
-    <div class="topbar" id="topbar">
-      
-    </div>
+    <div class="topbar" id="topbar"></div>
 
     <div class="update-tip-bored">
-    <div class="update-tip" id="update-tip">
-      <img class="icon-check-update" width="10px" style="margin-right: 10px;">
-      <div>现已发布新版本</div>
-      <div class="banbenhao" id="banbenhao">版本号</div>
-      <div class="updatebutton" onclick="window.electronAPI.goToPage(8)">
-        点击了解详情
+      <div class="update-tip" id="update-tip">
+        <img
+          class="icon-check-update"
+          width="10px"
+          style="margin-right: 10px"
+        />
+        <div>现已发布新版本</div>
+        <div class="banbenhao" id="banbenhao">版本号</div>
+        <div class="updatebutton" onclick="window.electronAPI.goToPage(8)">
+          点击了解详情
+        </div>
       </div>
-    </div>
     </div>
 
     <div class="image-info">
@@ -56,7 +46,10 @@
           <div id="mainpage-text-title">加载中</div>
           <div class="image-action-icons">
             <button class="onhover" id="setWallpaper">
-              <img style="width: 25px; height: 25px" class="icon-set-wallpaper"/>
+              <img
+                style="width: 25px; height: 25px"
+                class="icon-set-wallpaper"
+              />
             </button>
             <button class="onhover" id="share">
               <img style="width: 25px; height: 25px" class="icon-share" />
@@ -68,11 +61,15 @@
         </div>
       </div>
       <div class="bottom-line">
-        <button class="mainpage-text-disappear" id="mainpage-text-disappear" onclick="textDisappeaed()">
+        <button
+          class="mainpage-text-disappear"
+          id="mainpage-text-disappear"
+          onclick="textDisappeaed()"
+        >
           <img id="disaImg" src="./icons/expand.svg" />
         </button>
         <div class="mainpage-text-info" id="mainpage-text-info">
-          <img class="icon-date">
+          <img class="icon-date" />
           <div class="image-date">
             <date id="date">LOADING......</date>
           </div>
