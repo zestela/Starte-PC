@@ -25,28 +25,36 @@ const axios = require('axios');
 const ufs = require("./packages/url-file-size/index.js");
 const starte = require("./packages/starte/index.js");
 let mainWindow;
+let popupWindow;
 let mainpageRendererData = {};
 let appTray = null;
+let popupMsg;
 
 function reportError(errorMsg) {
-  let options = {
-    type: 'warning',
-    buttons: ["确定"],
-    defaultId: 0,
-    cancelId: 0,
-    detail: errorMsg,
-    message: ''
-  };
-  dialog.showMessageBoxSync(null, options);
+  popupMsg = errorMsg;
+  popupWindow = new BrowserWindow({
+    width: 300,
+    height: 200,
+    frame: false,
+    parent: mainWindow,
+    modal: true,
+    hasShadow: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    },
+    resizable: false,
+    show: false
+  });
+  popupWindow.loadFile('src/popup.html');
+  popupWindow.show();
 }
 
 async function infoToServer() {
-  if (app.isPackaged) {
     const userVersion = require("./package.json").version;
     const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
     const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
       .catch(function (error) {
-        const errorMsg = "向服务器存储数据时出现错误，请向我们反馈错误信息：" + error;
+        const errorMsg = "向服务器存储数据时出现错误，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>错误信息：" + error;
         reportError(errorMsg);
       });
     const ipAddress = getipAddress.data.ip;
@@ -57,14 +65,11 @@ async function infoToServer() {
     let sendInfoResult = await axios.get(getUrl, {
       timeout: 30000
     }).catch(function (error) {
-      reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
+      reportError("向服务器存储数据时出现错误，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>错误信息：" + error);
     });
     sendInfoResult = sendInfoResult.data;
     if (sendInfoResult.code == 1) return 0;
-    else reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + sendInfoResult.msg);
-  } else {
-    return 0;
-  }
+    else reportError("向服务器存储数据时出现错误，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>错误信息：" + sendInfoResult.msg);
 }
 
 async function createWindow() {
@@ -167,27 +172,19 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-machine-id', () => {
     return require("node-machine-id").machineIdSync({ original: true });
   });
-
-  let sendInfoResult = await axios.get(`https://api.discoverse.space/banned-machine-id/banned.php?machine-id=${require("node-machine-id").machineIdSync({ original: true })}`, {
-    timeout: 30000
-  }).catch(function (error) {
-    reportError("向服务器存储数据时出现错误，请向我们反馈错误信息：" + error);
+  
+  ipcMain.handle('get-popup-msg', () => {
+    return popupMsg;
   });
-  sendInfoResult = sendInfoResult.data;
-  if (sendInfoResult.msg == "OK") {
-    reportError("您已经被禁止使用观星记。原因：" + sendInfoResult.data.reason + "，封禁时间持续到：" + sendInfoResult.data.toTime + "，如有疑问请联系我们。");
-    app.quit();
-    app.quit();
-  }
   
   createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-  infoToServer();
+  
+  if (app.isPackaged) {infoToServer();};
 });
-
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
@@ -255,6 +252,10 @@ ipcMain.on('window-events', (event, type) => {
     else
       mainWindow.maximize();
   } else if (type === 3) mainWindow.hide();
+});
+
+ipcMain.on('pop-up-close', () => {
+  popupWindow.close();
 });
 
 let shareId = 0;
