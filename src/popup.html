@@ -1,0 +1,114 @@
+<!--
+    观星记 Starte
+    Copyright (c) 2022-2023, discoverse.space.
+    网站: https://discoverse.space/starte/
+    基于 MIT License 开源
+    任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
+ -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观星记</title>
+    <link href="./css/styles.css" rel="stylesheet">
+    <link href="./css/icons.css" rel="stylesheet" />
+</head>
+<style>
+    body {
+        background-color: #181818;
+        padding: 18px;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        justify-content: space-between;
+        height: 164px;
+        gap: 8px;
+    }
+    .title {
+        -webkit-app-region: drag;
+        color: white;
+        font-weight: bolder;
+        font-size: 14px;
+    }
+    .content {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.849);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        overflow: overlay;
+    }
+    .btn {
+        background-color: #313131;
+        padding: 8px;
+        border-radius: 10px;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+    }
+    a:link {
+    color:rgba(255, 255, 255, 0.849);
+    }
+    a:visited {
+    color:rgba(255, 255, 255, 0.849);
+    }
+    a:hover {
+    color:rgba(255, 255, 255, 0.849);
+    }
+    a:active {
+    color:rgba(255, 255, 255, 0.849);
+    }
+.content::-webkit-scrollbar {
+    height: 3.5px;
+    width: 3.5px;
+  }
+  /* 两个滚动条交接处 -- x轴和y轴 */
+.content::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+  
+  /* 滚动条滑块 */
+.content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #ffffff79;
+}
+  
+  /* 滚动条轨道 */
+.content::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #2f2f2f00;
+}
+  
+  /* 滚动条两端按钮 */
+.content::-webkit-scrollbar-button {
+    display: none;
+}
+</style>
+ 
+<body>
+    <div class="container">
+        <div class="title">提示</div>
+        <div class="content">
+            <img src="./icons/warn.png" style="width: 28px;"/>
+            <div id="text" style="height: 100%"></div>
+        </div>
+        <div class="btn" onclick="window.electronAPI.popupClose();">知道了</div>
+    </div>
+</body>
+<script>
+window.electronAPI.getPopupMsg().then((result) => {
+    console.log(result)
+    document.getElementById("text").innerHTML = result;
+});
+</script>
+</html>
+ 
