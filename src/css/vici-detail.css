@@ -75,6 +75,7 @@ h4 {
 
 p {
     text-align:justify;
+    color:rgba(255, 255, 255, 0.805);
 }
 
 h1::selection {
