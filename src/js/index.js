@@ -55,7 +55,7 @@ window.onload = async function () {
 };
 
 window.requestIdleCallback(() => {
-    fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })
+    fetch('https://api.zestela.co/banben.json', { cache: 'no-cache' })
     .then(response => response.json())
     .then(async (versionOnline) => {
         if (versionOnline.banben[0].name != await window.electronAPI.getVersion()) {

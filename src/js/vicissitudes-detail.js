@@ -2,7 +2,7 @@ window.onload = function () {
     let viciId;
     window.electronAPI.getViciDetail().then((result) => {
         viciId = result;
-        let url = 'https://api.discoverse.space/vicissitudes/get-vici-by-id.php?id='+viciId;
+        let url = 'https://api.zestela.co/vicissitudes/get-vici-by-id.php?id='+viciId;
         let articleLst;
         fetch(url)
         .then(response => response.json())

@@ -1,7 +1,7 @@
 let dataLst;
 
 window.onload = async function () {
-    fetch('https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php')
+    fetch('https://api.zestela.co/new-mainpage/get-mainpage-history-list.php')
         .then(response => response.json())
         .then(data => {
             dataLst = data;
