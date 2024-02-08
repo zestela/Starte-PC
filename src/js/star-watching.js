@@ -4,11 +4,11 @@ document.getElementById("star-list").onwheel = function (event) {
 };
 
 window.onload = async function () {
-    fetch('https://api.discoverse.space/new-book/get-book-sentence-list.php')
+    fetch('https://api.zestela.co/new-book/get-book-sentence-list.php')
         .then(response => response.json())
         .then(async (data) => {
             dataLst = data;
-            const wallpaperData = await (await fetch(`https://api.discoverse.space/new-mainpage/get-mainpage-history-list.php`)).json();
+            const wallpaperData = await (await fetch(`https://api.zestela.co/new-mainpage/get-mainpage-history-list.php`)).json();
             photoDate = new Date(dataLst.data[Object.keys(data.data).length - 1].date);
             photoMonth = photoDate.getMonth() + 1;
             photoDay = photoDate.getDate();

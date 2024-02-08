@@ -1,8 +1,8 @@
 /**
  * 
     观星记 Starte
-    Copyright (c) 2022-2023, discoverse.space.
-    网站: https://discoverse.space/starte/
+    Copyright (c) 2022-2023, zestela.co.
+    网站: https://zestela.co/starte/
     基于 MIT License 开源
     任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
  */
@@ -46,10 +46,12 @@ if (isCommonFile > -1) {
       </div>
       <div class="topbar-icons-all">
         <div class="topbar-icons">
-          <button class="onhover add-icon-onhover" onclick="window.electronAPI.goToPage(7);" id="sub-icon">
-            <img class="add-icon icon-add"
-            />
-          </button>
+        <button
+        class="onhover add-icon-onhover"
+        onclick="window.electronAPI.goToPage(7);"
+      >
+      <img class="add-icon icon-add"/>
+      </button>
           <button class="onhover" onclick="window.electronAPI.goToPage(11);">
             <img class="icon-search"/>
           </button>

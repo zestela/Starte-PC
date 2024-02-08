@@ -4,7 +4,7 @@ window.onload = async function () {
     document.getElementById("search-box-container").style.backgroundImage = `url('${picUrl}')`;
 };
 
-const client = algoliasearch('F5COT69QR9', '84da8bc86878d16cce3804fcbe35cf05');
+const client = algoliasearch('PLIM4BWFMR', '493296b2dd9b5d8709021dc22375cdc5');
 const index = client.initIndex('startePhotoDatabase');
 const sentenceIndex = client.initIndex('starteSentenceDatabase');
 document.getElementById("search-input").addEventListener("keyup", function(event) {

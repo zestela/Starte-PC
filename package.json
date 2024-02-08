@@ -1,21 +1,21 @@
 {
   "name": "starte",
-  "version": "0.3.8",
+  "version": "0.4.0",
   "main": "main.js",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
     "packager": "electron-builder build"
   },
-  "author": "discoverse.space",
+  "author": "zestela.co",
   "devDependencies": {
     "electron": "^21.3.3",
     "electron-builder": "^23.6.0"
   },
   "build": {
     "productName": "观星记 Starte",
-    "appId": "discoverse.space.starte",
-    "copyright": "discoverse.space",
+    "appId": "zestela.co.starte",
+    "copyright": "zestela.co",
     "directories": {
       "output": "build"
     },
@@ -34,7 +34,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://api.discoverse.space/"
+        "url": "http://api.zestela.co/"
       }
     ],
     "win": {
@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "axios": "^1.2.2",
+    "form-data": "^4.0.0",
     "node-machine-id": "^1.1.12",
     "v8-compile-cache": "^2.3.0"
   }

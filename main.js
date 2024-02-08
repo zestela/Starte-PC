@@ -1,8 +1,8 @@
 /**
  *
     观星记 Starte
-    Copyright (c) 2022-2023, discoverse.space.
-    网站: https://discoverse.space/starte/
+    Copyright (c) 2022-2023, zestela.co.
+    网站: https://zestela.co/starte/
     基于 MIT License 开源
     任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
  */
@@ -30,6 +30,11 @@ let mainpageRendererData = {};
 let appTray = null;
 let popupMsg;
 
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  // application specific logging, throwing an error, or other logic here
+});
+
 function reportError(errorMsg) {
   popupMsg = errorMsg;
   popupWindow = new BrowserWindow({
@@ -54,22 +59,22 @@ async function infoToServer() {
     const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
     const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
       .catch(function (error) {
-        const errorMsg = "向服务器存储数据时出现错误，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>错误信息：" + error;
+        const errorMsg = "向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error;
         reportError(errorMsg);
       });
     const ipAddress = getipAddress.data.ip;
     const timestamp = Math.round(new Date().getTime() / 1000);
     const uniqueUserSession = String(ipAddress.replace(/\./g, '') + Math.floor(Math.random() * 100) + timestamp % 1000).replace(/\./g, '');
-    const getUrl = `https://api.discoverse.space/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
+    const getUrl = `https://api.zestela.co/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
     console.log(getUrl);
     let sendInfoResult = await axios.get(getUrl, {
       timeout: 30000
     }).catch(function (error) {
-      reportError("向服务器存储数据时出现错误，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>错误信息：" + error);
+      reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error);
     });
     sendInfoResult = sendInfoResult.data;
     if (sendInfoResult.code == 1) return 0;
-    else reportError("向服务器存储数据时出现错误，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>错误信息：" + sendInfoResult.msg);
+    else reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + sendInfoResult.msg);
 }
 
 async function createWindow() {
@@ -80,7 +85,7 @@ async function createWindow() {
     height: 720,
     icon: "./src/icons/dock.ico",
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
     },
     frame: false,
     show: false
@@ -207,12 +212,12 @@ ipcMain.on('init', async () => {
   const ifOpenConfig = await starte.getSetting("isSelfopen");
   let mainpageCache = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json")));
 
-  let mainpageData = await axios.get("https://api.discoverse.space/new-mainpage/get-mainpage", {
+  let mainpageData = await axios.get("https://api.zestela.co/new-mainpage/get-mainpage.php", {
     timeout: 30000
   })
     .catch(function (error) {
       console.log('Error', error.message);
-      mainWindow.loadFile('src/timeout.html');
+      setTimeout(() => mainWindow.loadFile('src/timeout.html'), 2500);
     });
 
   mainpageData = mainpageData.data;
@@ -235,11 +240,11 @@ ipcMain.on('init', async () => {
       if (ifOpenConfig == true) starte.setWallpaper(filename);
     } else {
       console.log("Log: load cache successfully");
-      await mainWindow.loadFile('src/index.html');
+      setTimeout(() => mainWindow.loadFile('src/index.html'), 2500);
     }
   } else {
     console.log("Log: there is no data of this month");
-    await mainWindow.loadFile('src/timeout.html');
+    setTimeout(() => mainWindow.loadFile('src/timeout.html'), 2500);
   }
 });
 
@@ -263,12 +268,12 @@ let shareType = 0;
 ipcMain.on('share', async (event, id, type) => {
   shareId = id;
   shareType = type;
-  let shareData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
+  let shareData = await axios.get("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
     timeout: 30000
   })
     .catch(function (error) {
       console.log('Error', error.message);
-      mainWindow.loadFile('src/timeout.html');
+      setTimeout(() => mainWindow.loadFile('src/timeout.html'), 2500);
     });
   shareData = shareData.data;
 

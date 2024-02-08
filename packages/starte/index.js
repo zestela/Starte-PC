@@ -33,7 +33,7 @@ add-type $code
 module.exports.setWallpaper = setWallpaper;
 
 module.exports.setWallPaperOut = async function (id) {
-    let wallpaperData = await axios.get("https://api.discoverse.space/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
+    let wallpaperData = await axios.get("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
         timeout: 30000
     })
         .catch(function (error) {

@@ -5,7 +5,7 @@ window.electronAPI.getVersion().then((result) => {
 
 
 window.onload = async function () {
-  let obj = await (await fetch('https://api.discoverse.space/banben.json', { cache: 'no-cache' })).json();
+  let obj = await (await fetch('https://api.zestela.co/banben.json', { cache: 'no-cache' })).json();
   newbanbenname = obj.banben[0].name;
   newbanbenlink = obj.banben[0].url;
   newbanbenupdateweb = obj.banben[0].updateweb;

@@ -11,7 +11,7 @@ window.onload = async function () {
     document.getElementById("date").innerHTML = month+" 月 "+date+" 日";
     document.getElementById("day").innerHTML = days[day];
 
-    fetch('https://api.discoverse.space/vicissitudes/vicissitudes.php')
+    fetch('https://api.zestela.co/vicissitudes/vicissitudes.php')
         .then(response => response.json())
         .then(data => {
             articleLst = data.data;

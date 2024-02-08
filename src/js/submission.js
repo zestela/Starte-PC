@@ -110,7 +110,7 @@ function sendEmailToOfficial() {
     window.electronAPI.outAlert("您未将所有内容填写完整！所有内容均为必填，请填写完整。");
     return false;
   } else if (reg.test(UserEmail)) {
-    fetch('https://api.discoverse.space/get-submission/get-submission.php', {
+    fetch('https://api.zestela.co/get-submission/get-submission.php', {
       method: 'POST',
       body: formData
     }).then(res => {
@@ -121,7 +121,7 @@ function sendEmailToOfficial() {
           return res.json();
         } catch (err) { //服务器返回值不是JSON，错误代码：0x1
           document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-          window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>。错误代码：0x1");
+          window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>。错误代码：0x1");
           document.getElementById('submit-button').onclick = null;
           console.log(err.message);
           console.log("NOT A JSON,0x1");
@@ -129,7 +129,7 @@ function sendEmailToOfficial() {
         }
       } else {
         document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-        window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>。错误代码：0x2"); //本地上传失败，根本就没传到服务器上去，错误代码：0x2
+        window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>。错误代码：0x2"); //本地上传失败，根本就没传到服务器上去，错误代码：0x2
         document.getElementById('submit-button').onclick = null;
         console.log(res);
         console.log("CANNOT TO SEVER,0x2");
@@ -144,21 +144,21 @@ function sendEmailToOfficial() {
         console.log("SUCCEED");
       } else if (sentResult == "error") {
         document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-        window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>。错误代码：0x3"); //服务器邮件发送失败，可能是SMTP问题，也可能是垃圾邮件，错误代码：0x3
+        window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>。错误代码：0x3"); //服务器邮件发送失败，可能是SMTP问题，也可能是垃圾邮件，错误代码：0x3
         document.getElementById('submit-button').onclick = null;
         setTimeout(() => { location.reload(); }, 20000);
         console.log("SERVER MAIL SENT ERROR,0x3");
       } else if (res == 0) {
         setTimeout(() => { location.reload(); }, 20000);
       } else if (sentResult == "outoffile") {
-        document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-        window.electronAPI.outAlert("提交失败(20秒后自动刷新)，上传的不是图片，或者大小超过5M。如多次重试依旧失败，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>。错误代码：0x5"); //后端判断上传的不是图片，或者大小超过5M，错误代码：0x5
+        document.getElementById('submit-button').value = "提交失败, 请重a试 (20秒后自动刷新)";
+        window.electronAPI.outAlert("提交失败(20秒后自动刷新)，上传的不是图片，或者大小超过5M。如多次重试依旧失败，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>。错误代码：0x5"); //后端判断上传的不是图片，或者大小超过5M，错误代码：0x5
         document.getElementById('submit-button').onclick = null;
         setTimeout(() => { location.reload(); }, 20000);
         console.log("BACKEND SAYS IT IS NOT A PHOTO OR IT IS TOO LARGE,0x5");
       } else {
         document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
-        window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://discoverse.space/support/' target='_blank'>点击此处反馈</a>。错误代码：0x6"); //真不知道什么原因，错误代码：0x6
+        window.electronAPI.outAlert("提交失败(20秒后自动刷新)。如多次重试依旧失败，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>。错误代码：0x6"); //真不知道什么原因，错误代码：0x6
         document.getElementById('submit-button').onclick = null;
         setTimeout(() => { location.reload(); }, 20000);
         console.log("WHAT THE FUCK,0x6");
