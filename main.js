@@ -6,7 +6,7 @@
     基于 MIT License 开源
     任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
  */
-
+// 为观星记下一阶段测试。测试 Workflow。下一版本删除此注释。
 require('v8-compile-cache');
 const {
   app,
