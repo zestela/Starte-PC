@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://discoverse.space/starte/" target="_blank">
+  <a href="https://zestela.co/starte/" target="_blank">
     <img alt="LOGO" width="180" src="./src/icons/betalogo.png"/>
   </a>
 </div>
