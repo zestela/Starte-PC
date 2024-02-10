@@ -75,7 +75,16 @@ h4 {
 
 p {
     text-align:justify;
-    color:rgba(255, 255, 255, 0.805);
+    color:rgba(255, 255, 255, 0.980);
+}
+ul {
+    text-align:justify;
+    color:rgba(255, 255, 255, 0.980);
+}
+
+ol{
+    text-align:justify;
+    color:rgba(255, 255, 255, 0.980);
 }
 
 h1::selection {
@@ -99,6 +108,10 @@ h5::selection {
     color: rgb(0, 0, 0);
 }
 p::selection {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+li::selection {
     background: #ffffff;
     color: rgb(0, 0, 0);
 }
