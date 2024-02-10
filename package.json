@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "0.4.0",
+  "version": "v0.4.1",
   "main": "main.js",
   "license": "MIT",
   "scripts": {
@@ -14,8 +14,8 @@
   },
   "build": {
     "productName": "观星记 Starte",
-    "appId": "zestela.co.starte",
-    "copyright": "zestela.co",
+    "appId": "com.zestela.starte",
+    "copyright": "Zestela",
     "directories": {
       "output": "build"
     },
@@ -34,7 +34,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://api.zestela.co/"
+        "url": "https://api.zestela.co/"
       }
     ],
     "win": {
