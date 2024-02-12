@@ -2,10 +2,10 @@ window.onload = async function () {
     const shareId = await window.electronAPI.getId();
     const shareType = await window.electronAPI.getShareType();
     if (shareType == 1) {
-        const sentenceData = await (await fetch('https://api.zestela.co/new-book/get-book-sentence-list.php')).json();
+        const sentenceData = await (await fetch('https://api.zestela.co/new-book/new-get-book-sentence-list.php')).json();
         let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + shareId + ".png");
-        document.getElementById("share-text-title").innerText = sentenceData.data[shareId - 1].sentence;
-        document.getElementById("share-text-describe").innerText = sentenceData.data[shareId - 1].from;
+        document.getElementById("share-text-title").innerText = sentenceData.data[shareId].sentence;
+        document.getElementById("share-text-describe").innerText = "—— "+sentenceData.data[shareId].from;
         document.getElementById("mainPicture").setAttribute("src", picUrl);
     }
     else {
