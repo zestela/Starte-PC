@@ -188,6 +188,7 @@ app.whenReady().then(async () => {
 
   if (app.isPackaged) { infoToServer(); };
 });
+
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
