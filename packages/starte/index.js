@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const axios = require('axios');
 const process = require("process");
-const ufs = require("../url-file-size/index.js");
 const { exec } = require('child_process');
 
 function setWallpaper(url) {
@@ -25,7 +24,7 @@ add-type $code
         `;
         const scriptPath = path.join(process.env.APPDATA, "starte-cache", "wallpaper.ps1");
         fs.writeFile(scriptPath, script, () => {
-            exec(`powershell ${scriptPath}`,() => { fs.rm(scriptPath, () => { }); });
+            exec(`powershell ${scriptPath}`, () => { fs.rm(scriptPath, () => { }); });
         });
     }
 }
@@ -44,16 +43,22 @@ module.exports.setWallPaperOut = async function (id) {
 
     if (wallpaperData.code == 1) {
         let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
-        if (!fs.existsSync(filename) || !(await ufs(wallpaperData.data.url) === fs.statSync(filename).size)) {
-            downloadImage(wallpaperData.data.url, id + ".png")
-                .finally(() => {
-                    setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
-                });
-        } else setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
+        let https = require('https');
+        let options = { method: 'HEAD' };
+        https.request(shareData.data.url, options, function (res) {
+            let fileSize = JSON.stringify(res.headers["content-length"]);
+            if (!fs.existsSync(filename) || !fileSize === fs.statSync(filename).size) {
+                downloadImage(wallpaperData.data.url, id + ".png")
+                    .finally(() => {
+                        setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
+                    });
+            } else setWallpaper(path.join(process.env.APPDATA, "starte-cache", id + ".png"));
+        });
+
     }
 };
 
-async function downloadImage (url, name) {
+async function downloadImage(url, name) {
     const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache', name));
     const response = await axios({
         url,
