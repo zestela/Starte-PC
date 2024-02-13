@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "v0.4.2",
+  "version": "v0.4.3",
   "main": "main.js",
   "license": "MIT",
   "scripts": {
@@ -9,8 +9,8 @@
   },
   "author": "zestela.co",
   "devDependencies": {
-    "electron": "^21.3.3",
-    "electron-builder": "^23.6.0"
+    "electron": "^28.2.2",
+    "electron-builder": "^24.9.1"
   },
   "build": {
     "productName": "观星记 Starte",

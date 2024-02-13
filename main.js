@@ -6,7 +6,6 @@
     基于 MIT License 开源
     任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
  */
-// 为观星记下一阶段测试。测试 Workflow。下一版本删除此注释。
 require('v8-compile-cache');
 const {
   app,
@@ -22,7 +21,6 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const axios = require('axios');
-const ufs = require("./packages/url-file-size/index.js");
 const starte = require("./packages/starte/index.js");
 let mainWindow;
 let popupWindow;
@@ -55,26 +53,26 @@ function reportError(errorMsg) {
 }
 
 async function infoToServer() {
-    const userVersion = require("./package.json").version;
-    const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
-    const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
-      .catch(function (error) {
-        const errorMsg = "向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error;
-        reportError(errorMsg);
-      });
-    const ipAddress = getipAddress.data.ip;
-    const timestamp = Math.round(new Date().getTime() / 1000);
-    const uniqueUserSession = String(ipAddress.replace(/\./g, '') + Math.floor(Math.random() * 100) + timestamp % 1000).replace(/\./g, '');
-    const getUrl = `https://api.zestela.co/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
-    console.log(getUrl);
-    let sendInfoResult = await axios.get(getUrl, {
-      timeout: 30000
-    }).catch(function (error) {
-      reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error);
+  const userVersion = require("./package.json").version;
+  const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
+  const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
+    .catch(function (error) {
+      const errorMsg = "向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error;
+      reportError(errorMsg);
     });
-    sendInfoResult = sendInfoResult.data;
-    if (sendInfoResult.code == 1) return 0;
-    else reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + sendInfoResult.msg);
+  const ipAddress = getipAddress.data.ip;
+  const timestamp = Math.round(new Date().getTime() / 1000);
+  const uniqueUserSession = String(ipAddress.replace(/\./g, '') + Math.floor(Math.random() * 100) + timestamp % 1000).replace(/\./g, '');
+  const getUrl = `https://api.zestela.co/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=${uniqueUserSession}`;
+  console.log(getUrl);
+  let sendInfoResult = await axios.get(getUrl, {
+    timeout: 30000
+  }).catch(function (error) {
+    reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error);
+  });
+  sendInfoResult = sendInfoResult.data;
+  if (sendInfoResult.code == 1) return 0;
+  else reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + sendInfoResult.msg);
 }
 
 async function createWindow() {
@@ -91,7 +89,7 @@ async function createWindow() {
     show: false
   });
   Menu.setApplicationMenu(null);
-  await mainWindow.loadFile('src/loading.html');
+  mainWindow.loadFile('src/loading.html');
   mainWindow.show();
   if (!app.isPackaged) mainWindow.webContents.openDevTools();
 
@@ -177,18 +175,18 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-machine-id', () => {
     return require("node-machine-id").machineIdSync({ original: true });
   });
-  
+
   ipcMain.handle('get-popup-msg', () => {
     return popupMsg;
   });
-  
+
   createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-  
-  if (app.isPackaged) {infoToServer();};
+
+  if (app.isPackaged) { infoToServer(); };
 });
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
@@ -217,34 +215,40 @@ ipcMain.on('init', async () => {
   })
     .catch(function (error) {
       console.log('Error', error.message);
-      setTimeout(() => mainWindow.loadFile('src/timeout.html'), 2500);
+      mainWindow.loadFile('src/timeout.html');
     });
 
   mainpageData = mainpageData.data;
   mainpageRendererData = mainpageData.data;
 
   if (mainpageData.code !== 0) {
+    console.log(mainpageCache.size);
+    
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
+
+    console.log(fs.statSync(filename).size);
     if (mainpageCache.date != mainpageData.data.date || !fs.existsSync(filename) || (mainpageCache.size != fs.statSync(filename).size)) {
       console.log("Log: start downloading");
-
-      mainpageCache.date = mainpageData.data.date;
-      mainpageCache.size = await ufs(mainpageData.data.url);
-      fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json"), JSON.stringify(mainpageCache));
-
-      starte.downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
-        .finally(async () => {
-          console.log("Log: download successfully");
-          await mainWindow.loadFile('src/index.html');
-        });
-      if (ifOpenConfig == true) starte.setWallpaper(filename);
+      let https = require('https');
+      let mainpageReq = https.request(mainpageData.data.url, { method: 'HEAD' }, function (res) {
+        mainpageCache.date = mainpageData.data.date;
+        mainpageCache.size = JSON.parse(res.headers["content-length"]);
+        fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json"), JSON.stringify(mainpageCache));
+        starte.downloadImage(mainpageData.data.url, mainpageData.data.id + ".png")
+          .finally(() => {
+            console.log("Log: download successfully");
+            mainWindow.loadFile('src/index.html');
+          });
+        if (ifOpenConfig == true) starte.setWallpaper(filename);
+      });
+      mainpageReq.end();
     } else {
       console.log("Log: load cache successfully");
-      setTimeout(() => mainWindow.loadFile('src/index.html'), 2500);
+      mainWindow.loadFile('src/index.html');
     }
   } else {
     console.log("Log: there is no data of this month");
-    setTimeout(() => mainWindow.loadFile('src/timeout.html'), 2500);
+    mainWindow.loadFile('src/timeout.html');
   }
 });
 
@@ -269,26 +273,33 @@ ipcMain.on('share', async (event, id, type) => {
   shareId = id;
   shareType = type;
   let shareData = await axios.get("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-    timeout: 30000
+    timeout: 5000
   })
     .catch(function (error) {
       console.log('Error', error.message);
-      setTimeout(() => mainWindow.loadFile('src/timeout.html'), 2500);
+      mainWindow.loadFile('src/timeout.html');
     });
   shareData = shareData.data;
 
-  ufs(shareData.data.url)
-    .finally(async (fileSize) => {
-      if (shareData.code !== 0) {
-        let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
-        if (!fs.existsSync(filename) || (fileSize != fs.statSync(filename).size)) {
-          starte.downloadImage(shareData.data.url, shareId + ".png")
-            .finally(async () => {
-              await mainWindow.loadFile('src/share.html');
-            });
-        } else await mainWindow.loadFile('src/share.html');
+  let https = require('https');
+  let shareReq = https.request(shareData.data.url, { method: 'HEAD' }, function (res) {
+    let fileSize = JSON.parse(res.headers["content-length"]);
+    if (shareData.code !== 0) {
+      let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
+      if (!fs.existsSync(filename) || (fileSize != fs.statSync(filename).size)) {
+        console.log("Log: start downloading");
+        starte.downloadImage(shareData.data.url, shareId + ".png")
+          .finally(async () => {
+            console.log("Log: download successfully");
+            await mainWindow.loadFile('src/share.html');
+          });
+      } else {
+        console.log("Log: load cache successfully");
+        mainWindow.loadFile('src/share.html');
       }
-    });
+    }
+  });
+  shareReq.end();
 });
 
 ipcMain.on('set-wallpaper', async (event, id) => {
@@ -334,7 +345,7 @@ ipcMain.on("go-to-page", async (event, pageId) => {
       await mainWindow.loadFile("src/check-new.html");
       break;
     case 9:
-      await mainWindow.loadFile("src/vwo50.html");
+      await mainWindow.loadFile("src/donate.html");
       break;
     case 10:
       await mainWindow.loadFile("src/vicissitudes.html");
