@@ -1,1 +1,10 @@
-{"banben":[{"name":"v0.4.3","url":"https://github.com/zestela/Starte-PC/releases/tag/v0.4.3","date":"2024 年 2 月 13 日","updateweb":"https://github.com/zestela/Starte-PC/releases/tag/v0.4.3"}]}
+{
+    "banben": [
+        {
+            "name": "v0.4.3",
+            "url": "https://github.com/zestela/Starte-PC/actions",
+            "date": "2024 年 2 月 13 日",
+            "updateweb": "https://github.com/zestela/Starte-PC/actions"
+        }
+    ]
+}
