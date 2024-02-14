@@ -12,7 +12,7 @@ let fileName = fileUrl[fileUrl.length - 1];
 
 const commonTopbarFile = new Array("index.html","settings-about.html","settings.html","star-watching.html","submission.html","vicissitudes.html","wallpaper-list.html","search.html");
 const loadingTopbarFile = new Array("loading.html","timeout.html");
-const backTopbarFile = new Array("share.html","check-new.html","vwo50.html","vicissitudes-detail.html");
+const backTopbarFile = new Array("share.html","check-new.html","donate.html","vicissitudes-detail.html");
 let isCommonFile = commonTopbarFile.indexOf(fileName);
 let isLoadingFile = loadingTopbarFile.indexOf(fileName);
 let isBackFile = backTopbarFile.indexOf(fileName);
