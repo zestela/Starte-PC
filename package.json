@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "v0.4.4",
+  "version": "v0.4.5",
   "main": "main.js",
   "license": "MIT",
   "scripts": {

@@ -53,25 +53,24 @@ function reportError(errorMsg) {
 }
 
 async function infoToServer() {
+  const errorMsg = "向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a><br>错误信息：";
   const userVersion = require("./package.json").version;
   const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
   const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
     .catch(function (error) {
-      const errorMsg = "向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error;
-      reportError(errorMsg);
+      reportError(errorMsg + error);
     });
   const ipAddress = getipAddress.data.ip;
   const timestamp = Math.round(new Date().getTime() / 1000);
-  const getUrl = `https://api.zestela.co/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}&uniqueUserSession=ABANDONED`;
-  console.log(getUrl);
+  const getUrl = `https://api.zestela.co/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${userVersion}`;
   let sendInfoResult = await axios.get(getUrl, {
     timeout: 30000
   }).catch(function (error) {
-    reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + error);
+    reportError(errorMsg + error);
   });
   sendInfoResult = sendInfoResult.data;
   if (sendInfoResult.code == 1) return 0;
-  else reportError("向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>错误信息：" + sendInfoResult.msg);
+  else reportError(errorMsg + sendInfoResult.msg);
 }
 
 async function createWindow() {
@@ -184,7 +183,7 @@ app.whenReady().then(async () => {
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-
+  
   if (app.isPackaged) { infoToServer(); };
 });
 
@@ -223,7 +222,7 @@ ipcMain.on('init', async () => {
 
   if (mainpageData.code !== 0) {
     console.log(mainpageCache.size);
-    
+
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
 
     console.log(fs.statSync(filename).size);
