@@ -221,11 +221,8 @@ ipcMain.on('init', async () => {
   mainpageRendererData = mainpageData.data;
 
   if (mainpageData.code !== 0) {
-    console.log(mainpageCache.size);
-
     let filename = path.join(process.env.APPDATA, "starte-cache", mainpageData.data.id + ".png");
 
-    console.log(fs.statSync(filename).size);
     if (mainpageCache.date != mainpageData.data.date || !fs.existsSync(filename) || (mainpageCache.size != fs.statSync(filename).size)) {
       console.log("Log: start downloading");
       let https = require('https');
