@@ -53,7 +53,7 @@ function reportError(errorMsg) {
 }
 
 async function infoToServer() {
-  const errorMsg = "向服务器存储数据时出现错误，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a><br>错误信息：";
+  const errorMsg = "遥测模块出现错误。向<a href='https://zestela.co/support/' target='_blank'>此处</a>反馈<br>错误信息：";
   const userVersion = require("./package.json").version;
   const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
   const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })

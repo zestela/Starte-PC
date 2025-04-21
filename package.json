@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "v0.4.6",
+  "version": "v0.4.7",
   "main": "main.js",
   "license": "MIT",
   "scripts": {
@@ -8,10 +8,6 @@
     "packager": "electron-builder build"
   },
   "author": "zestela.co",
-  "devDependencies": {
-    "electron": "^28.2.2",
-    "electron-builder": "^24.9.1"
-  },
   "build": {
     "productName": "观星记 Starte",
     "appId": "com.zestela.starte",
@@ -47,9 +43,16 @@
     }
   },
   "dependencies": {
-    "axios": "^1.2.2",
-    "form-data": "^4.0.0",
+    "axios": "^1.8.4",
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12",
     "node-machine-id": "^1.1.12",
-    "v8-compile-cache": "^2.3.0"
+    "v8-compile-cache": "^2.4.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller"
+    ]
   }
 }
