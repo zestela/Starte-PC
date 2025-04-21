@@ -44,10 +44,12 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
-    "electron": "^35.2.0",
     "electron-builder": "^26.0.12",
     "node-machine-id": "^1.1.12",
     "v8-compile-cache": "^2.4.0"
+  },
+  "devDependencies": {
+    "electron": "^35.2.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
