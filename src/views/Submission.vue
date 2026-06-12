@@ -1,11 +1,12 @@
 <template>
-  <div class="contain">
-    <form class="outer-contain" @submit.prevent>
-      <div style="display:flex;justify-content:center;align-items:center;flex-direction:column;gap:8px">
-        <div class="submission-title">图片投稿</div>
-        <div class="submission-describe">点击"提交"即代表同意<a href="https://zestela.co/starte-agreement" target="_blank"><u>许可协议</u></a>全部内容</div>
-      </div>
-      <div class="inner-contain">
+  <div class="submission-wrapper">
+    <div class="contain">
+      <form class="outer-contain" @submit.prevent>
+        <div style="display:flex;justify-content:center;align-items:center;flex-direction:column;gap:8px">
+          <div class="submission-title">图片投稿</div>
+          <div class="submission-describe">点击"提交"即代表同意<a href="https://zestela.co/starte-agreement" target="_blank"><u>许可协议</u></a>全部内容</div>
+        </div>
+        <div class="inner-contain">
         <input type="text" class="input-box input-box-1" placeholder="图片标题" v-model="form.title" maxlength="50"/>
         <div class="input-box input-box-2">
           <div class="hidden"><input type="file" accept="image/*" ref="fileInput" @change="onFileChange"/></div>
@@ -28,6 +29,7 @@
         <input class="submit-button" type="button" :value="btnText" @click="submit" :disabled="submitting"/>
       </div>
     </form>
+  </div>
   </div>
 </template>
 
@@ -91,3 +93,19 @@ async function submit() {
   setTimeout(() => { btnText.value = '提交'; submitting.value = false }, 5000)
 }
 </script>
+
+<style scoped>
+.submission-wrapper {
+  background-color: black;
+  min-height: 100%;
+}
+
+.contain {
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+</style>

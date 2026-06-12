@@ -19,7 +19,7 @@
 import { ref, onMounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '../utils/api'
-import { useScript } from '../composables/useScript'
+import html2canvas from 'html2canvas'
 
 const route = useRoute()
 const title = ref('')
@@ -32,10 +32,6 @@ let captured = false
 async function capture() {
   if (captured) return
   captured = true
-
-  await useScript('/js/html2canvas.min.js', {
-    check: () => typeof html2canvas !== 'undefined'
-  })
 
   await nextTick()
 
