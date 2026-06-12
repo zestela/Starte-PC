@@ -101,12 +101,13 @@ async function submit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
 /* 覆盖全局 CSS 中的 position: absolute */
 .contain {
   width: 100%;
+  max-width: 1200px;
   position: relative !important;
   top: auto !important;
   bottom: auto !important;
