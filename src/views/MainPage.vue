@@ -151,4 +151,11 @@ onMounted(async () => {
   background-position: center center;
   background-image: v-bind(bgImage);
 }
+
+/* 确保 .image-info 相对于 wrapper 定位 */
+.mainpage-wrapper .image-info {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
 </style>

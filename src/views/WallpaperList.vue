@@ -2,25 +2,27 @@
   <div id="wallpaper-list">
     <div v-for="item in items" :key="item.id" class="wallpaper-in-list"
          :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">
-      <div><div>
-        <div class="title-and-icons">
-          <h1>{{ item.title }}</h1>
-          <div class="image-action-icons">
-            <button class="onhover special-onhover" style="padding:3.5px" @click="window.electronAPI.setWallpaper(item.id)">
-              <img class="icon-set-wallpaper"/>
-            </button>
-            <button class="onhover special-onhover" style="padding:3.5px" @click="share(item)">
-              <img class="icon-share"/>
-            </button>
+      <div class="wallpaper-content">
+        <div class="wallpaper-header">
+          <div class="title-and-icons">
+            <h1>{{ item.title }}</h1>
+            <div class="image-action-icons">
+              <button class="onhover special-onhover" style="padding:3.5px" @click="window.electronAPI.setWallpaper(item.id)">
+                <img class="icon-set-wallpaper"/>
+              </button>
+              <button class="onhover special-onhover" style="padding:3.5px" @click="share(item)">
+                <img class="icon-share"/>
+              </button>
+            </div>
+          </div>
+          <div class="disPLAYDATE">
+            <div class="month">{{ item.month }}</div>
+            <div class="fenge"> / </div>
+            <div class="dayte">{{ item.day }}</div>
           </div>
         </div>
-        <div class="disPLAYDATE">
-          <div class="month">{{ item.month }}</div>
-          <div class="fenge"> / </div>
-          <div class="dayte">{{ item.day }}</div>
-        </div>
-      </div></div>
-      <h3>{{ item.describe }}</h3>
+        <h3>{{ item.describe }}</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -61,3 +63,40 @@ onMounted(async () => {
   } catch (e) { console.error(e) }
 })
 </script>
+
+<style scoped>
+.wallpaper-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 35px;
+  padding-bottom: 25px;
+}
+
+.wallpaper-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.title-and-icons {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.wallpaper-content h1 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 45px;
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+}
+
+.wallpaper-content h3 {
+  margin: 7px 0 0 0;
+  font-weight: lighter;
+  color: rgba(255, 255, 255, 0.662);
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+}
+</style>
