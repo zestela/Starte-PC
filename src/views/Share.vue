@@ -51,8 +51,8 @@ onMounted(async () => {
   const type = route.query.type
   if (!id) return
 
-  const appdata = await window.electronAPI.getappdata()
-  picUrl.value = `${appdata}/starte-cache/${id}.png`
+  const dataUrl = await window.electronAPI.readCacheFile(id + '.png')
+  picUrl.value = dataUrl
 
   if (type === '1') {
     const data = await api('https://api.zestela.co/new-book/new-get-book-sentence-list.php')

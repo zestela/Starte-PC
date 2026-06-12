@@ -53,8 +53,8 @@ const newVersion = ref('')
 // 修复背景图（通过 watch）
 const setBodyBg = async () => {
   if (!data.value?.id) return
-  const appdata = await window.electronAPI.getappdata()
-  document.body.style.backgroundImage = `url('${appdata}/starte-cache/${data.value.id}.png')`
+  const dataUrl = await window.electronAPI.readCacheFile(data.value.id + '.png')
+  document.body.style.backgroundImage = `url('${dataUrl}')`
 }
 
 const dateStr = computed(() => {

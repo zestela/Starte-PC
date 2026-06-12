@@ -42,4 +42,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // 弹窗专用
     popupClose: () => ipcRenderer.send('pop-up-close'),
     getPopupMsg: () => ipcRenderer.invoke('get-popup-msg'),
+
+    // API 请求（统一走后端，避免前端 CORS）
+    apiFetch: (url, options) => ipcRenderer.invoke('api-fetch', url, options || {}),
+
+    // 读取缓存图片（返回 base64 data URL，绕过浏览器 file:// 限制）
+    readCacheFile: (filename) => ipcRenderer.invoke('read-cache-file', filename),
 });

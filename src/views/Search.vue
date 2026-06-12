@@ -76,8 +76,8 @@ function doSearch() {
 
 onMounted(async () => {
   if (store.mainpageData?.id) {
-    const appdata = await window.electronAPI.getappdata()
-    bgUrl.value = `url('${appdata}/starte-cache/${store.mainpageData.id}.png')`
+    const dataUrl = await window.electronAPI.readCacheFile(store.mainpageData.id + '.png')
+    bgUrl.value = `url('${dataUrl}')`
   }
 })
 </script>

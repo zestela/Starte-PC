@@ -75,9 +75,9 @@ onMounted(async () => {
   try {
     // 设置背景
     if (store.mainpageData?.id) {
-      const appdata = await window.electronAPI.getappdata()
-      document.querySelector('.top-bg-photo').style.backgroundImage =
-        `url('${appdata}/starte-cache/${store.mainpageData.id}.png')`
+      const dataUrl = await window.electronAPI.readCacheFile(store.mainpageData.id + '.png')
+      document.querySelector('#top-bg-photo').style.backgroundImage =
+        `url('${dataUrl}')`
     }
 
     const data = await api('https://api.zestela.co/vicissitudes/vicissitudes.php')

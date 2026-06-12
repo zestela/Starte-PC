@@ -157,6 +157,45 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-popup-msg', () => popupMsg);
   ipcMain.on('pop-up-close', () => { if (popupWindow) popupWindow.close(); });
 
+  // 读取缓存图片（绕过浏览器 file:// 限制）
+  ipcMain.handle('read-cache-file', async (event, filename) => {
+    const filePath = path.join(process.env.APPDATA, 'starte-cache', path.basename(filename));
+    if (!fs.existsSync(filePath)) throw new Error('File not found');
+    const buffer = fs.readFileSync(filePath);
+    const ext = path.extname(filePath).slice(1).toLowerCase();
+    const mime = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp' }[ext] || 'image/png';
+    return `data:${mime};base64,${buffer.toString('base64')}`;
+  });
+
+  // 统一 API 代理 —— 渲染进程所有 HTTP 请求走后端
+  ipcMain.handle('api-fetch', async (event, url, options) => {
+    const allowed = ['api.zestela.co', 'afdian.com'];
+    try {
+      const parsed = new URL(url);
+      if (!allowed.some(d => parsed.hostname.endsWith(d))) {
+        throw new Error(`Blocked domain: ${parsed.hostname}`);
+      }
+    } catch (e) { throw new Error(`Invalid URL: ${url}`); }
+
+    const timeout = options?.timeout || 15000;
+    const fetchOptions = { ...options, signal: AbortSignal.timeout(timeout) };
+    delete fetchOptions.timeout;
+
+    // FormData 通过 IPC 会丢失，base64 body 需要还原
+    if (fetchOptions._bodyBase64) {
+      fetchOptions.body = Buffer.from(fetchOptions._bodyBase64, 'base64');
+      delete fetchOptions._bodyBase64;
+    }
+    if (fetchOptions._headers) {
+      fetchOptions.headers = fetchOptions._headers;
+      delete fetchOptions._headers;
+    }
+
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  });
+
   // 初始化
   ipcMain.handle('init', async () => {
     if (!fs.existsSync(path.join(process.env.APPDATA, "starte-cache")))

@@ -1,35 +1,12 @@
 /**
- * fetch 封装 —— 行为对齐 axios：非 2xx 自动抛异常，超时支持，JSON 自动解析
+ * API 请求封装 —— 全部走后端（Electron 主进程），避免前端 CORS
  */
 export async function api(url, options = {}) {
-  const { timeout = 15000, ...fetchOptions } = options
-
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), timeout)
-
-  try {
-    const res = await fetch(url, {
-      ...fetchOptions,
-      signal: fetchOptions.signal || controller.signal,
-    })
-
-    clearTimeout(timer)
-
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-    }
-
-    return await res.json()
-  } catch (err) {
-    clearTimeout(timer)
-    if (err.name === 'AbortError') {
-      throw new Error('请求超时')
-    }
-    throw err
-  }
+  const data = await window.electronAPI.apiFetch(url, options)
+  return data
 }
 
-/** 静默版本 —— 失败返回 null 不抛异常 */
+/** 静默版本 —— 失败返回 null */
 export async function apiSafe(url, options = {}) {
   try {
     return await api(url, options)
