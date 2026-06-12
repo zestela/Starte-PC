@@ -1,9 +1,9 @@
 <template>
   <div id="app-root">
     <Topbar />
-    <div class="router-view-container">
+    <main class="router-view-container">
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -26,10 +26,17 @@ html, body, #app {
   flex-direction: column;
 }
 
+/* 导航栏固定高度 */
+.topbar {
+  flex-shrink: 0;
+}
+
+/* 页面内容区域 */
 .router-view-container {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  position: relative;
 }
 
 /* 确保页面内容填充容器高度（原始 CSS 依赖 height:100% 级联） */

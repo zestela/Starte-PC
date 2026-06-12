@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search-wrapper">
     <div class="search-box-container" :class="{ 'search-box-container-after': searched }" :style="{ backgroundImage: bgUrl }">
       <div class="input-box">
         <input type="text" class="inputing" placeholder="搜索往日图片或观星句子..." v-model="keyword" maxlength="20" @keyup.enter="doSearch"/>
@@ -81,3 +81,10 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style scoped>
+.search-wrapper {
+  background-color: #1e1e1e;
+  min-height: 100%;
+}
+</style>

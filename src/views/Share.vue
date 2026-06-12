@@ -1,13 +1,15 @@
 <template>
-  <div class="share-main" id="share">
-    <img ref="mainPic" :src="picUrl" @load="onPicLoad"/>
-    <div class="share-text-background">
-      <div>
-        <h2>{{ title }}</h2>
-        <h5>{{ describe }}</h5>
-      </div>
-      <div style="display:content">
-        <img src="/qrcode.png" class="share-qrcode"/>
+  <div class="share-wrapper">
+    <div class="share-main" id="share">
+      <img ref="mainPic" :src="picUrl" @load="onPicLoad"/>
+      <div class="share-text-background">
+        <div>
+          <h2>{{ title }}</h2>
+          <h5>{{ describe }}</h5>
+        </div>
+        <div style="display:content">
+          <img src="/qrcode.png" class="share-qrcode"/>
+        </div>
       </div>
     </div>
   </div>
@@ -76,3 +78,10 @@ onMounted(async () => {
   if (mainPic.value?.complete && mainPic.value?.naturalWidth > 0) capture()
 })
 </script>
+
+<style scoped>
+.share-wrapper {
+  background-color: #141414;
+  min-height: 100%;
+}
+</style>

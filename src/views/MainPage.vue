@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mainpage-wrapper">
     <div class="update-tip-bored">
       <div :class="['update-tip', { 'update-tip-checked': hasUpdate }]" id="update-tip">
         <img class="icon-check-update" width="10px" style="margin-right:10px"/>
@@ -49,13 +49,8 @@ const data = computed(() => store.mainpageData)
 const infoHidden = ref(false)
 const hasUpdate = ref(false)
 const newVersion = ref('')
-
-// 修复背景图（通过 watch）
-const setBodyBg = async () => {
-  if (!data.value?.id) return
-  const dataUrl = await window.electronAPI.readCacheFile(data.value.id + '.png')
-  document.body.style.backgroundImage = `url('${dataUrl}')`
-}
+const bgImage = ref('')
+const animationState = ref('visible') // 'visible' | 'disappearing' | 'disappeared' | 'showed'
 
 const dateStr = computed(() => {
   if (!data.value?.date) return 'LOADING......'
@@ -63,19 +58,46 @@ const dateStr = computed(() => {
   return `${parts[0]} 年 ${parts[1]} 月 ${parts[2]} 日`
 })
 
-const textClass = computed(() => ({
-  'mainpage-text': true,
-  'mainpage-text-disappered': infoHidden.value
-}))
+const textClass = computed(() => {
+  if (animationState.value === 'disappeared') {
+    return 'mainpage-text-disappered'
+  } else if (animationState.value === 'disappearing') {
+    return 'mainpage-text mainpage-text-disappering'
+  } else if (animationState.value === 'showed') {
+    return 'mainpage-text-showed mainpage-text mainpage-text-showing'
+  } else {
+    return 'mainpage-text'
+  }
+})
 
-const infoClass = computed(() => ({
-  'mainpage-text-info': true,
-  'mainpage-text-disappered': infoHidden.value
-}))
+const infoClass = computed(() => {
+  if (animationState.value === 'disappeared') {
+    return 'mainpage-text-disappered'
+  } else if (animationState.value === 'disappearing') {
+    return 'mainpage-text-info mainpage-text-disappering'
+  } else if (animationState.value === 'showed') {
+    return 'mainpage-text-showed mainpage-text-info mainpage-text-showing'
+  } else {
+    return 'mainpage-text-info'
+  }
+})
 
 async function toggleInfo() {
-  infoHidden.value = !infoHidden.value
-  await window.electronAPI.setSetting('infoHide', infoHidden.value)
+  if (animationState.value === 'visible' || animationState.value === 'showed') {
+    // 收起
+    await window.electronAPI.setSetting('infoHide', true)
+    animationState.value = 'disappearing'
+    infoHidden.value = true
+
+    setTimeout(() => {
+      animationState.value = 'disappeared'
+    }, 500)
+  } else {
+    // 展开
+    await window.electronAPI.setSetting('infoHide', false)
+    animationState.value = 'showed'
+    infoHidden.value = false
+  }
 }
 
 function setWallpaper() {
@@ -101,12 +123,32 @@ async function checkUpdate() {
 }
 
 onMounted(async () => {
-  // store.mainpageData 已在 init 阶段填充
-  if (data.value) setBodyBg()
-  
+  // 加载背景图到组件内部，不污染 body
+  if (data.value?.id) {
+    const dataUrl = await window.electronAPI.readCacheFile(data.value.id + '.png')
+    bgImage.value = `url('${dataUrl}')`
+  }
+
   const hideInfo = await window.electronAPI.getSetting('infoHide')
-  infoHidden.value = (hideInfo == true)
+  if (hideInfo === true) {
+    animationState.value = 'disappeared'
+    infoHidden.value = true
+  }
 
   checkUpdate()
 })
 </script>
+
+<style scoped>
+.mainpage-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  background-image: v-bind(bgImage);
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="vicissitudes-wrapper">
     <div class="top-bg-photo" id="top-bg-photo">
       <div class="date-all">
         <div class="date">{{ month }} 月 {{ day }} 日</div>
@@ -103,3 +103,10 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style scoped>
+.vicissitudes-wrapper {
+  background-color: #181818;
+  min-height: 100%;
+}
+</style>

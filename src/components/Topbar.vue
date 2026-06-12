@@ -48,10 +48,19 @@ const route = useRoute()
 const menuPages = ['main', 'vicissitudes', 'wallpaper-list', 'star-watching']
 
 function menuClass(page) {
+  const isChosen = route.name === page
+  if (page === 'main') {
+    // today 按钮：基础样式 + 特殊 padding + 选中状态
+    return {
+      'menu-item': true,
+      'menu-item-today-img': true,
+      'menu-item-chosen': isChosen
+    }
+  }
+  // 其他按钮：默认 menu-item + 选中时加 menu-item-chosen
   return {
-    'menu-item': page !== 'main',
-    'menu-item-today-img': page === 'main',
-    'menu-item-chosen': route.name === page
+    'menu-item': true,
+    'menu-item-chosen': isChosen
   }
 }
 

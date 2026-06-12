@@ -89,3 +89,10 @@ onMounted(async () => {
   version.value = await window.electronAPI.getVersion()
 })
 </script>
+
+<style scoped>
+.setting-contain {
+  background-color: transparent;
+  min-height: 100%;
+}
+</style>
