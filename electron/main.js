@@ -98,9 +98,12 @@ async function createWindow() {
   // 开发模式用 Vite dev server，生产模式加载构建产物
   if (!app.isPackaged) {
     const url = process.env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
+    console.log('[Starte] Loading dev URL:', url);
     mainWindow.loadURL(url);
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    const prodPath = path.join(__dirname, '../dist/index.html');
+    console.log('[Starte] Loading prod file:', prodPath);
+    mainWindow.loadFile(prodPath);
   }
   mainWindow.show();
   if (!app.isPackaged) mainWindow.webContents.openDevTools();
