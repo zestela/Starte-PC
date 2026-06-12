@@ -55,7 +55,8 @@
     }
   },
   "dependencies": {
-    "node-machine-id": "^1.1.12"
+    "node-machine-id": "^1.1.12",
+    "wallpaper": "^4.4.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.0",

@@ -1,26 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 const { Readable } = require('stream');
+const { setWallpaper: wpSet } = require('wallpaper');
 const process = require("process");
-const { exec } = require('child_process');
 
 /**
  * 设置 Windows 桌面壁纸
- * 通过注册表 + RUNDLL32 刷新，无需 PowerShell / C# 编译
+ * 使用 wallpaper npm 包，支持多显示器、壁纸样式，跨平台
  */
-function setWallpaper(imagePath) {
+async function setWallpaper(imagePath) {
     if (process.platform !== "win32") return;
-
-    const absPath = path.resolve(imagePath);
-    const cmd = `reg add "HKCU\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d "${absPath}" /f && RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters`;
-
-    exec(cmd, (err, stdout, stderr) => {
-        if (err) {
-            console.error('设置壁纸失败:', err.message);
-            return;
-        }
-        console.log('壁纸设置成功:', absPath);
-    });
+    try {
+        await wpSet(imagePath, { scale: 'fill' });
+        console.log('壁纸设置成功:', imagePath);
+    } catch (err) {
+        console.error('设置壁纸失败:', err.message);
+    }
 }
 
 module.exports.setWallpaper = setWallpaper;
