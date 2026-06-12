@@ -34,23 +34,21 @@ const router = useRouter()
 const items = ref([])
 
 async function share(item) {
-  // 先触发下载
-  window.electronAPI.share(item.id, 0)
+  try {
+    // 等待图片下载完成
+    const result = await window.electronAPI.share(item.id, 0)
 
-  // 等待图片缓存就绪（最多等待 5 秒）
-  let ready = false
-  for (let i = 0; i < 10; i++) {
-    try {
-      await window.electronAPI.readCacheFile(item.id + '.png')
-      ready = true
-      break
-    } catch (e) {
-      await new Promise(r => setTimeout(r, 500))
+    if (!result.success) {
+      window.electronAPI.outAlert('图片加载失败，请重试')
+      return
     }
-  }
 
-  // 跳转到分享页面
-  router.push({ name: 'share', query: { id: item.id, type: '0' } })
+    // 下载成功后跳转
+    router.push({ name: 'share', query: { id: item.id, type: '0' } })
+  } catch (err) {
+    console.error('分享失败:', err)
+    window.electronAPI.outAlert('分享失败，请重试')
+  }
 }
 
 onMounted(async () => {

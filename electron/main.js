@@ -257,25 +257,48 @@ app.whenReady().then(async () => {
   ipcMain.on('out-alert', async (event, str) => { reportError(str); });
   ipcMain.on('set-wallpaper', async (event, id) => { starte.setWallPaperOut(id); });
 
-  ipcMain.on('share', async (event, shareId, shareType) => {
+  // 修改为 handle，返回 Promise
+  ipcMain.handle('share', async (event, shareId, shareType) => {
     try {
       let shareData = await fetch("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + shareId, {
         signal: AbortSignal.timeout(5000)
       }).then(r => r.json())
       .catch(function (error) { console.log('Share fetch error:', error.message); return null; });
-      if (!shareData || shareData.code !== 1) return;
+
+      if (!shareData || shareData.code !== 1) return { success: false, error: 'FETCH_FAILED' };
+
       let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
       let https = require('https');
-      let shareReq = https.request(shareData.data.url, { method: 'HEAD' }, function (res) {
-        let fileSize = JSON.parse(res.headers["content-length"]);
-        if (!fs.existsSync(filename) || fileSize != fs.statSync(filename).size) {
-          console.log("Log: start downloading share image");
-          starte.downloadImage(shareData.data.url, shareId + ".png")
-            .finally(() => console.log("Log: share download successfully"));
-        }
+
+      return new Promise((resolve) => {
+        let shareReq = https.request(shareData.data.url, { method: 'HEAD' }, function (res) {
+          let fileSize = JSON.parse(res.headers["content-length"]);
+          if (!fs.existsSync(filename) || fileSize != fs.statSync(filename).size) {
+            console.log("Log: start downloading share image");
+            starte.downloadImage(shareData.data.url, shareId + ".png")
+              .then(() => {
+                console.log("Log: share download successfully");
+                resolve({ success: true });
+              })
+              .catch((err) => {
+                console.error("Log: share download failed:", err);
+                resolve({ success: false, error: 'DOWNLOAD_FAILED' });
+              });
+          } else {
+            console.log("Log: share image already cached");
+            resolve({ success: true });
+          }
+        });
+        shareReq.on('error', (err) => {
+          console.error("Log: share request error:", err);
+          resolve({ success: false, error: 'REQUEST_FAILED' });
+        });
+        shareReq.end();
       });
-      shareReq.end();
-    } catch (err) { console.error('share handler error:', err); }
+    } catch (err) {
+      console.error('share handler error:', err);
+      return { success: false, error: err.message };
+    }
   });
 
   ipcMain.on('save-share', async (event, data) => {

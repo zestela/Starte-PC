@@ -19,8 +19,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // 窗口操作
     windowEvents: (type) => ipcRenderer.send('window-events', type),
 
-    // 分享（触发主进程下载图片），type: 0=壁纸 1=句子
-    share: (id, type) => ipcRenderer.send('share', id, type),
+    // 分享（下载图片并返回结果），type: 0=壁纸 1=句子
+    share: (id, type) => ipcRenderer.invoke('share', id, type),
 
     // 保存分享截图
     saveShare: (data) => ipcRenderer.send('save-share', data),
