@@ -1,6 +1,6 @@
 <template>
   <div class="share-wrapper">
-    <div class="share-main" id="share">
+    <div class="share-main" ref="shareRef">
       <img ref="mainPic" :src="picUrl" @load="onPicLoad"/>
       <div class="share-text-background">
         <div>
@@ -19,30 +19,32 @@
 import { ref, onMounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '../utils/api'
+import { useScript } from '../composables/useScript'
 
 const route = useRoute()
 const title = ref('')
 const describe = ref('')
 const picUrl = ref('')
 const mainPic = ref(null)
+const shareRef = ref(null)
 let captured = false
 
 async function capture() {
   if (captured) return
   captured = true
-  const loadHtml2canvas = () => new Promise(resolve => {
-    if (typeof html2canvas !== 'undefined') return resolve()
-    const s = document.createElement('script')
-    s.src = '/js/html2canvas.min.js'
-    s.onload = resolve
-    document.head.appendChild(s)
+
+  await useScript('/js/html2canvas.min.js', {
+    check: () => typeof html2canvas !== 'undefined'
   })
-  await loadHtml2canvas()
+
   await nextTick()
+
   setTimeout(() => {
-    html2canvas(document.getElementById('share'), { scale: 4 }).then(canvas => {
-      window.electronAPI.saveShare(canvas.toDataURL('image/jpeg', 1))
-    })
+    if (shareRef.value) {
+      html2canvas(shareRef.value, { scale: 4 }).then(canvas => {
+        window.electronAPI.saveShare(canvas.toDataURL('image/jpeg', 1))
+      })
+    }
   }, 500)
 }
 

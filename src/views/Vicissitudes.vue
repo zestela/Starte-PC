@@ -1,13 +1,13 @@
 <template>
   <div class="vicissitudes-wrapper">
-    <div class="top-bg-photo" id="top-bg-photo">
+    <div class="top-bg-photo" :style="{ backgroundImage: topBgImage }">
       <div class="date-all">
         <div class="date">{{ month }} 月 {{ day }} 日</div>
         <div class="day">{{ dayName }}</div>
       </div>
       <div class="go-to-today" @click="$router.push('/main')">
         <img class="icon-view view-icon"/>
-        <div class="top-photo-title">今日 : {{ todayTitle }}</div>
+        <div class="top-photo-title">{{ todayTitle }}</div>
         <img class="icon-go-to go-to-icon"/>
       </div>
     </div>
@@ -61,6 +61,7 @@ const tabs = ref([
 ])
 const activeTab = ref(0)
 const recentArticles = ref([])
+const topBgImage = ref('')
 
 const now = new Date()
 const month = now.getMonth() + 1
@@ -76,7 +77,7 @@ onMounted(async () => {
   try {
     if (store.mainpageData?.id) {
       const dataUrl = await window.electronAPI.readCacheFile(store.mainpageData.id + '.png')
-      document.querySelector('#top-bg-photo').style.backgroundImage = `url('${dataUrl}')`
+      topBgImage.value = `url('${dataUrl}')`
     }
   } catch (e) { console.error('背景加载失败:', e) }
 

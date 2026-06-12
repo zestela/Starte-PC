@@ -40,6 +40,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { useScript } from '../composables/useScript'
 
 const store = useAppStore()
 const keyword = ref('')
@@ -49,29 +50,32 @@ const sentences = ref([])
 const bgUrl = ref('')
 let client, photoIndex, sentenceIndex
 
-function loadAlgolia(cb) {
-  if (typeof algoliasearch !== 'undefined') return cb()
-  const s = document.createElement('script')
-  s.src = 'https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js'
-  s.onload = cb
-  s.onerror = () => window.electronAPI.outAlert('搜索服务加载失败，请检查网络连接')
-  document.head.appendChild(s)
+async function loadAlgolia() {
+  await useScript(
+    'https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js',
+    {
+      check: () => typeof algoliasearch !== 'undefined',
+      onError: () => window.electronAPI.outAlert('搜索服务加载失败，请检查网络连接')
+    }
+  )
 }
 
-function doSearch() {
+async function doSearch() {
   if (!keyword.value) return window.electronAPI.outAlert('请输入搜索内容')
   searched.value = true
-  loadAlgolia(() => {
-    if (!client) {
-      client = algoliasearch('PLIM4BWFMR', '493296b2dd9b5d8709021dc22375cdc5')
-      photoIndex = client.initIndex('startePhotoDatabase')
-      sentenceIndex = client.initIndex('starteSentenceDatabase')
-    }
-    photoIndex.search(keyword.value, { attributesToRetrieve: ['title','describe','url','objectID'] })
-      .then(r => photos.value = r.hits)
-    sentenceIndex.search(keyword.value, { attributesToRetrieve: ['sentence','from'] })
-      .then(r => sentences.value = r.hits)
-  })
+
+  await loadAlgolia()
+
+  if (!client) {
+    client = algoliasearch('PLIM4BWFMR', '493296b2dd9b5d8709021dc22375cdc5')
+    photoIndex = client.initIndex('startePhotoDatabase')
+    sentenceIndex = client.initIndex('starteSentenceDatabase')
+  }
+
+  photoIndex.search(keyword.value, { attributesToRetrieve: ['title','describe','url','objectID'] })
+    .then(r => photos.value = r.hits)
+  sentenceIndex.search(keyword.value, { attributesToRetrieve: ['sentence','from'] })
+    .then(r => sentences.value = r.hits)
 }
 
 onMounted(async () => {
