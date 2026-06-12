@@ -68,8 +68,8 @@ window.onload = async function () {
                 }
             }
         })
-        var liArr = document.getElementsByTagName("divv");
-        var spanArr = document.getElementsByTagName("divs");
+        let liArr = document.querySelectorAll('.vicissitudes-left-title div');
+        let spanArr = document.querySelectorAll('.vicissitudes-left-content, .vicissitudes-left-card-notshow');
         for(var i=0;i<liArr.length;i++){
             liArr[i].index = i;
             liArr[i].onclick = function () {

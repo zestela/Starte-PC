@@ -1,15 +1,13 @@
 let newbanbenname, newbanbenlink, newbanbenupdateweb, newbanbendate, seebanben;
-window.electronAPI.getVersion().then((result) => {
-  seebanben = result;
-});
-
 
 window.onload = async function () {
+  seebanben = await window.electronAPI.getVersion();
   let obj = await (await fetch('https://api.zestela.co/banben.json', { cache: 'no-cache' })).json();
   newbanbenname = obj.banben[0].name;
   newbanbenlink = obj.banben[0].url;
   newbanbenupdateweb = obj.banben[0].updateweb;
   newbanbendate = "发布时间：" + obj.banben[0].date;
+  checknew();
 };
 
 function checknew() {
@@ -21,7 +19,6 @@ function checknew() {
     document.getElementById('rizhi-link-text').href = newbanbenupdateweb;
   }
 }
-checknew();
 
 function copyLink() {
   navigator.clipboard.writeText(newbanbenlink).then(function () {

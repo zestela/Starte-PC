@@ -27,6 +27,9 @@ let popupWindow;
 let mainpageRendererData = {};
 let appTray = null;
 let popupMsg;
+let pageAnchor;
+let viciId;
+let isQuitting = false;
 
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
@@ -35,6 +38,7 @@ process.on('unhandledRejection', (reason, p) => {
 
 function reportError(errorMsg) {
   popupMsg = errorMsg;
+  if (popupWindow && !popupWindow.isDestroyed()) popupWindow.close();
   popupWindow = new BrowserWindow({
     width: 300,
     height: 200,
@@ -55,7 +59,7 @@ function reportError(errorMsg) {
 async function infoToServer() {
   const errorMsg = "遥测模块出现错误。向<a href='https://zestela.co/support/' target='_blank'>此处</a>反馈<br>错误信息：";
   const userVersion = require("./package.json").version;
-  const userOS = os.version().replace(/ /g, '%20') + "%20" + os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
+  const userOS = os.release().replace(/ /g, '%20'); //获取电脑系统版本，replace是为了把空格替换成%20，否则api链接会在空格处断开
   const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
     .catch(function (error) {
       reportError(errorMsg + error);
@@ -111,8 +115,8 @@ async function createWindow() {
     label: '退出观星记',
     icon: nativeImage.createFromPath(path.join(__dirname, "src/icons/toExit.png")),
     click: function () {
+      isQuitting = true;
       app.quit();
-      app.quit();  // 因为程序设定关闭为最小化，所以调用两次关闭，防止最大化时一次不能关闭的情况
     }
   }
   ];
@@ -125,6 +129,13 @@ async function createWindow() {
   });
   appTray.on('right-click', () => {
     appTray.popUpContextMenu(trayMenuTemplate);
+  });
+
+  mainWindow.on('close', (e) => {
+    if (!isQuitting) {
+      e.preventDefault();
+      mainWindow.hide();
+    }
   });
 
 }
@@ -256,7 +267,7 @@ ipcMain.on('window-events', (event, type) => {
       mainWindow.unmaximize();
     else
       mainWindow.maximize();
-  } else if (type === 3) mainWindow.hide();
+  } else if (type === 3) mainWindow.close();
 });
 
 ipcMain.on('pop-up-close', () => {

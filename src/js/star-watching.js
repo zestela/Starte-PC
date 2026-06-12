@@ -7,12 +7,8 @@ window.onload = async function () {
     fetch('https://api.zestela.co/new-book/new-get-book-sentence-list.php')
         .then(response => response.json())
         .then(async (data) => {
-            dataLst = data;
+            const dataLst = data;
             const wallpaperData = await (await fetch(`https://api.zestela.co/new-book/new-get-mainpage-list.php`)).json();
-            photoDate = new Date(dataLst.data[Object.keys(data.data).length - 1].date);
-            photoMonth = photoDate.getMonth() + 1;
-            photoDay = photoDate.getDate();
-            isfromwho = "—— " + data.data[Object.keys(data.data).length - 1].from;
 
             for (let i = Object.keys(data.data).length - 1; i >= 0; i--) {
                 let photoDate1 = new Date(dataLst.data[i].date);

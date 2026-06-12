@@ -92,8 +92,11 @@ dropArea.addEventListener('click', function () {
     cancelable: true,
     view: window
   });
-  file.dispatchEvent(evt, fileinfo());
+  file.dispatchEvent(evt);
 }, false);
+
+// 初始化文件选择事件监听
+fileinfo();
 //发送邮件如下
 function sendEmailToOfficial() {
   let UserTitle = document.getElementById("userTitle").value;
@@ -102,7 +105,7 @@ function sendEmailToOfficial() {
   let UserEmail = document.getElementById("userEmail").value;
   let UserCopyright = document.getElementById("userCopyright").value;
   let sendMessage = "标题：" + UserTitle + "，描述：" + UserDescribe + "，署名：" + UserName + "，邮箱：" + UserEmail + "，版权方：" + UserCopyright+"，机器码："+UserMachineId;
-  formData = new FormData();
+  const formData = new FormData();
   formData.append("file", document.getElementById('file-uploader').files[0]);
   formData.append("SendMessage", sendMessage); //需要上传的多个参数
   let reg = /^\w+@\w+\.\w+$/i;
@@ -151,7 +154,7 @@ function sendEmailToOfficial() {
       } else if (res == 0) {
         setTimeout(() => { location.reload(); }, 20000);
       } else if (sentResult == "outoffile") {
-        document.getElementById('submit-button').value = "提交失败, 请重a试 (20秒后自动刷新)";
+        document.getElementById('submit-button').value = "提交失败, 请重试 (20秒后自动刷新)";
         window.electronAPI.outAlert("提交失败(20秒后自动刷新)，上传的不是图片，或者大小超过5M。如多次重试依旧失败，请<a href='https://zestela.co/support/' target='_blank'>点击此处反馈</a>。错误代码：0x5"); //后端判断上传的不是图片，或者大小超过5M，错误代码：0x5
         document.getElementById('submit-button').onclick = null;
         setTimeout(() => { location.reload(); }, 20000);

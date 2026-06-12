@@ -158,13 +158,13 @@ if (isCommonFile > -1) {
       </div>
       `);
       if (fileName=="share.html") {
-        document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(1)");
+        document.getElementById("back-icon").onclick = () => window.electronAPI.goToPage(1);
       } else if (fileName=="vwo50.html") {
-        document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(4)");
+        document.getElementById("back-icon").onclick = () => window.electronAPI.goToPage(4);
       } else if (fileName=="check-new.html") {
-        document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(4)");
+        document.getElementById("back-icon").onclick = () => window.electronAPI.goToPage(4);
       } else if (fileName=="vicissitudes-detail.html") {
-        document.getElementById("back-icon").onclick = Function("window.electronAPI.goToPage(10)");
+        document.getElementById("back-icon").onclick = () => window.electronAPI.goToPage(10);
       }
 } else {
     console.log("什么玩意？")

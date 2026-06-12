@@ -37,7 +37,6 @@ module.exports.setWallPaperOut = async function (id) {
     })
         .catch(function (error) {
             console.log('Error', error.message);
-            mainWindow.loadFile('src/timeout.html');
         });
     wallpaperData = wallpaperData.data;
 
@@ -45,8 +44,8 @@ module.exports.setWallPaperOut = async function (id) {
         let filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
         let https = require('https');
         let options = { method: 'HEAD' };
-        https.request(shareData.data.url, options, function (res) {
-            let fileSize = JSON.stringify(res.headers["content-length"]);
+        https.request(wallpaperData.data.url, options, function (res) {
+            let fileSize = JSON.parse(res.headers["content-length"]);
             if (!fs.existsSync(filename) || !fileSize === fs.statSync(filename).size) {
                 downloadImage(wallpaperData.data.url, id + ".png")
                     .finally(() => {

@@ -3,9 +3,10 @@ window.onload = async function () {
     const shareType = await window.electronAPI.getShareType();
     if (shareType == 1) {
         const sentenceData = await (await fetch('https://api.zestela.co/new-book/new-get-book-sentence-list.php')).json();
+        const sentenceItem = sentenceData.data.find(item => item.id == shareId);
         let picUrl = (await window.electronAPI.getappdata() + "/starte-cache/" + shareId + ".png");
-        document.getElementById("share-text-title").innerText = sentenceData.data[shareId].sentence;
-        document.getElementById("share-text-describe").innerText = "—— "+sentenceData.data[shareId].from;
+        document.getElementById("share-text-title").innerText = sentenceItem ? sentenceItem.sentence : '';
+        document.getElementById("share-text-describe").innerText = sentenceItem ? "—— " + sentenceItem.from : '';
         document.getElementById("mainPicture").setAttribute("src", picUrl);
     }
     else {
