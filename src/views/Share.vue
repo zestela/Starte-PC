@@ -51,8 +51,17 @@ onMounted(async () => {
   const type = route.query.type
   if (!id) return
 
-  const dataUrl = await window.electronAPI.readCacheFile(id + '.png')
-  picUrl.value = dataUrl
+  // 图片可能还在下载中，重试读取缓存
+  let dataUrl = null
+  for (let i = 0; i < 10; i++) {
+    try {
+      dataUrl = await window.electronAPI.readCacheFile(id + '.png')
+      break
+    } catch (e) {
+      if (i < 9) await new Promise(r => setTimeout(r, 500))
+    }
+  }
+  if (dataUrl) picUrl.value = dataUrl
 
   if (type === '1') {
     const data = await api('https://api.zestela.co/new-book/new-get-book-sentence-list.php')

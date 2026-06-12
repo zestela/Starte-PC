@@ -72,14 +72,15 @@ const todayTitle = computed(() => {
 })
 
 onMounted(async () => {
+  // 设置背景（独立 try-catch，不影响数据加载）
   try {
-    // 设置背景
     if (store.mainpageData?.id) {
       const dataUrl = await window.electronAPI.readCacheFile(store.mainpageData.id + '.png')
-      document.querySelector('#top-bg-photo').style.backgroundImage =
-        `url('${dataUrl}')`
+      document.querySelector('#top-bg-photo').style.backgroundImage = `url('${dataUrl}')`
     }
+  } catch (e) { console.error('背景加载失败:', e) }
 
+  try {
     const data = await api('https://api.zestela.co/vicissitudes/vicissitudes.php')
     const list = data.data
     const today = new Date()

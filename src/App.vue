@@ -1,7 +1,9 @@
 <template>
   <div id="app-root">
     <Topbar />
-    <router-view />
+    <div class="router-view-container">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -15,6 +17,10 @@ import Topbar from './components/Topbar.vue'
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+}
+.router-view-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 </style>
