@@ -28,6 +28,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from '../utils/api'
 
 const router = useRouter()
 const items = ref([])
@@ -39,8 +40,7 @@ function share(item) {
 
 onMounted(async () => {
   try {
-    const res = await fetch('https://api.zestela.co/new-mainpage/get-mainpage-history-list.php')
-    const data = await res.json()
+    const data = await api('https://api.zestela.co/new-mainpage/get-mainpage-history-list.php')
     items.value = Object.values(data.data).reverse().map(it => {
       const d = new Date(it.date)
       return { ...it, month: d.getMonth()+1, day: d.getDate() }

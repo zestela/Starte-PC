@@ -37,6 +37,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { apiSafe } from '../utils/api'
 
 const statusText = ref('正在检查更新……')
 const hasUpdate = ref(false)
@@ -52,8 +53,11 @@ async function checkUpdate() {
   statusText.value = '正在检查更新……'
   hasUpdate.value = false
   try {
-    const res = await fetch('https://api.zestela.co/banben.json', { cache: 'no-cache' })
-    const data = await res.json()
+    const data = await apiSafe('https://api.zestela.co/banben.json', { cache: 'no-cache' })
+    if (!data) {
+      statusText.value = '检查失败，请重试'
+      return
+    }
     const latest = data.banben[0]
     newVersion.value = latest.name
     newDate.value = '发布时间：' + latest.date

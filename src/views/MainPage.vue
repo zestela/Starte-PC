@@ -40,6 +40,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
+import { apiSafe } from '../utils/api'
 
 const store = useAppStore()
 const router = useRouter()
@@ -89,16 +90,14 @@ function doShare() {
 }
 
 async function checkUpdate() {
-  try {
-    const res = await fetch('https://api.zestela.co/banben.json', { cache: 'no-cache' })
-    const versionOnline = await res.json()
-    const onlineVer = versionOnline.banben[0].name
-    const localVer = await window.electronAPI.getVersion()
-    if (onlineVer !== localVer) {
-      hasUpdate.value = true
-      newVersion.value = onlineVer
-    }
-  } catch (e) { /* ignore */ }
+  const versionOnline = await apiSafe('https://api.zestela.co/banben.json', { cache: 'no-cache' })
+  if (!versionOnline) return
+  const onlineVer = versionOnline.banben[0].name
+  const localVer = await window.electronAPI.getVersion()
+  if (onlineVer !== localVer) {
+    hasUpdate.value = true
+    newVersion.value = onlineVer
+  }
 }
 
 onMounted(async () => {

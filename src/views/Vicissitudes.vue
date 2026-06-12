@@ -51,6 +51,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
+import { api } from '../utils/api'
 
 const store = useAppStore()
 const tabs = ref([
@@ -79,8 +80,7 @@ onMounted(async () => {
         `url('${appdata}/starte-cache/${store.mainpageData.id}.png')`
     }
 
-    const res = await fetch('https://api.zestela.co/vicissitudes/vicissitudes.php')
-    const data = await res.json()
+    const data = await api('https://api.zestela.co/vicissitudes/vicissitudes.php')
     const list = data.data
     const today = new Date()
     const todayTime = today.getTime()

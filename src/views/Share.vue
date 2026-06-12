@@ -16,6 +16,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
+import { api } from '../utils/api'
 
 const route = useRoute()
 const title = ref('')
@@ -54,13 +55,11 @@ onMounted(async () => {
   picUrl.value = `${appdata}/starte-cache/${id}.png`
 
   if (type === '1') {
-    const res = await fetch('https://api.zestela.co/new-book/new-get-book-sentence-list.php')
-    const data = await res.json()
+    const data = await api('https://api.zestela.co/new-book/new-get-book-sentence-list.php')
     const item = data.data.find(it => it.id == id)
     if (item) { title.value = item.sentence; describe.value = '—— ' + item.from }
   } else {
-    const res = await fetch(`https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=${id}`)
-    const data = await res.json()
+    const data = await api(`https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=${id}`)
     if (data.data) { title.value = data.data.title; describe.value = data.data.describe }
   }
 

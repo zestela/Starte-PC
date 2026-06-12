@@ -15,6 +15,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { api } from '../utils/api'
 
 const route = useRoute()
 const title = ref('')
@@ -25,8 +26,7 @@ onMounted(async () => {
   const id = route.query.id
   if (!id) return
   try {
-    const res = await fetch(`https://api.zestela.co/vicissitudes/get-vici-by-id.php?id=${encodeURIComponent(id)}`)
-    const data = await res.json()
+    const data = await api(`https://api.zestela.co/vicissitudes/get-vici-by-id.php?id=${encodeURIComponent(id)}`)
     const art = data.data
     const d = new Date(art.date)
     title.value = art.title

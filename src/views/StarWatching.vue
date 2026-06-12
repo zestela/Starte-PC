@@ -25,6 +25,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from '../utils/api'
 
 const router = useRouter()
 const items = ref([])
@@ -37,12 +38,10 @@ function share(item) {
 
 onMounted(async () => {
   try {
-    const [sRes, wRes] = await Promise.all([
-      fetch('https://api.zestela.co/new-book/new-get-book-sentence-list.php'),
-      fetch('https://api.zestela.co/new-book/new-get-mainpage-list.php')
+    const [sData, wData] = await Promise.all([
+      api('https://api.zestela.co/new-book/new-get-book-sentence-list.php'),
+      api('https://api.zestela.co/new-book/new-get-mainpage-list.php')
     ])
-    const sData = await sRes.json()
-    const wData = await wRes.json()
     const list = Object.values(sData.data).reverse()
     items.value = list.map((it, i) => {
       const d = new Date(it.date)

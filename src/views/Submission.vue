@@ -33,6 +33,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import { api } from '../utils/api'
 
 const form = reactive({ title: '', describe: '', author: '', email: '', copyright: '' })
 const fileInput = ref(null)
@@ -72,19 +73,15 @@ async function submit() {
   fd.append('SendMessage', `标题：${title}，描述：${describe}，署名：${author}，邮箱：${email}，版权方：${copyright}，机器码：${machineId}`)
 
   try {
-    const res = await fetch('https://api.zestela.co/get-submission/get-submission.php', { method: 'POST', body: fd })
-    if (res.ok) {
-      const data = await res.json()
-      if (data.msg === 'OK') {
-        btnText.value = '提交成功'
-        window.electronAPI.outAlert('提交成功！如果图片入选，我们会在七天内邮件联系你。')
-      } else {
-        btnText.value = '提交失败, 请重试'
-        window.electronAPI.outAlert(`提交失败：${data.msg || '未知错误'}`)
-      }
+    const data = await api('https://api.zestela.co/get-submission/get-submission.php', {
+      method: 'POST', body: fd, timeout: 300000
+    })
+    if (data.msg === 'OK') {
+      btnText.value = '提交成功'
+      window.electronAPI.outAlert('提交成功！如果图片入选，我们会在七天内邮件联系你。')
     } else {
       btnText.value = '提交失败, 请重试'
-      window.electronAPI.outAlert('提交失败，请重试')
+      window.electronAPI.outAlert(`提交失败：${data.msg || '未知错误'}`)
     }
   } catch (e) {
     btnText.value = '提交超时, 请重试'
