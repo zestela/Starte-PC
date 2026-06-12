@@ -29,7 +29,7 @@
         </button>
         <div :class="infoClass">
           <img class="icon-date"/>
-          <div class="image-date"><date>{{ dateStr }}</date></div>
+          <div class="image-date"><span>{{ dateStr }}</span></div>
         </div>
       </div>
     </div>
