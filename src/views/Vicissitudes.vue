@@ -1,0 +1,104 @@
+<template>
+  <div>
+    <div class="top-bg-photo" id="top-bg-photo">
+      <div class="date-all">
+        <div class="date">{{ month }} 月 {{ day }} 日</div>
+        <div class="day">{{ dayName }}</div>
+      </div>
+      <div class="go-to-today" @click="$router.push('/main')">
+        <img class="icon-view view-icon"/>
+        <div class="top-photo-title">今日 : {{ todayTitle }}</div>
+        <img class="icon-go-to go-to-icon"/>
+      </div>
+    </div>
+    <div class="vicissitudes-container">
+      <div class="vicissitudes-left">
+        <div class="vicissitudes-left-title">
+          <div v-for="(tab, i) in tabs" :key="tab.key"
+               :class="['vicissitudes-tab', { 'vicissitudes-left-title-current': activeTab === i }]"
+               @click="activeTab = i">{{ tab.label }}</div>
+        </div>
+        <div v-for="(tab, i) in tabs" :key="'panel-'+tab.key"
+             :class="activeTab === i ? 'vicissitudes-left-content' : 'vicissitudes-left-card-notshow'">
+          <div v-for="art in tab.articles" :key="art.id" class="vicissitudes-left-card"
+               @click="$router.push({ name: 'vicissitudes-detail', query: { id: art.id } })">
+            <div style="padding:15px">
+              <div class="card-title">{{ art.title }}</div>
+              <div class="card-describe">{{ art.summary }}</div>
+              <div class="card-detail">{{ art.author }} / {{ art.dateStr }} / {{ art.category }}</div>
+            </div>
+          </div>
+          <div v-if="!tab.articles.length" style="color:#888;padding:20px">暂无内容</div>
+        </div>
+      </div>
+      <div class="vicissitudes-right">
+        <div class="vicissitudes-right-title"><img class="icon-latest-posts"/><div>近期更新</div></div>
+        <div class="vicissitudes-right-content">
+          <div v-for="art in recentArticles" :key="art.id" class="vicissitudes-left-card"
+               @click="$router.push({ name: 'vicissitudes-detail', query: { id: art.id } })">
+            <div style="padding:15px">
+              <div class="card-title">{{ art.title }}</div>
+              <div class="card-describe">{{ art.summary }}</div>
+              <div class="card-detail">{{ art.author }} / {{ art.dateStr }} / {{ art.category }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import { useAppStore } from '../stores/app'
+
+const store = useAppStore()
+const tabs = ref([
+  { key: 'rec', label: '推荐', articles: [] },
+  { key: 'novel', label: '小说', articles: [] },
+  { key: 'kepu', label: '科普', articles: [] },
+])
+const activeTab = ref(0)
+const recentArticles = ref([])
+
+const now = new Date()
+const month = now.getMonth() + 1
+const day = now.getDate()
+const dayName = ['周日','周一','周二','周三','周四','周五','周六'][now.getDay()]
+
+const todayTitle = computed(() => {
+  return store.mainpageData ? '今日 : ' + store.mainpageData.title : ''
+})
+
+onMounted(async () => {
+  try {
+    // 设置背景
+    if (store.mainpageData?.id) {
+      const appdata = await window.electronAPI.getappdata()
+      document.querySelector('.top-bg-photo').style.backgroundImage =
+        `url('${appdata}/starte-cache/${store.mainpageData.id}.png')`
+    }
+
+    const res = await fetch('https://api.zestela.co/vicissitudes/vicissitudes.php')
+    const data = await res.json()
+    const list = data.data
+    const today = new Date()
+    const todayTime = today.getTime()
+    const cutoff = todayTime - 1296000000
+
+    for (let i = Object.keys(list).length - 1; i >= 0; i--) {
+      const art = list[i]
+      const d = new Date(art.date)
+      art.dateStr = `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日`
+
+      const card = art
+      if (art.ifRecm === 'true') tabs.value[0].articles.push(card)
+      if (art.category === '小说') tabs.value[1].articles.push(card)
+      else if (art.category === '科普') tabs.value[2].articles.push(card)
+      if (d.getTime() < todayTime && d.getTime() > cutoff) recentArticles.value.push(card)
+    }
+  } catch (e) {
+    console.error('vicissitudes error:', e)
+  }
+})
+</script>

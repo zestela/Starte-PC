@@ -15,6 +15,7 @@ jobs:
       - run: npm install -g pnpm
       - run: npm install -g electron-builder
       - run: pnpm install
+      - run: pnpm build
       - run: pnpm packager
       - name: upload artifacts
         uses: actions/upload-artifact@v3
