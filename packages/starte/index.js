@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Readable } = require('stream');
-const { setWallpaper: wpSet } = require('wallpaper');
+const wallpaper = require('wallpaper');
 const process = require("process");
 
 /**
@@ -11,7 +11,7 @@ const process = require("process");
 async function setWallpaper(imagePath) {
     if (process.platform !== "win32") return;
     try {
-        await wpSet(imagePath, { scale: 'fill' });
+        await wallpaper.set(imagePath, { scale: 'fill' });
         console.log('壁纸设置成功:', imagePath);
     } catch (err) {
         console.error('设置壁纸失败:', err.message);
