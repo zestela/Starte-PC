@@ -1,7 +1,7 @@
 <template>
   <div class="share-wrapper">
     <div class="share-main" ref="shareRef">
-      <img ref="mainPic" :src="picUrl" @load="onPicLoad"/>
+      <img ref="mainPic" :src="picUrl" @load="onPicLoad" class="share-main-img"/>
       <div class="share-text-background">
         <div>
           <h2>{{ title }}</h2>
@@ -81,5 +81,19 @@ onMounted(async () => {
 .share-wrapper {
   background-color: #141414;
   min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-main {
+  width: calc(70vh);
+  background-color: white;
+}
+
+.share-main-img {
+  width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 </style>

@@ -26,13 +26,13 @@
         <button class="onhover" @click="$router.push('/settings')">
           <img class="add-icon icon-settings"/>
         </button>
-        <button class="onhover" @click="window.electronAPI.windowEvents(1)">
+        <button class="onhover" @click="handleWindowEvent(1)">
           <img class="icon-min"/>
         </button>
-        <button class="onhover" @click="window.electronAPI.windowEvents(2)">
+        <button class="onhover" @click="handleWindowEvent(2)">
           <img class="icon-max"/>
         </button>
-        <button class="onhover closeonhover" @click="window.electronAPI.windowEvents(3)">
+        <button class="onhover closeonhover" @click="handleWindowEvent(3)">
           <img class="icon-close"/>
         </button>
       </div>
@@ -70,5 +70,9 @@ function iconClass(page) {
     'add-icon-onhover': page === 'submission',
     'add-icon-onhover-chosen': route.name === page
   }
+}
+
+function handleWindowEvent(type) {
+  window.electronAPI.windowEvents(type)
 }
 </script>
