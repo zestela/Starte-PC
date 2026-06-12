@@ -1,35 +1,98 @@
 <template>
   <div class="submission-wrapper">
-    <div class="contain">
-      <form class="outer-contain" @submit.prevent>
-        <div style="display:flex;justify-content:center;align-items:center;flex-direction:column;gap:8px">
-          <div class="submission-title">图片投稿</div>
-          <div class="submission-describe">点击"提交"即代表同意<a href="https://zestela.co/starte-agreement" target="_blank"><u>许可协议</u></a>全部内容</div>
-        </div>
-        <div class="inner-contain">
-        <input type="text" class="input-box input-box-1" placeholder="图片标题" v-model="form.title" maxlength="50"/>
-        <div class="input-box input-box-2">
-          <div class="hidden"><input type="file" accept="image/*" ref="fileInput" @change="onFileChange"/></div>
-          <div id="dropArea" @click="openFile" @dragenter.prevent @dragover.prevent>
-            <div v-if="!preview">{{ tip }}</div>
-            <div v-else :id="'compress-list-item'" class="compress-list-item">
-              <div class="compress-list-preview" :style="{ backgroundImage: `url(${preview})` }"></div>
+    <div class="submission-container">
+      <div class="submission-header">
+        <h1 class="submission-title">图片投稿</h1>
+        <p class="submission-desc">
+          点击"提交"即代表同意<a href="https://zestela.co/starte-agreement" target="_blank">许可协议</a>全部内容
+        </p>
+      </div>
+
+      <form class="submission-form" @submit.prevent="submit">
+        <!-- 图片上传区域 -->
+        <div class="form-section upload-section">
+          <div class="upload-area" @click="openFile" @dragenter.prevent @dragover.prevent>
+            <input type="file" accept="image/*" ref="fileInput" @change="onFileChange" style="display: none"/>
+            <div v-if="!preview" class="upload-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+              </svg>
+              <p>{{ tip }}</p>
+              <span class="upload-hint">支持 JPG、PNG、WebP 等格式，最大 5MB</span>
             </div>
+            <div v-else class="upload-preview" :style="{ backgroundImage: `url(${preview})` }"></div>
           </div>
         </div>
-        <div class="input-box input-box-3">
-          <textarea class="textarea-3" placeholder="图片描述" v-model="form.describe" maxlength="300"></textarea>
-          <div class="textCount"><span>{{ form.describe.length }}</span> / 300</div>
+
+        <!-- 表单字段 -->
+        <div class="form-section">
+          <div class="form-group">
+            <label>图片标题 *</label>
+            <input
+              type="text"
+              v-model="form.title"
+              placeholder="请输入图片标题"
+              maxlength="50"
+              class="form-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>图片描述 *</label>
+            <textarea
+              v-model="form.describe"
+              placeholder="请描述图片内容、拍摄地点或背后的故事..."
+              maxlength="300"
+              class="form-textarea"
+              rows="4"
+            ></textarea>
+            <div class="char-count">{{ form.describe.length }} / 300</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>投稿人署名 *</label>
+              <input
+                type="text"
+                v-model="form.author"
+                placeholder="您的名字"
+                maxlength="50"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>投稿人邮箱 *</label>
+              <input
+                type="email"
+                v-model="form.email"
+                placeholder="your@email.com"
+                maxlength="50"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>图片版权方 *</label>
+            <input
+              type="text"
+              v-model="form.copyright"
+              placeholder="如为原创则填写本人署名"
+              maxlength="50"
+              class="form-input"
+            />
+          </div>
         </div>
-        <input type="text" class="input-box input-box-4" placeholder="投稿人署名" v-model="form.author" maxlength="50"/>
-        <input type="email" class="input-box input-box-5" placeholder="投稿人邮箱" v-model="form.email" maxlength="50"/>
-        <input type="text" class="input-box input-box-6" placeholder="图片版权方" v-model="form.copyright" maxlength="50"/>
-      </div>
-      <div style="display:flex;justify-content:center;align-items:center">
-        <input class="submit-button" type="button" :value="btnText" @click="submit" :disabled="submitting"/>
-      </div>
-    </form>
-  </div>
+
+        <!-- 提交按钮 -->
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" :disabled="submitting">
+            {{ btnText }}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -96,25 +159,216 @@ async function submit() {
 
 <style scoped>
 .submission-wrapper {
-  background-color: black;
+  background-color: #0a0a0a;
   min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* 覆盖全局 CSS 中的 position: absolute */
-.contain {
+.submission-container {
   width: 100%;
-  max-width: 1200px;
-  position: relative !important;
-  top: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-  color: white;
+  max-width: 800px;
+}
+
+.submission-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.submission-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 12px 0;
+}
+
+.submission-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.submission-desc a {
+  color: rgba(93, 85, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.submission-desc a:hover {
+  color: rgba(93, 85, 255, 1);
+}
+
+.submission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 上传区域 */
+.upload-section {
+  margin-bottom: 8px;
+}
+
+.upload-area {
+  width: 100%;
+  height: 320px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.upload-area:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(93, 85, 255, 0.3);
+}
+
+.upload-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.upload-placeholder svg {
+  opacity: 0.5;
+}
+
+.upload-placeholder p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.upload-hint {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.upload-preview {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 表单字段 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-input,
+.form-textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #fff;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(93, 85, 255, 0.5);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.char-count {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: right;
+  margin-top: -4px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 提交按钮 */
+.form-actions {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 8px;
+}
+
+.btn-submit {
+  padding: 14px 48px;
+  background: rgba(93, 85, 255, 0.9);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: rgba(93, 85, 255, 1);
+  transform: translateY(-1px);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .upload-area {
+    height: 240px;
+  }
+
+  .submission-title {
+    font-size: 28px;
+  }
 }
 </style>
