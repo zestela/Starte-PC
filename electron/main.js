@@ -96,10 +96,11 @@ async function createWindow() {
   Menu.setApplicationMenu(null);
 
   // 开发模式用 Vite dev server，生产模式加载构建产物
-  if (process.env.VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
+  if (!app.isPackaged) {
+    const url = process.env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
+    mainWindow.loadURL(url);
   } else {
-    mainWindow.loadFile(path.join(ROOT, 'dist/index.html'));
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
   mainWindow.show();
   if (!app.isPackaged) mainWindow.webContents.openDevTools();
