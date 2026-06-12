@@ -1,19 +1,17 @@
 const fs = require("fs");
 const path = require("path");
-const axios = require('axios');
+const { Readable } = require('stream');
 const process = require("process");
 const { exec } = require('child_process');
 
 /**
  * 设置 Windows 桌面壁纸
  * 通过注册表 + RUNDLL32 刷新，无需 PowerShell / C# 编译
- * 比原来 PowerShell Add-Type 方案快 10 倍以上
  */
 function setWallpaper(imagePath) {
     if (process.platform !== "win32") return;
 
     const absPath = path.resolve(imagePath);
-    // 注册表 REG_SZ 值中反斜杠不需要转义，但 reg 命令中路径如果有空格需双引号包裹
     const cmd = `reg add "HKCU\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d "${absPath}" /f && RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters`;
 
     exec(cmd, (err, stdout, stderr) => {
@@ -29,25 +27,27 @@ module.exports.setWallpaper = setWallpaper;
 
 module.exports.setWallPaperOut = async function (id) {
     try {
-        const wallpaperData = await axios.get("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-            timeout: 30000
+        const wallpaperData = await fetch("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
+            signal: AbortSignal.timeout(30000)
+        }).then(r => r.json())
+        .catch(function (error) {
+            console.log('Error', error.message);
+            return null;
         });
 
-        if (wallpaperData.data.code !== 1) {
-            console.log('获取壁纸数据失败, code:', wallpaperData.data.code);
+        if (!wallpaperData || wallpaperData.code !== 1) {
+            console.log('获取壁纸数据失败, code:', wallpaperData?.code);
             return;
         }
 
         const filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
 
-        // 如果图片已缓存且大小匹配，直接设置壁纸
         if (fs.existsSync(filename)) {
             setWallpaper(filename);
             return;
         }
 
-        // 下载图片后设置壁纸
-        await downloadImage(wallpaperData.data.data.url, id + ".png");
+        await downloadImage(wallpaperData.data.url, id + ".png");
         setWallpaper(filename);
     } catch (error) {
         console.error('setWallPaperOut 错误:', error.message);
@@ -56,12 +56,9 @@ module.exports.setWallPaperOut = async function (id) {
 
 async function downloadImage(url, name) {
     const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache', name));
-    const response = await axios({
-        url,
-        method: 'GET',
-        responseType: 'stream'
-    });
-    response.data.pipe(writer);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Download failed: ${response.status}`);
+    Readable.fromWeb(response.body).pipe(writer);
     return new Promise((resolve, reject) => {
         writer.on('finish', resolve);
         writer.on('error', reject);

@@ -13,7 +13,7 @@ export default defineConfig({
           build: {
             outDir: 'dist-electron',
             rollupOptions: {
-              external: ['electron', 'path', 'fs', 'os', 'axios', 'node-machine-id', 'child_process', 'https'],
+              external: ['electron', 'path', 'fs', 'os', 'node-machine-id', 'child_process', 'https'],
             },
           },
         },

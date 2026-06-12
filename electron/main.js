@@ -19,7 +19,6 @@ const {
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const axios = require('axios');
 const starte = require("../packages/starte/index.js");
 let mainWindow;
 let popupWindow;
@@ -60,20 +59,23 @@ function reportError(errorMsg) {
 async function infoToServer() {
   const errorMsg = "遥测模块出现错误。向<a href='https://zestela.co/support/' target='_blank'>此处</a>反馈<br>错误信息：";
   const userOS = os.release().replace(/ /g, '%20');
-  const getipAddress = await axios.get('https://ipapi.co/json/', { timeout: 20000 })
+  const getipAddress = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(20000) })
+    .then(r => r.json())
     .catch(function (error) {
       reportError(errorMsg + error);
+      return null;
     });
   if (!getipAddress) return;
-  const ipAddress = getipAddress.data.ip;
+  const ipAddress = getipAddress.ip;
   const timestamp = Math.round(new Date().getTime() / 1000);
   const getUrl = `https://api.zestela.co/info/analysis.php?getip=${ipAddress}&getuseTime=${timestamp}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${userOS}&getuseVersion=${APP_VERSION}`;
-  let sendInfoResult = await axios.get(getUrl, { timeout: 30000 })
+  let sendInfoResult = await fetch(getUrl, { signal: AbortSignal.timeout(30000) })
+    .then(r => r.json())
     .catch(function (error) {
       reportError(errorMsg + error);
+      return null;
     });
   if (!sendInfoResult) return;
-  sendInfoResult = sendInfoResult.data;
   if (sendInfoResult.code == 1) return 0;
   else reportError(errorMsg + sendInfoResult.msg);
 }
@@ -163,14 +165,14 @@ app.whenReady().then(async () => {
     const ifOpenConfig = await starte.getSetting("isSelfopen");
     let mainpageCache = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "mainpage-cache.json")));
 
-    let mainpageData = await axios.get("https://api.zestela.co/new-mainpage/get-mainpage.php", {
-      timeout: 30000
-    }).catch(function (error) {
+    let mainpageData = await fetch("https://api.zestela.co/new-mainpage/get-mainpage.php", {
+      signal: AbortSignal.timeout(30000)
+    }).then(r => r.json())
+    .catch(function (error) {
       console.log('Error', error.message);
       throw new Error('NETWORK_ERROR');
     });
 
-    mainpageData = mainpageData.data;
     mainpageRendererData = mainpageData.data;
 
     if (mainpageData.code !== 0) {
@@ -214,11 +216,11 @@ app.whenReady().then(async () => {
 
   ipcMain.on('share', async (event, shareId, shareType) => {
     try {
-      let shareData = await axios.get("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + shareId, {
-        timeout: 5000
-      }).catch(function (error) { console.log('Share fetch error:', error.message); });
-      if (!shareData || shareData.data.code !== 1) return;
-      shareData = shareData.data;
+      let shareData = await fetch("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + shareId, {
+        signal: AbortSignal.timeout(5000)
+      }).then(r => r.json())
+      .catch(function (error) { console.log('Share fetch error:', error.message); return null; });
+      if (!shareData || shareData.code !== 1) return;
       let filename = path.join(process.env.APPDATA, "starte-cache", shareId + ".png");
       let https = require('https');
       let shareReq = https.request(shareData.data.url, { method: 'HEAD' }, function (res) {
