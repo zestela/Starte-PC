@@ -98,14 +98,22 @@ async function submit() {
 .submission-wrapper {
   background-color: black;
   min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
+/* 覆盖全局 CSS 中的 position: absolute */
 .contain {
   width: 100%;
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
 }
 </style>

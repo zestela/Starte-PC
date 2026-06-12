@@ -96,4 +96,21 @@ onMounted(async () => {
   user-select: none;
   -webkit-user-drag: none;
 }
+
+/* 确保文本样式正确显示 */
+.share-text-background h2 {
+  color: #000;
+  font-weight: 300;
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.share-text-background h5 {
+  color: #000;
+  font-weight: lighter;
+  margin-top: 0;
+  margin-bottom: 0;
+  word-break: break-all;
+}
 </style>
