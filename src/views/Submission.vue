@@ -12,7 +12,7 @@
         <!-- 图片上传区域 -->
         <div class="form-section upload-section">
           <div class="upload-area" @click="openFile" @dragenter.prevent @dragover.prevent>
-            <input type="file" accept="image/*" ref="fileInput" @change="onFileChange" style="display: none"/>
+            <input type="file" accept="image/*" ref="fileInput" @change="onFileChange" class="hidden"/>
             <div v-if="!preview" class="upload-placeholder">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
