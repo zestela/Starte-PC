@@ -1,7 +1,5 @@
 <template>
   <svg
-    :width="size"
-    :height="size"
     :class="className"
     viewBox="0 0 48 17"
     fill="none"
@@ -13,7 +11,6 @@
 
 <script setup>
 defineProps({
-  size: { type: [String, Number], default: 24 },
   className: { type: String, default: '' }
 })
 </script>
