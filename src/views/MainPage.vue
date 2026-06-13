@@ -1,12 +1,13 @@
 <template>
   <div class="mainpage-wrapper">
-    <div class="update-tip-bored">
-      <div :class="['update-tip', { 'update-tip-checked': hasUpdate }]" id="update-tip">
-        <IconCheckUpdate class="w-[10px] mr-2.5"/>
-        <div>现已发布新版本</div>
-        <div class="banbenhao">{{ newVersion }}</div>
-        <div class="updatebutton" @click="$router.push('/check-new')">点击了解详情</div>
-      </div>
+    <div
+      v-if="hasUpdate"
+      class="fixed top-[55px] left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 h-10 px-[27px] bg-black/37 text-white/70 text-[14px] font-semibold border border-white/20 rounded-full backdrop-blur-[98px]"
+    >
+      <IconCheckUpdate class="w-[10px]"/>
+      <span>现已发布新版本</span>
+      <span>{{ newVersion }}</span>
+      <span class="text-white font-bold ml-2.5 cursor-pointer hover:underline" @click="$router.push('/check-new')">点击了解详情</span>
     </div>
     <div class="image-info">
       <div :class="textClass" id="mainpage-text">

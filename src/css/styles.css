@@ -191,47 +191,6 @@ body {
   opacity: 0.714;
 }
 
-.update-tip-bored {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  position: absolute;
-  margin-top: 55px;
-}
-
-.update-tip {
-  display: none;
-}
-
-.update-tip-checked {
-  background-color: rgba(0, 0, 0, 0.37);
-  backdrop-filter: blur(98px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 27px 0px 27px;
-  color: rgba(255, 255, 255, 0.677);
-  font-size: 14px;
-  font-weight: 600;
-  border-style: solid;
-  border-radius: 50px;
-  border-width: 0.7px;
-  border-color: rgba(255, 255, 255, 0.212);
-  height: 40px;
-}
-
-.banbenhao {
-  margin-left: 3px;
-}
-
-.updatebutton {
-  color: #ffffff;
-  margin-left: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .date-all {
   margin-top: 45px;
   margin-left: 5vw;
