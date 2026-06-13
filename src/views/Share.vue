@@ -1,14 +1,14 @@
 <template>
-  <div class="share-wrapper">
-    <div class="share-main" ref="shareRef">
-      <img ref="mainPic" :src="picUrl" @load="onPicLoad" class="share-main-img"/>
-      <div class="share-text-background">
+  <div class="min-h-full flex items-center justify-center bg-[#141414]">
+    <div class="w-[70vh] bg-white" ref="shareRef">
+      <img ref="mainPic" :src="picUrl" @load="onPicLoad" class="w-full select-none"/>
+      <div class="px-5 pb-5 bg-white flex items-center justify-between">
         <div>
-          <h2>{{ title }}</h2>
-          <h5>{{ describe }}</h5>
+          <h2 class="text-black font-light text-[25px] mt-2.5 mb-[5px]">{{ title }}</h2>
+          <h5 class="text-black font-extralight mt-0 mb-0 break-words">{{ describe }}</h5>
         </div>
-        <div style="display:content">
-          <img src="/qrcode.png" class="share-qrcode"/>
+        <div class="flex">
+          <img src="/qrcode.png" class="w-16 select-none"/>
         </div>
       </div>
     </div>
@@ -83,40 +83,3 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
-.share-wrapper {
-  background-color: #141414;
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.share-main {
-  width: calc(70vh);
-  background-color: white;
-}
-
-.share-main-img {
-  width: 100%;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-/* 确保文本样式正确显示 */
-.share-text-background h2 {
-  color: #000;
-  font-weight: 300;
-  font-size: 25px;
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.share-text-background h5 {
-  color: #000;
-  font-weight: lighter;
-  margin-top: 0;
-  margin-bottom: 0;
-  word-break: break-all;
-}
-</style>
