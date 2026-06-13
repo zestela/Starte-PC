@@ -42,7 +42,7 @@
     </div>
 
     <!-- 关于 Tab -->
-    <div v-else class="setting-right flex justify-center items-center">
+    <div v-else class="setting-right flex justify-center items-center overflow-hidden">
       <div class="w-[70%] grid grid-cols-3 auto-rows-max gap-1.5">
         <!-- Logo 区域 -->
         <div class="col-span-2 h-[175px] bg-[#311E8F] rounded-l-xl flex items-center justify-between px-8">
