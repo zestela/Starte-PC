@@ -2,9 +2,8 @@
   <Transition name="toast">
     <div
       v-if="visible"
-      class="fixed top-20 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-[#2a2a2a] text-white rounded-lg shadow-lg backdrop-blur-sm"
+      class="fixed top-[55px] left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 h-10 px-[27px] bg-black/37 text-white/70 text-[14px] font-semibold border border-white/20 rounded-full backdrop-blur-[98px]"
     >
-      <div class="flex items-center gap-3">
         <!-- 图标 -->
         <div v-if="type === 'success'" class="text-[#5D55FF]">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -22,10 +21,8 @@
           </svg>
         </div>
 
-        <!-- 消息文本 -->
-        <span class="text-[15px] font-medium">{{ message }}</span>
+        <span>{{ message }}</span>
       </div>
-    </div>
   </Transition>
 </template>
 
