@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex overflow-hidden bg-black text-white">
+  <div class="w-full h-full flex overflow-hidden bg-black text-white pt-[45px]">
     <!-- 左侧导航 -->
     <div class="w-1/5 h-full bg-black flex flex-col p-4">
       <button
