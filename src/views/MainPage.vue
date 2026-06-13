@@ -2,7 +2,7 @@
   <div class="mainpage-wrapper">
     <div class="update-tip-bored">
       <div :class="['update-tip', { 'update-tip-checked': hasUpdate }]" id="update-tip">
-        <img class="icon-check-update" width="10px" style="margin-right:10px"/>
+        <IconCheckUpdate class="w-[10px] mr-2.5"/>
         <div>现已发布新版本</div>
         <div class="banbenhao">{{ newVersion }}</div>
         <div class="updatebutton" @click="$router.push('/check-new')">点击了解详情</div>
@@ -14,10 +14,10 @@
           <div id="mainpage-text-title">{{ data?.title || '加载中' }}</div>
           <div class="image-action-icons">
             <button class="onhover" @click="setWallpaper">
-              <img style="width:25px;height:25px" class="icon-set-wallpaper"/>
+              <IconSetWallpaper class="w-[25px] h-[25px]"/>
             </button>
             <button class="onhover" @click="doShare">
-              <img style="width:25px;height:25px" class="icon-share"/>
+              <IconShare class="w-[25px] h-[25px]"/>
             </button>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <img :src="infoHidden ? '/expanded.svg' : '/expand.svg'"/>
         </button>
         <div :class="infoClass">
-          <img class="icon-date"/>
+          <IconDate />
           <div class="image-date"><span>{{ dateStr }}</span></div>
         </div>
       </div>
@@ -38,6 +38,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { IconCheckUpdate, IconSetWallpaper, IconShare, IconDate } from '../components/icons'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { apiSafe } from '../utils/api'

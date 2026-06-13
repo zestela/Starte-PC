@@ -2,11 +2,11 @@
   <div class="setting-contain">
     <div class="setting-left">
       <div class="setting-nav" :style="{ backgroundColor: tab === 'settings' ? '#454545' : '' }" @click="tab = 'settings'">
-        <img class="icon-settings-normal"/>
+        <IconSettingsNormal />
         <div class="setting-nav-text"><div class="setting-nav-text-title">功能</div></div>
       </div>
       <div class="setting-nav" style="margin-top:16px" :style="{ backgroundColor: tab === 'about' ? '#454545' : '' }" @click="tab = 'about'">
-        <img class="icon-settings-about"/>
+        <IconSettingsAbout />
         <div class="setting-nav-text"><div class="setting-nav-text-title">关于</div></div>
       </div>
     </div>
@@ -53,17 +53,17 @@
         </div>
         <div class="buttons">
           <div class="right-icons" style="border-radius:0 12px 12px 0;cursor:pointer" @click="$router.push('/check-new')">
-            <div><img class="icon-update"/><div class="setting-nav-text-title">检查更新</div></div>
+            <div><IconUpdate /><div class="setting-nav-text-title">检查更新</div></div>
           </div>
         </div>
         <a href="https://github.com/zestela" class="links" style="border-radius:12px 0 0 12px" target="_blank">
-          <img class="icon-github"/><div style="margin-left:10px"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
+          <IconGithub /><div style="margin-left:10px"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
         </a>
         <a href="https://zestela.co/starte" class="links" target="_blank">
-          <img class="icon-website"/><div style="margin-left:10px"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
+          <IconWebsite /><div style="margin-left:10px"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
         </a>
         <a @click="$router.push('/donate')" class="links" style="border-radius:0 12px 12px 0;cursor:pointer">
-          <img class="icon-group"/><div style="margin-left:10px"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
+          <IconGroup /><div style="margin-left:10px"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
         </a>
       </div>
     </div>
@@ -73,6 +73,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { IconSettingsNormal, IconSettingsAbout, IconUpdate, IconGithub, IconWebsite, IconGroup } from '../components/icons'
 
 const route = useRoute()
 const tab = ref(route.query.tab === 'about' ? 'about' : 'settings')

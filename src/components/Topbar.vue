@@ -1,9 +1,9 @@
 <template>
   <div class="topbar" id="topbar">
     <div class="topbar-menu">
-      <img class="topbar-logo icon-logo" style="cursor:pointer" @click="$router.push('/main')"/>
+      <IconLogo class="topbar-logo cursor-pointer" @click="$router.push('/main')"/>
       <button :class="menuClass('main')" @click="$router.push('/main')">
-        <img class="today-icon icon-today"/>
+        <IconToday class="today-icon"/>
       </button>
       <button :class="menuClass('vicissitudes')" @click="$router.push('/vicissitudes')">
         <h5 class="menu-text">沧溟</h5>
@@ -18,22 +18,22 @@
     <div class="topbar-icons-all">
       <div class="topbar-icons">
         <button :class="iconClass('submission')" @click="$router.push('/submission')">
-          <img class="add-icon icon-add"/>
+          <IconAdd class="add-icon"/>
         </button>
         <button class="onhover" @click="$router.push('/search')">
-          <img class="icon-search"/>
+          <IconSearch />
         </button>
         <button class="onhover" @click="$router.push('/settings')">
-          <img class="add-icon icon-settings"/>
+          <IconSettings class="add-icon"/>
         </button>
         <button class="onhover" @click="handleWindowEvent(1)">
-          <img class="icon-min"/>
+          <IconMin />
         </button>
         <button class="onhover" @click="handleWindowEvent(2)">
-          <img class="icon-max"/>
+          <IconMax />
         </button>
         <button class="onhover closeonhover" @click="handleWindowEvent(3)">
-          <img class="icon-close"/>
+          <IconClose />
         </button>
       </div>
     </div>
@@ -42,6 +42,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+import { IconLogo, IconToday, IconAdd, IconSearch, IconSettings, IconMin, IconMax, IconClose } from '../components/icons'
 
 const route = useRoute()
 

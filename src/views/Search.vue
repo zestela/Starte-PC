@@ -3,7 +3,7 @@
     <div class="search-box-container" :class="{ 'search-box-container-after': searched }" :style="{ backgroundImage: bgUrl }">
       <div class="input-box">
         <input type="text" class="inputing" placeholder="搜索往日图片或观星句子..." v-model="keyword" maxlength="20" @keyup.enter="doSearch"/>
-        <img class="icon-search search-icon" @click="doSearch"/>
+        <IconSearch class="search-icon cursor-pointer" @click="doSearch"/>
       </div>
     </div>
     <div class="search-results" :class="{ 'search-results-after': searched }" v-if="searched">
@@ -41,6 +41,7 @@
 import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import { useScript } from '../composables/useScript'
+import { IconSearch } from '../components/icons'
 
 const store = useAppStore()
 const keyword = ref('')

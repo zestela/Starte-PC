@@ -15,7 +15,7 @@
           <div class="dayte">{{ item.day }}</div>
         </div>
         <button class="onhover special-onhover" style="padding:3px" @click="share(item)">
-          <img class="icon-share"/>
+          <IconShare />
         </button>
       </div>
     </div>
@@ -26,6 +26,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../utils/api'
+import { IconShare } from '../components/icons'
 
 const router = useRouter()
 const items = ref([])

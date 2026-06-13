@@ -6,9 +6,9 @@
         <div class="day">{{ dayName }}</div>
       </div>
       <div class="go-to-today" @click="$router.push('/main')">
-        <img class="icon-view view-icon"/>
+        <IconView class="view-icon"/>
         <div class="top-photo-title">{{ todayTitle }}</div>
-        <img class="icon-go-to go-to-icon"/>
+        <IconGoTo class="go-to-icon"/>
       </div>
     </div>
     <div class="vicissitudes-container">
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="vicissitudes-right">
-        <div class="vicissitudes-right-title"><img class="icon-latest-posts"/><div>近期更新</div></div>
+        <div class="vicissitudes-right-title"><IconLatestPosts /><div>近期更新</div></div>
         <div class="vicissitudes-right-content">
           <div v-for="art in recentArticles" :key="art.id" class="vicissitudes-left-card"
                @click="$router.push({ name: 'vicissitudes-detail', query: { id: art.id } })">
@@ -52,6 +52,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import { api } from '../utils/api'
+import { IconView, IconGoTo, IconLatestPosts } from '../components/icons'
 
 const store = useAppStore()
 const tabs = ref([

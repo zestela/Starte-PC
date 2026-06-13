@@ -2,11 +2,11 @@
   <div class="setting-contain">
     <div class="setting-left">
       <div class="setting-nav" @click="$router.push('/settings')">
-        <img class="icon-settings-normal"/>
+        <IconSettingsNormal />
         <div class="setting-nav-text"><div class="setting-nav-text-title">功能</div></div>
       </div>
       <div class="setting-nav" style="margin-top:16px" @click="$router.push('/settings?tab=about')">
-        <img class="icon-settings-about"/>
+        <IconSettingsAbout />
         <div class="setting-nav-text"><div class="setting-nav-text-title">关于</div></div>
       </div>
     </div>
@@ -36,6 +36,9 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import { api } from '../utils/api'
+import { IconSettingsNormal, IconSettingsAbout } from '../components/icons'
 import { ref, onMounted } from 'vue'
 import { apiSafe } from '../utils/api'
 
