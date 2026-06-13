@@ -3,7 +3,7 @@
     <div class="topbar-menu">
       <IconLogo :size="18" class="topbar-logo cursor-pointer" @click="$router.push('/main')"/>
       <button :class="menuClass('main')" @click="$router.push('/main')">
-        <IconToday :size="15" class="today-icon h-[15px]"/>
+        <IconToday class="today-icon h-[15px] w-auto"/>
       </button>
       <button :class="menuClass('vicissitudes')" @click="$router.push('/vicissitudes')">
         <h5 class="menu-text">沧溟</h5>
