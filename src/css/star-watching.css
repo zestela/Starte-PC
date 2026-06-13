@@ -1,9 +1,5 @@
-* {
+#star-list, #star-list * {
     color: white;
-}
-
-::-webkit-scrollbar {
-    display: none;
 }
 
 #star-list {

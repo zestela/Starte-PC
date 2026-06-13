@@ -34,6 +34,10 @@
   font-weight: lighter;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   font-family: "HarmonyOS Sans";
 }

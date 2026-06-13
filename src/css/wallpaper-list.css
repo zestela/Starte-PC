@@ -72,10 +72,6 @@
   margin-bottom: 0;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
 .wallpaper-in-list .image-action-icons {
   margin-left: 8px;
   flex-direction: row;
