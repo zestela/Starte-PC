@@ -1,9 +1,9 @@
 <template>
   <div class="topbar" id="topbar">
     <div class="topbar-menu">
-      <IconLogo class="topbar-logo cursor-pointer" @click="$router.push('/main')"/>
+      <IconLogo :size="18" class="topbar-logo cursor-pointer" @click="$router.push('/main')"/>
       <button :class="menuClass('main')" @click="$router.push('/main')">
-        <IconToday class="today-icon"/>
+        <IconToday :size="15" class="today-icon"/>
       </button>
       <button :class="menuClass('vicissitudes')" @click="$router.push('/vicissitudes')">
         <h5 class="menu-text">沧溟</h5>
@@ -18,22 +18,22 @@
     <div class="topbar-icons-all">
       <div class="topbar-icons">
         <button :class="iconClass('submission')" @click="$router.push('/submission')">
-          <IconAdd class="add-icon"/>
+          <IconAdd :size="14.6" class="add-icon"/>
         </button>
         <button class="onhover" @click="$router.push('/search')">
-          <IconSearch />
+          <IconSearch :size="14.6" />
         </button>
         <button class="onhover" @click="$router.push('/settings')">
-          <IconSettings class="add-icon"/>
+          <IconSettings :size="14.6" class="add-icon"/>
         </button>
         <button class="onhover" @click="handleWindowEvent(1)">
-          <IconMin />
+          <IconMin :size="14.6" />
         </button>
         <button class="onhover" @click="handleWindowEvent(2)">
-          <IconMax />
+          <IconMax :size="14.6" />
         </button>
         <button class="onhover closeonhover" @click="handleWindowEvent(3)">
-          <IconClose />
+          <IconClose :size="14.6" />
         </button>
       </div>
     </div>
