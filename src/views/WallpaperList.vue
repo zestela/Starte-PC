@@ -7,7 +7,7 @@
           <div class="title-and-icons">
             <h1>{{ item.title }}</h1>
             <div class="image-action-icons">
-              <button class="onhover special-onhover p-[3.5px]" @click="window.electronAPI.setWallpaper(item.id)">
+              <button class="onhover special-onhover p-[3.5px]" @click="setWallpaper(item.id)">
                 <IconSetWallpaper />
               </button>
               <button class="onhover special-onhover p-[3.5px]" @click="share(item)">
@@ -32,9 +32,16 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../utils/api'
 import { IconSetWallpaper, IconShare } from '../components/icons'
+import { useToast } from '../composables/useToast'
 
 const router = useRouter()
 const items = ref([])
+const { success } = useToast()
+
+function setWallpaper(id) {
+  window.electronAPI.setWallpaper(id)
+  success('壁纸设置成功')
+}
 
 async function share(item) {
   try {

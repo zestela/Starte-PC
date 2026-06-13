@@ -42,9 +42,11 @@ import { IconCheckUpdate, IconSetWallpaper, IconShare, IconDate } from '../compo
 import { useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { apiSafe } from '../utils/api'
+import { useToast } from '../composables/useToast'
 
 const store = useAppStore()
 const router = useRouter()
+const { success } = useToast()
 
 const data = computed(() => store.mainpageData)
 const infoHidden = ref(false)
@@ -102,7 +104,10 @@ async function toggleInfo() {
 }
 
 function setWallpaper() {
-  if (data.value?.id) window.electronAPI.setWallpaper(data.value.id)
+  if (data.value?.id) {
+    window.electronAPI.setWallpaper(data.value.id)
+    success('壁纸设置成功')
+  }
 }
 
 function doShare() {

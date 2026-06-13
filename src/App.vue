@@ -8,11 +8,17 @@
         </transition>
       </router-view>
     </main>
+    <!-- 全局 Toast -->
+    <Toast :key="toastKey" :message="toastMessage" :type="toastType" />
   </div>
 </template>
 
 <script setup>
 import Topbar from './components/Topbar.vue'
+import Toast from './components/Toast.vue'
+import { useToast } from './composables/useToast'
+
+const { toastMessage, toastType, toastKey } = useToast()
 </script>
 
 <style>
