@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full overflow-y-auto pt-[45px]">
+  <div class="w-full h-full overflow-y-auto">
     <div id="wallpaper-list">
       <div v-for="item in items" :key="item.id" class="wallpaper-in-list"
            :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">

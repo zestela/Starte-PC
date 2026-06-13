@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "electron .",
     "packager": "electron-builder build"
   },
   "author": "zestela.co",

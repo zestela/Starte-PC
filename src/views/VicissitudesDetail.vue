@@ -1,5 +1,5 @@
 <template>
-  <div class="vici-detail-wrapper px-12 py-6">
+  <div class="vici-detail-wrapper px-12 py-6 pt-[60px]">
     <button @click="$router.back()"
       class="bg-[#313131] border-0 text-white px-4 py-2 rounded-lg cursor-pointer mb-4">
       ← 返回
