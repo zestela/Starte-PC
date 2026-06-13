@@ -1,9 +1,19 @@
 <template>
   <div class="w-full h-full overflow-y-auto">
     <div id="wallpaper-list">
-      <div v-for="item in items" :key="item.id" class="wallpaper-in-list"
+      <div v-for="item in items" :key="item.id" class="wallpaper-in-list relative"
            :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">
-        <div class="wallpaper-content">
+        <!-- 加载骨架屏 -->
+        <div v-if="!imageLoaded(item.url)"
+             class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse">
+          <div class="absolute bottom-8 left-8 right-8">
+            <div class="h-12 bg-white/10 rounded-lg mb-3 w-2/3"></div>
+            <div class="h-6 bg-white/5 rounded w-1/2"></div>
+          </div>
+        </div>
+
+        <!-- 实际内容 -->
+        <div class="wallpaper-content" :class="{ 'opacity-0': !imageLoaded(item.url), 'animate-fadeIn': imageLoaded(item.url) }">
           <div class="wallpaper-header">
             <div class="title-and-icons">
               <h1>{{ item.title }}</h1>
@@ -39,10 +49,32 @@ import { useToast } from '../composables/useToast'
 const router = useRouter()
 const items = ref([])
 const { success } = useToast()
+const loadedImages = ref(new Set())
 
 function setWallpaper(id) {
   window.electronAPI.setWallpaper(id)
   success('壁纸设置成功')
+}
+
+function imageLoaded(url) {
+  return loadedImages.value.has(url)
+}
+
+function preloadImage(url) {
+  if (loadedImages.value.has(url)) return Promise.resolve()
+
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => {
+      loadedImages.value.add(url)
+      resolve()
+    }
+    img.onerror = () => {
+      loadedImages.value.add(url) // 即使失败也标记，避免无限加载
+      resolve()
+    }
+    img.src = url
+  })
 }
 
 async function share(item) {
@@ -70,6 +102,10 @@ onMounted(async () => {
       const d = new Date(it.date)
       return { ...it, month: d.getMonth()+1, day: d.getDate() }
     })
+
+    // 预加载前3张图片
+    const topImages = items.value.slice(0, 3).map(it => it.url)
+    topImages.forEach(url => preloadImage(url))
   } catch (e) { console.error(e) }
 })
 </script>
@@ -82,6 +118,16 @@ onMounted(async () => {
   justify-content: flex-end;
   padding: 35px;
   padding-bottom: 25px;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .wallpaper-header {
