@@ -3,16 +3,25 @@
 }
 
 #star-list {
-    overflow-x: scroll;
-    display: flex;
-    flex-direction: row;
-    overflow-y: hidden;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transform: rotate(-90deg) translateX(-100vh);
+    transform-origin: top left;
     white-space: nowrap;
 }
 
-
+.star-watching-slide {
+    position: relative;
+    width: 100vh;
+    height: 45vw;
+}
 
 .star-watching-in-list {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 45vw;
     height: 100vh;
     background-repeat: no-repeat;
@@ -20,6 +29,8 @@
     background-position:center center;
     display: flex;
     flex-direction: column;
+    transform: rotate(90deg) translateY(-100vh);
+    transform-origin: top left;
 }
 
 .texts {

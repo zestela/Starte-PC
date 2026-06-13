@@ -1,22 +1,24 @@
 <template>
-  <div id="star-list" @wheel.prevent="onWheel">
-    <div v-for="item in items" :key="item.id" class="star-watching-in-list star-fade-in"
-         :id="item.id" :style="{ backgroundImage: `url(${item.bg}),url(/loading-bg.png)` }">
-      <div class="texts">
-        <div>
-          <h1>{{ item.sentence }}</h1>
-          <h3>{{ item.from }}</h3>
+  <div id="star-list" ref="starList">
+    <div v-for="item in items" :key="item.id" class="star-watching-slide" :id="item.id">
+      <div class="star-watching-in-list star-fade-in"
+           :style="{ backgroundImage: `url(${item.bg}),url(/loading-bg.png)` }">
+        <div class="texts">
+          <div>
+            <h1>{{ item.sentence }}</h1>
+            <h3>{{ item.from }}</h3>
+          </div>
         </div>
-      </div>
-      <div class="star-watching-bottom">
-        <div class="disPLAYDATE">
-          <div class="month">{{ item.month }}</div>
-          <div class="fenge"> / </div>
-          <div class="dayte">{{ item.day }}</div>
+        <div class="star-watching-bottom">
+          <div class="disPLAYDATE">
+            <div class="month">{{ item.month }}</div>
+            <div class="fenge"> / </div>
+            <div class="dayte">{{ item.day }}</div>
+          </div>
+          <button class="onhover special-onhover p-[3px]" @click="share(item)">
+            <IconShare />
+          </button>
         </div>
-        <button class="onhover special-onhover p-[3px]" @click="share(item)">
-          <IconShare />
-        </button>
       </div>
     </div>
   </div>
@@ -31,16 +33,18 @@ import { IconShare } from '../components/icons'
 const router = useRouter()
 const route = useRoute()
 const items = ref([])
+const starList = ref(null)
 
 function scrollToItem(id) {
   if (!id) return
   nextTick(() => {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', inline: 'center' })
+    const index = items.value.findIndex(item => String(item.id) === String(id))
+    if (index >= 0 && starList.value) {
+      const slideHeight = starList.value.querySelector('.star-watching-slide')?.offsetHeight || 0
+      starList.value.scrollTo({ top: slideHeight * index, behavior: 'smooth' })
+    }
   })
 }
-
-function onWheel(e) { e.currentTarget.scrollLeft += e.deltaY }
 
 async function share(item) {
   try {
