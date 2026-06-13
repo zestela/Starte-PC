@@ -19,15 +19,6 @@
         <IconSettingsAbout :size="20"/>
         <span class="text-[15px] font-medium">关于</span>
       </button>
-
-      <button
-        class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mt-4"
-        :class="tab === 'update' ? 'bg-[#454545]' : 'hover:bg-[#2a2a2a]'"
-        @click="tab = 'update'"
-      >
-        <IconUpdate :size="20"/>
-        <span class="text-[15px] font-medium">检查更新</span>
-      </button>
     </div>
 
     <!-- 右侧内容区 -->
@@ -138,7 +129,7 @@
       <div v-else class="h-full flex items-center justify-center overflow-hidden">
         <div class="flex flex-col items-center">
           <!-- 图标 -->
-          <IconUpdate :size="80" class="text-white/70"/>
+          <img src="/color-logo.png" class="w-20 h-20" alt="Starte"/>
 
           <!-- 状态文字 -->
           <div class="mt-5 text-[22px] font-medium text-white">{{ statusText }}</div>
