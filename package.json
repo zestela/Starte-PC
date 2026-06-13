@@ -4,8 +4,8 @@
   "main": "dist-electron/main.js",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "chcp 65001 > nul && vite",
+    "build": "chcp 65001 > nul && vite build",
     "packager": "electron-builder build"
   },
   "author": "zestela.co",
