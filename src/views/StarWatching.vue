@@ -45,7 +45,7 @@ function onWheel(e) { e.currentTarget.scrollLeft += e.deltaY }
 async function share(item) {
   try {
     // 等待图片下载完成
-    const result = await window.electronAPI.share(item.bgId, 1)
+    const result = await window.electronAPI.share(item.bgId)
 
     if (!result.success) {
       window.electronAPI.outAlert('图片加载失败，请重试')

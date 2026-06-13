@@ -310,7 +310,7 @@ app.whenReady().then(async () => {
   });
 
   // 分享（下载图片）
-  ipcMain.handle('share', async (event, shareId, shareType) => {
+  ipcMain.handle('share', async (event, shareId) => {
     try {
       const response = await fetch(
         `https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=${shareId}`,

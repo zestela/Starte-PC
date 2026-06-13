@@ -106,7 +106,7 @@ async function setWallpaper() {
 
 async function doShare() {
   if (data.value?.id) {
-    const result = await window.electronAPI.share(data.value.id, 0)
+    const result = await window.electronAPI.share(data.value.id)
 
     if (!result.success) {
       error('分享失败，请重试')

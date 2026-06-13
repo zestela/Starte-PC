@@ -62,7 +62,7 @@ async function setWallpaper(id) {
 async function share(item) {
   try {
     // 等待图片下载完成
-    const result = await window.electronAPI.share(item.id, 0)
+    const result = await window.electronAPI.share(item.id)
 
     if (!result.success) {
       window.electronAPI.outAlert('图片加载失败，请重试')
