@@ -113,7 +113,14 @@ function setWallpaper() {
 function doShare() {
   if (data.value?.id) {
     window.electronAPI.share(data.value.id, 0)
-    router.push({ name: 'share', query: { id: data.value.id, type: '0' } })
+    router.push({
+      name: 'share',
+      query: {
+        id: data.value.id,
+        title: data.value.title,
+        describe: data.value.describe
+      }
+    })
   }
 }
 

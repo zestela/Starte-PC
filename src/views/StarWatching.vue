@@ -43,8 +43,15 @@ async function share(item) {
       return
     }
 
-    // 下载成功后跳转
-    router.push({ name: 'share', query: { id: item.bgId, type: '1' } })
+    // 下载成功后跳转，传递完整数据
+    router.push({
+      name: 'share',
+      query: {
+        id: item.bgId,
+        title: item.sentence,
+        describe: item.from
+      }
+    })
   } catch (err) {
     console.error('分享失败:', err)
     window.electronAPI.outAlert('分享失败，请重试')
