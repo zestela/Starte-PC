@@ -42,28 +42,50 @@
     </div>
 
     <!-- 关于 Tab -->
-    <div v-else class="setting-right flex justify-center items-center flex-col">
-      <div class="about-container">
-        <div class="starte-logo">
-          <div style="margin-left:30px">
-            <img style="height:30px" src="/text-logo.png"/>
-            <div style="margin-top:5px;font-size:13px;color:rgba(255,255,255,0.436)">{{ version }}</div>
+    <div v-else class="setting-right flex justify-center items-center">
+      <div class="w-[70%] grid grid-cols-3 grid-rows-[175px_90px] gap-1.5 h-[265px]">
+        <!-- Logo 区域 -->
+        <div class="col-span-2 bg-[#311E8F] rounded-l-xl flex items-center justify-between px-8">
+          <div>
+            <img class="h-[30px]" src="/text-logo.png"/>
+            <div class="mt-1.5 text-[13px] text-white/40">{{ version }}</div>
           </div>
-          <img style="height:70px;margin-right:30px" src="/color-logo.png"/>
+          <img class="h-[70px]" src="/color-logo.png"/>
         </div>
-        <div class="buttons">
-          <div class="right-icons rounded-r-xl cursor-pointer" @click="$router.push('/check-new')">
-            <div><IconUpdate /><div class="setting-nav-text-title">检查更新</div></div>
+
+        <!-- 检查更新按钮 -->
+        <div class="bg-[#383838] rounded-r-xl flex items-center justify-center cursor-pointer hover:bg-[#454545] transition-colors" @click="$router.push('/check-new')">
+          <div class="flex items-center gap-2">
+            <IconUpdate :size="25"/>
+            <div class="setting-nav-text-title">检查更新</div>
           </div>
         </div>
-        <a href="https://github.com/zestela" class="links rounded-l-xl" target="_blank">
-          <IconGithub /><div style="margin-left:10px"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
+
+        <!-- GitHub 链接 -->
+        <a href="https://github.com/zestela" class="bg-[#383838] rounded-l-xl flex items-center px-6 hover:bg-[#454545] transition-colors" target="_blank">
+          <IconGithub :size="25"/>
+          <div class="ml-2.5">
+            <div class="setting-nav-text-title">GitHub</div>
+            <div class="setting-nav-text-context">开源主页</div>
+          </div>
         </a>
-        <a href="https://zestela.co/starte" class="links" target="_blank">
-          <IconWebsite /><div style="margin-left:10px"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
+
+        <!-- 官网链接 -->
+        <a href="https://zestela.co/starte" class="bg-[#383838] flex items-center px-6 hover:bg-[#454545] transition-colors" target="_blank">
+          <IconWebsite :size="25"/>
+          <div class="ml-2.5">
+            <div class="setting-nav-text-title">官网</div>
+            <div class="setting-nav-text-context">了解更多</div>
+          </div>
         </a>
-        <a @click="$router.push('/donate')" class="links rounded-r-xl cursor-pointer">
-          <IconGroup /><div style="margin-left:10px"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
+
+        <!-- 赞助者链接 -->
+        <a @click="$router.push('/donate')" class="bg-[#383838] rounded-r-xl flex items-center px-6 cursor-pointer hover:bg-[#454545] transition-colors">
+          <IconGroup :size="25"/>
+          <div class="ml-2.5">
+            <div class="setting-nav-text-title">赞助者</div>
+            <div class="setting-nav-text-context">感谢支持</div>
+          </div>
         </a>
       </div>
     </div>
