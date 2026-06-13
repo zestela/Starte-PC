@@ -82,7 +82,6 @@ onMounted(async () => {
   flex-direction: column;
   justify-content: flex-end;
   padding: 35px;
-  padding-bottom: 25px;
 }
 
 /* 简单的淡入动画 - 依赖浏览器原生图片加载 */
