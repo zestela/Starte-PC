@@ -26,7 +26,7 @@
       </div>
       <div class="bottom-line">
         <button class="mainpage-text-disappear" @click="toggleInfo">
-          <img :src="infoHidden ? '/expanded.svg' : '/expand.svg'"/>
+          <img :src="infoHidden ? expandedIcon : expandIcon"/>
         </button>
         <div :class="infoClass">
           <IconDate />
@@ -40,6 +40,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { IconCheckUpdate, IconSetWallpaper, IconShare, IconDate } from '../components/icons'
+import expandIcon from '../icons/expand.svg'
+import expandedIcon from '../icons/expanded.svg'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { apiSafe } from '../utils/api'
