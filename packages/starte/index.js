@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const { Readable } = require('stream');
-const wallpaper = require('wallpaper');
 
 const CACHE_DIR = path.join(process.env.APPDATA, 'starte-cache');
 
@@ -67,7 +66,8 @@ async function setWallpaper(imagePath) {
   }
 
   try {
-    await wallpaper.set(imagePath, { scale: 'fill' });
+    const { setWallpaper: setWallpaperDesktop } = await import('wallpaper');
+    await setWallpaperDesktop(imagePath, { scale: 'fill' });
     console.log('壁纸设置成功:', imagePath);
   } catch (err) {
     console.error('设置壁纸失败:', err.message);
