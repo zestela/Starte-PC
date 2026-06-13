@@ -49,10 +49,22 @@ onMounted(async () => {
   const { id, title: queryTitle, describe: queryDescribe } = route.query
 
   console.log('Share 页面接收参数:', { id, title: queryTitle, describe: queryDescribe })
+  console.log('参数类型:', typeof queryTitle, typeof queryDescribe)
 
-  // 从 query 参数中获取标题和描述
-  title.value = queryTitle || '加载失败'
-  describe.value = queryDescribe || ''
+  // 直接赋值，Vue Router 会自动解码
+  if (queryTitle) {
+    title.value = decodeURIComponent(queryTitle)
+    console.log('解码后的 title:', title.value)
+  } else {
+    title.value = '无标题'
+  }
+
+  if (queryDescribe) {
+    describe.value = decodeURIComponent(queryDescribe)
+    console.log('解码后的 describe:', describe.value)
+  } else {
+    describe.value = ''
+  }
 
   if (!id) {
     console.error('缺少 id 参数')
