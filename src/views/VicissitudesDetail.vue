@@ -1,13 +1,15 @@
 <template>
-  <div class="vici-detail-wrapper px-12 py-6 pt-[60px]">
-    <button @click="$router.back()"
-      class="bg-[#313131] border-0 text-white px-4 py-2 rounded-lg cursor-pointer mb-4">
-      ← 返回
-    </button>
-    <div class="article">
-      <div class="title" v-html="title"></div>
-      <div class="detail" v-html="detail"></div>
-      <div class="content" v-html="content"></div>
+  <div class="vici-detail-wrapper w-full h-full overflow-y-auto">
+    <div class="max-w-4xl mx-auto px-12 py-6 pt-[60px]">
+      <button @click="$router.back()"
+        class="bg-[#313131] border-0 text-white px-4 py-2 rounded-lg cursor-pointer mb-4 hover:bg-[#454545] transition-colors">
+        ← 返回
+      </button>
+      <div class="article">
+        <div class="title" v-html="title"></div>
+        <div class="detail" v-html="detail"></div>
+        <div class="content" v-html="content"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +41,9 @@ onMounted(async () => {
 <style scoped>
 .vici-detail-wrapper {
   background-color: #181818;
-  min-height: 100%;
+}
+
+.article {
+  margin-top: 60px;
 }
 </style>
