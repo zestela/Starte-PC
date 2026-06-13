@@ -13,7 +13,6 @@ import './css/index.css'
 import './css/vicissitudes.css'
 import './css/wallpaper-list.css'
 import './css/star-watching.css'
-import './css/submission.css'
 import './css/search.css'
 
 const app = createApp(App)

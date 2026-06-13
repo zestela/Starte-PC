@@ -24,7 +24,7 @@ body {
   padding: 25px 25px 25px 25px;
 }
 
-.mainpage-text-disappering {
+.mainpage-text-disappearing {
   animation: fadenum 0.5s forwards;
 }
 
@@ -32,7 +32,7 @@ body {
   animation: fadenumshow 0.5s forwards;
 }
 
-.mainpage-text-disappered {
+.mainpage-text-disappeared {
   display: none;
 }
 

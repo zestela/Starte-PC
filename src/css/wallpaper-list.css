@@ -7,23 +7,24 @@
   background-size: cover;
   background-position: center center;
   color: white;
-  padding: 35px 35px 20px;
   height: 50vh;
   transition: height 0.4s;
 }
 
-.wallpaper-in-list div {
+.wallpaper-in-list > div {
   height: inherit;
+  position: relative;
+  bottom: 25px;
 }
 
-.wallpaper-in-list div div {
+.wallpaper-in-list > div > div {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   position: unset;
 }
 
-.wallpaper-in-list div div h1 {
+.wallpaper-in-list h1 {
   font-weight: 600;
   font-size: 45px;
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
@@ -58,7 +59,7 @@
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
 
-.wallpaper-in-list div h3 {
+.wallpaper-in-list h3 {
   margin-top: 7px;
   position: unset;
   font-weight: lighter;
@@ -66,14 +67,9 @@
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
 }
 
-.wallpaper-in-list div * {
+.wallpaper-in-list * {
   margin-top: 0;
   margin-bottom: 0;
-}
-
-.wallpaper-in-list div {
-  position: relative;
-  bottom: 25px;
 }
 
 ::-webkit-scrollbar {

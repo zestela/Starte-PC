@@ -64,8 +64,8 @@ const dateStr = computed(() => {
 function animationClass(baseClass) {
   const state = animationState.value
   const modifiers = {
-    disappeared: `${baseClass}-disappered`,
-    disappearing: `${baseClass} ${baseClass}-disappering`,
+    disappeared: `${baseClass}-disappeared`,
+    disappearing: `${baseClass} ${baseClass}-disappearing`,
     showed: `${baseClass}-showed ${baseClass} ${baseClass}-showing`
   }
   return modifiers[state] || baseClass

@@ -87,13 +87,12 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.wallpaper-content {
+ .wallpaper-content {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 35px;
-  padding-bottom: 25px;
+  padding: 35px 35px 25px;
 }
 
 /* 简单的淡入动画 - 依赖浏览器原生图片加载 */
