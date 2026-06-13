@@ -39,7 +39,7 @@ html, body, #app {
 .router-view-container {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
 }
 
