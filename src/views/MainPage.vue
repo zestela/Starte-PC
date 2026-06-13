@@ -104,9 +104,15 @@ async function setWallpaper() {
   }
 }
 
-function doShare() {
+async function doShare() {
   if (data.value?.id) {
-    window.electronAPI.share(data.value.id, 0)
+    const result = await window.electronAPI.share(data.value.id, 0)
+
+    if (!result.success) {
+      error('分享失败，请重试')
+      return
+    }
+
     router.push({
       name: 'share',
       query: {
