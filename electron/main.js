@@ -65,7 +65,15 @@ async function infoToServer() {
 
   try {
     const ipData = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(20000) }).then(r => r.json());
-    const url = `https://api.zestela.co/info/analysis.php?getip=${ipData.ip}&getuseTime=${Math.round(Date.now() / 1000)}&getdeviceId=${require("node-machine-id").machineIdSync({ original: true })}&getuseSystem=${os.release().replace(/ /g, '%20')}&getuseVersion=${APP_VERSION}`;
+    const deviceId = require("node-machine-id").machineIdSync({ original: true });
+    const params = new URLSearchParams({
+      getip: ipData.ip,
+      getuseTime: Math.round(Date.now() / 1000),
+      getdeviceId: deviceId,
+      getuseSystem: os.release(),
+      getuseVersion: APP_VERSION
+    }).toString();
+    const url = `https://api.zestela.co/info/analysis.php?${params}`;
 
     const result = await fetch(url, { signal: AbortSignal.timeout(30000) }).then(r => r.json());
     if (result.code !== 1) reportError(errorMsg + result.msg);

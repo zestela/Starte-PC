@@ -104,7 +104,7 @@
 </body>
 <script>
 window.electronAPI.getPopupMsg().then((result) => {
-    document.getElementById("text").textContent = result;
+    document.getElementById("text").innerHTML = result;
 });
 </script>
 </html>
