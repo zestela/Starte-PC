@@ -1,11 +1,11 @@
 <template>
   <div class="setting-contain">
     <div class="setting-left">
-      <div class="setting-nav" :style="{ backgroundColor: tab === 'settings' ? '#454545' : '' }" @click="tab = 'settings'">
+      <div class="setting-nav" :class="{ 'bg-[#454545]': tab === 'settings' }" @click="tab = 'settings'">
         <IconSettingsNormal />
         <div class="setting-nav-text"><div class="setting-nav-text-title">功能</div></div>
       </div>
-      <div class="setting-nav" style="margin-top:16px" :style="{ backgroundColor: tab === 'about' ? '#454545' : '' }" @click="tab = 'about'">
+      <div class="setting-nav mt-4" :class="{ 'bg-[#454545]': tab === 'about' }" @click="tab = 'about'">
         <IconSettingsAbout />
         <div class="setting-nav-text"><div class="setting-nav-text-title">关于</div></div>
       </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="setting-switch">
           <div class="switch-container">
-            <label class="button-label labelClicked" style="cursor:default">
+            <label class="button-label labelClicked cursor-default">
               <span class="circle circle-not-click circleClicked"></span>
             </label>
           </div>
@@ -42,28 +42,28 @@
     </div>
 
     <!-- 关于 Tab -->
-    <div v-else class="setting-right" style="display:flex;justify-content:center;align-items:center;flex-direction:column">
+    <div v-else class="setting-right flex justify-center items-center flex-col">
       <div class="about-container">
         <div class="starte-logo">
-          <div style="margin-left:30px">
-            <img style="height:30px" src="/text-logo.png"/>
-            <div style="margin-top:5px;font-size:13px;color:rgba(255,255,255,0.436)">{{ version }}</div>
+          <div class="ml-[30px]">
+            <img class="h-[30px]" src="/text-logo.png"/>
+            <div class="mt-[5px] text-[13px] text-white/40">{{ version }}</div>
           </div>
-          <img style="height:70px;margin-right:30px" src="/color-logo.png"/>
+          <img class="h-[70px] mr-[30px]" src="/color-logo.png"/>
         </div>
         <div class="buttons">
-          <div class="right-icons" style="border-radius:0 12px 12px 0;cursor:pointer" @click="$router.push('/check-new')">
+          <div class="right-icons rounded-r-xl cursor-pointer" @click="$router.push('/check-new')">
             <div><IconUpdate /><div class="setting-nav-text-title">检查更新</div></div>
           </div>
         </div>
-        <a href="https://github.com/zestela" class="links" style="border-radius:12px 0 0 12px" target="_blank">
-          <IconGithub /><div style="margin-left:10px"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
+        <a href="https://github.com/zestela" class="links rounded-l-xl" target="_blank">
+          <IconGithub /><div class="ml-2.5"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
         </a>
         <a href="https://zestela.co/starte" class="links" target="_blank">
-          <IconWebsite /><div style="margin-left:10px"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
+          <IconWebsite /><div class="ml-2.5"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
         </a>
-        <a @click="$router.push('/donate')" class="links" style="border-radius:0 12px 12px 0;cursor:pointer">
-          <IconGroup /><div style="margin-left:10px"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
+        <a @click="$router.push('/donate')" class="links rounded-r-xl cursor-pointer">
+          <IconGroup /><div class="ml-2.5"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
         </a>
       </div>
     </div>

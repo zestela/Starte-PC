@@ -14,7 +14,7 @@
           <div class="fenge"> / </div>
           <div class="dayte">{{ item.day }}</div>
         </div>
-        <button class="onhover special-onhover" style="padding:3px" @click="share(item)">
+        <button class="onhover special-onhover p-[3px]" @click="share(item)">
           <IconShare />
         </button>
       </div>

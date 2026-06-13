@@ -28,7 +28,7 @@
                @click="$router.push({ name: 'star-watching', query: { scrollTo: s.objectID } })">
             <div class="sentence-text">
               <div class="photo-title">{{ s.sentence }}</div>
-              <div class="photo-describe" style="text-align:end">——{{ s.from }}</div>
+              <div class="photo-describe text-right">——{{ s.from }}</div>
             </div>
           </div>
         </div>
