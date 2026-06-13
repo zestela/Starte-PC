@@ -137,12 +137,9 @@
             class="mt-6 w-[400px] bg-[#2a2a2a] rounded-xl p-6 flex flex-col gap-4"
           >
             <!-- 版本信息 -->
-            <div class="flex items-center gap-4">
-              <img src="/color-logo.png" class="w-[50px] h-[50px]" alt="Logo"/>
-              <div>
-                <div class="text-[18px] font-medium text-white">{{ newVersion }}</div>
-                <div class="text-[13px] text-white/50 mt-1">{{ newDate }}</div>
-              </div>
+            <div>
+              <div class="text-[18px] font-medium text-white">{{ newVersion }}</div>
+              <div class="text-[13px] text-white/50 mt-1">{{ newDate }}</div>
             </div>
 
             <!-- 按钮组 -->
