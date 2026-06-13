@@ -29,8 +29,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     outAlert: (str) => ipcRenderer.send('out-alert', str),
 
     // 数据获取
-    getcwd: () => ipcRenderer.invoke('get-cwd'),
-    getappdata: () => ipcRenderer.invoke('get-appdata'),
     getVersion: () => ipcRenderer.invoke('get-version'),
     getMainpageData: () => ipcRenderer.invoke('get-mainpage-data'),
     getMachineId: () => ipcRenderer.invoke('get-machine-id'),

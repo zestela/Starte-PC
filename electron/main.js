@@ -208,8 +208,6 @@ async function downloadMainpageImage(data) {
 
 app.whenReady().then(async () => {
   // 简单数据获取
-  ipcMain.handle('get-cwd', () => process.cwd().replaceAll("\\", "/"));
-  ipcMain.handle('get-appdata', () => process.env.APPDATA.replaceAll("\\", "/"));
   ipcMain.handle('get-version', () => APP_VERSION);
   ipcMain.handle('get-mainpage-data', () => mainpageRendererData);
   ipcMain.handle('get-machine-id', () => require("node-machine-id").machineIdSync({ original: true }));
