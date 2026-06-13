@@ -7,10 +7,11 @@ import { useAppStore } from './stores/app'
 // Tailwind CSS（优先加载）
 import './index.css'
 
-// 全局 CSS（待迁移期间保留）
+// 全局样式（保留需要的）
 import './css/styles.css'
-import './css/icons.css'
-import './css/loading.css'
+// import './css/icons.css' // 已迁移到 SVG 组件，移除 312KB
+// import './css/loading.css' // LoadingPage 已完全迁移
+// import './css/share.css' // Share 已完全迁移
 import './css/index.css'
 import './css/vicissitudes.css'
 import './css/vici-detail.css'
@@ -19,7 +20,6 @@ import './css/star-watching.css'
 import './css/settings.css'
 import './css/submission.css'
 import './css/search.css'
-import './css/share.css'
 import './css/check-new.css'
 
 const app = createApp(App)
