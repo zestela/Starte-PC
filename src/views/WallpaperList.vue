@@ -31,15 +31,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, nextTick } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { api } from '../utils/api'
 import { IconSetWallpaper, IconShare } from '../components/icons'
 import { useToast } from '../composables/useToast'
 
 const router = useRouter()
+const route = useRoute()
 const items = ref([])
 const { success, error } = useToast()
+
+function scrollToItem(id) {
+  if (!id) return
+  nextTick(() => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  })
+}
 
 async function setWallpaper(id) {
   const result = await window.electronAPI.setWallpaper(id)
@@ -82,6 +91,7 @@ onMounted(async () => {
       const d = new Date(it.date)
       return { ...it, month: d.getMonth()+1, day: d.getDate() }
     })
+    scrollToItem(route.query.scrollTo)
   } catch (e) { console.error(e) }
 })
 </script>

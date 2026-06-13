@@ -23,13 +23,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, nextTick } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { api } from '../utils/api'
 import { IconShare } from '../components/icons'
 
 const router = useRouter()
+const route = useRoute()
 const items = ref([])
+
+function scrollToItem(id) {
+  if (!id) return
+  nextTick(() => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  })
+}
 
 function onWheel(e) { e.currentTarget.scrollLeft += e.deltaY }
 
@@ -76,6 +85,7 @@ onMounted(async () => {
         bgId: wData.data[list.length-1-i]?.id || it.id
       }
     })
+    scrollToItem(route.query.scrollTo)
   } catch (e) { console.error(e) }
 })
 </script>
