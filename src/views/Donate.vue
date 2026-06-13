@@ -1,26 +1,37 @@
 <template>
-  <div class="setting-contain">
-    <div class="setting-left">
-      <div class="setting-nav" @click="$router.push('/settings')">
-        <IconSettingsNormal />
-        <div class="setting-nav-text"><div class="setting-nav-text-title">功能</div></div>
-      </div>
-      <div class="setting-nav mt-4" @click="$router.push('/settings?tab=about')">
-        <IconSettingsAbout />
-        <div class="setting-nav-text"><div class="setting-nav-text-title">关于</div></div>
-      </div>
+  <div class="w-full h-full flex overflow-hidden bg-black text-white pt-[45px]">
+    <!-- 左侧导航 -->
+    <div class="w-1/5 h-full bg-black flex flex-col p-4">
+      <button
+        class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors hover:bg-[#2a2a2a]"
+        @click="$router.push('/settings')"
+      >
+        <IconSettingsNormal :size="20"/>
+        <span class="text-[15px] font-medium">功能</span>
+      </button>
+      <button
+        class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mt-4 hover:bg-[#2a2a2a]"
+        @click="$router.push('/settings?tab=about')"
+      >
+        <IconSettingsAbout :size="20"/>
+        <span class="text-[15px] font-medium">关于</span>
+      </button>
     </div>
-    <div class="setting-right flex justify-center items-center">
-      <div class="vwo50-container">
-        <div class="vwo50">
-          <div class="font-semibold text-[30px]">赞助者鸣谢</div>
-          <div id="vwo50-users">
-            <div class="vwo50-user" v-for="s in sponsors" :key="s.name">
-              <img :src="s.avatar"/>
-              <div>{{ s.name }}</div>
-            </div>
-            <div v-if="!sponsors.length" class="text-gray-500 p-5">加载中...</div>
+
+    <!-- 右侧内容区 -->
+    <div class="flex-1 h-full flex flex-col items-center justify-center px-8">
+      <div class="w-[70%] max-w-3xl">
+        <div class="font-semibold text-[30px]">赞助者鸣谢</div>
+        <div class="grid grid-cols-4 gap-3.5 mt-4">
+          <div
+            v-for="s in sponsors"
+            :key="s.name"
+            class="flex items-center gap-2 py-3 px-1"
+          >
+            <img :src="s.avatar" class="w-[25px] h-[25px] rounded-full"/>
+            <div class="font-normal text-white/75 text-[15px] truncate">{{ s.name }}</div>
           </div>
+          <div v-if="!sponsors.length" class="text-gray-500 p-5 col-span-4">加载中...</div>
         </div>
       </div>
     </div>

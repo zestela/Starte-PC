@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onUnmounted } from 'vue'
 import { api } from '../utils/api'
 
 const form = reactive({ title: '', describe: '', author: '', email: '', copyright: '' })
@@ -107,9 +107,6 @@ const tip = ref('点击上传图片')
 const submitting = ref(false)
 const btnText = ref('提交')
 let selectedFile = null
-let machineId = ''
-
-window.electronAPI.getMachineId().then(r => machineId = r)
 
 function openFile() { fileInput.value?.click() }
 
@@ -120,6 +117,7 @@ function onFileChange(e) {
   if (!/\.(jpg|png|jpeg|bmp|gif|svg|webp|ico|tiff?)$/i.test(file.name)) return window.electronAPI.outAlert('必须上传图片格式！')
   selectedFile = file
   tip.value = ''
+  if (preview.value) URL.revokeObjectURL(preview.value)
   preview.value = URL.createObjectURL(file)
 }
 
@@ -128,14 +126,16 @@ async function submit() {
   if (!title || !describe || !author || !email || !copyright || !selectedFile) {
     return window.electronAPI.outAlert('您未将所有内容填写完整！')
   }
-  if (!/^\w+@\w+\.\w+$/i.test(email)) return window.electronAPI.outAlert('电子邮件格式错误！')
+  if (!/^[\w.+-]+@[\w-]+(?:\.[\w-]+)+$/i.test(email)) return window.electronAPI.outAlert('电子邮件格式错误！')
+
+  const machineId = await window.electronAPI.getMachineId()
 
   submitting.value = true
   btnText.value = '提交中，请等待……'
 
   const fd = new FormData()
   fd.append('file', selectedFile)
-  fd.append('SendMessage', `标题：${title}，描述：${describe}，署名：${author}，邮箱：${email}，版权方：${copyright}，机器码：${machineId}`)
+  fd.append('SendMessage', `标题：${title}，描述：${describe}，署名：${author}，邮箱：${email}，版权方：${copyright}，机器码：${machineId || '未知'}`)
 
   try {
     const data = await api('https://api.zestela.co/get-submission/get-submission.php', {
@@ -152,9 +152,12 @@ async function submit() {
     btnText.value = '提交超时, 请重试'
     window.electronAPI.outAlert('提交超时, 请重试')
   }
-  submitting.value = false
   setTimeout(() => { btnText.value = '提交'; submitting.value = false }, 5000)
 }
+
+onUnmounted(() => {
+  if (preview.value) URL.revokeObjectURL(preview.value)
+})
 </script>
 
 <style scoped>

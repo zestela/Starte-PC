@@ -65,23 +65,6 @@ button {
   user-select: none;
 }
 
-.today-icon{
-  height: 15px;
-}
-
-.logo-drop {
-  display: flex;
-  align-items: center;
-  height: 30px;
-}
-
-.topbar-title {
-  font-size: 24px;
-  color: white;
-  font-weight: lighter;
-  margin-left: 15px;
-}
-
 .topbar-logo {
   width: 18px;
   margin-right: 10px;
@@ -147,18 +130,6 @@ button {
 .closeonhover:active {
   background-color: rgb(78, 0, 0);
 }
-.topbar .topbar-icons-all .topbar-icons button img {
-  width: 13px;
-  height: 13px;
-  padding: 0;
-  border: none;
-}
-
-.add-icon {
-  width: 14.6px;
-  height: 14.6px;
-}
-
 body {
   background-size: cover;
   background-repeat: no-repeat;
@@ -184,10 +155,6 @@ body {
 }
 
 .menu-item-chosen h5{
-  color:white;
-}
-
-.menu-item-chosen img{
   color:white;
 }
 
@@ -222,10 +189,6 @@ body {
 
 .menu-item img {
   opacity: 0.714;
-}
-
-.all-menu.menu-focus {
-  display: grid !important;
 }
 
 .update-tip-bored {

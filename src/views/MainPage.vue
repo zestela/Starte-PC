@@ -61,29 +61,18 @@ const dateStr = computed(() => {
   return `${parts[0]} 年 ${parts[1]} 月 ${parts[2]} 日`
 })
 
-const textClass = computed(() => {
-  if (animationState.value === 'disappeared') {
-    return 'mainpage-text-disappered'
-  } else if (animationState.value === 'disappearing') {
-    return 'mainpage-text mainpage-text-disappering'
-  } else if (animationState.value === 'showed') {
-    return 'mainpage-text-showed mainpage-text mainpage-text-showing'
-  } else {
-    return 'mainpage-text'
+function animationClass(baseClass) {
+  const state = animationState.value
+  const modifiers = {
+    disappeared: `${baseClass}-disappered`,
+    disappearing: `${baseClass} ${baseClass}-disappering`,
+    showed: `${baseClass}-showed ${baseClass} ${baseClass}-showing`
   }
-})
+  return modifiers[state] || baseClass
+}
 
-const infoClass = computed(() => {
-  if (animationState.value === 'disappeared') {
-    return 'mainpage-text-disappered'
-  } else if (animationState.value === 'disappearing') {
-    return 'mainpage-text-info mainpage-text-disappering'
-  } else if (animationState.value === 'showed') {
-    return 'mainpage-text-showed mainpage-text-info mainpage-text-showing'
-  } else {
-    return 'mainpage-text-info'
-  }
-})
+const textClass = computed(() => animationClass('mainpage-text'))
+const infoClass = computed(() => animationClass('mainpage-text-info'))
 
 async function toggleInfo() {
   if (animationState.value === 'visible' || animationState.value === 'showed') {

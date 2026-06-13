@@ -50,33 +50,45 @@ const photos = ref([])
 const sentences = ref([])
 const bgUrl = ref('')
 let client, photoIndex, sentenceIndex
+let algoliaLoading = null
 
 async function loadAlgolia() {
-  await useScript(
+  if (algoliaLoading) return algoliaLoading
+  if (typeof window.algoliasearch !== 'undefined') return
+
+  algoliaLoading = useScript(
     'https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js',
     {
-      check: () => typeof algoliasearch !== 'undefined',
+      check: () => typeof window.algoliasearch !== 'undefined',
       onError: () => window.electronAPI.outAlert('搜索服务加载失败，请检查网络连接')
     }
   )
+  return algoliaLoading
 }
 
 async function doSearch() {
   if (!keyword.value) return window.electronAPI.outAlert('请输入搜索内容')
   searched.value = true
 
-  await loadAlgolia()
+  try {
+    await loadAlgolia()
 
-  if (!client) {
-    client = algoliasearch('PLIM4BWFMR', '493296b2dd9b5d8709021dc22375cdc5')
-    photoIndex = client.initIndex('startePhotoDatabase')
-    sentenceIndex = client.initIndex('starteSentenceDatabase')
+    if (!client) {
+      client = window.algoliasearch('PLIM4BWFMR', '493296b2dd9b5d8709021dc22375cdc5')
+      photoIndex = client.initIndex('startePhotoDatabase')
+      sentenceIndex = client.initIndex('starteSentenceDatabase')
+    }
+
+    const [photoRes, sentenceRes] = await Promise.all([
+      photoIndex.search(keyword.value, { attributesToRetrieve: ['title','describe','url','objectID'] }),
+      sentenceIndex.search(keyword.value, { attributesToRetrieve: ['sentence','from'] })
+    ])
+    photos.value = photoRes.hits
+    sentences.value = sentenceRes.hits
+  } catch (e) {
+    console.error('搜索失败:', e)
+    window.electronAPI.outAlert('搜索失败，请重试')
   }
-
-  photoIndex.search(keyword.value, { attributesToRetrieve: ['title','describe','url','objectID'] })
-    .then(r => photos.value = r.hits)
-  sentenceIndex.search(keyword.value, { attributesToRetrieve: ['sentence','from'] })
-    .then(r => sentences.value = r.hits)
 }
 
 onMounted(async () => {

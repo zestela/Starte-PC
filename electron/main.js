@@ -339,12 +339,16 @@ app.whenReady().then(async () => {
   ipcMain.handle('set-wallpaper', async (event, id) => await starte.setWallPaperOut(id));
   ipcMain.on('pop-up-close', () => { if (popupWindow) popupWindow.close(); });
 
-  ipcMain.on('save-share', (event, data) => {
+  ipcMain.handle('save-share', async (event, data) => {
     const dataBuffer = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-    const filePath = dialog.showSaveDialogSync({
+    const { filePath } = await dialog.showSaveDialog({
       filters: [{ name: 'img', extensions: ['jpeg'] }]
     });
-    if (filePath) fs.writeFileSync(filePath, dataBuffer);
+    if (filePath) {
+      fs.writeFileSync(filePath, dataBuffer);
+      return { success: true };
+    }
+    return { success: false, cancelled: true };
   });
 
   createWindow();

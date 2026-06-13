@@ -24,13 +24,9 @@ export const useAppStore = defineStore('app', () => {
     }
   }
 
-  async function loadVersion() {
-    version.value = await window.electronAPI.getVersion()
-  }
-
   function retry() {
     init()
   }
 
-  return { loading, loadError, mainpageData, version, init, loadVersion, retry }
+  return { loading, loadError, mainpageData, version, init, retry }
 })

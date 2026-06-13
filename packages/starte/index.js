@@ -3,6 +3,8 @@ const path = require("path");
 const { Readable } = require('stream');
 const wallpaper = require('wallpaper');
 
+const CACHE_DIR = path.join(process.env.APPDATA, 'starte-cache');
+
 /**
  * 下载图片到缓存目录
  * @param {string} url - 图片 URL
@@ -10,7 +12,7 @@ const wallpaper = require('wallpaper');
  * @returns {Promise<string>} 返回文件完整路径
  */
 async function downloadImage(url, filename) {
-  const cachePath = path.join(process.env.APPDATA, 'starte-cache', filename);
+  const cachePath = path.join(CACHE_DIR, filename);
   const writer = fs.createWriteStream(cachePath);
 
   const response = await fetch(url);
@@ -31,7 +33,7 @@ async function downloadImage(url, filename) {
  * @returns {boolean}
  */
 function isCached(filename, expectedSize) {
-  const filePath = path.join(process.env.APPDATA, 'starte-cache', filename);
+  const filePath = path.join(CACHE_DIR, filename);
   if (!fs.existsSync(filePath)) return false;
   if (!expectedSize) return true; // 不检查大小
   return fs.statSync(filePath).size === expectedSize;
@@ -90,7 +92,7 @@ async function setWallPaperOut(id) {
     }
 
     const filename = `${id}.png`;
-    const filePath = path.join(process.env.APPDATA, 'starte-cache', filename);
+    const filePath = path.join(CACHE_DIR, filename);
 
     // 检查缓存
     if (fs.existsSync(filePath)) {
@@ -116,7 +118,7 @@ async function setWallPaperOut(id) {
  * @returns {Promise<any>}
  */
 async function getSetting(configName) {
-  const configPath = path.join(process.env.APPDATA, 'starte-cache', 'config.json');
+  const configPath = path.join(CACHE_DIR, 'config.json');
   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
   return config[configName];
 }
@@ -128,7 +130,7 @@ async function getSetting(configName) {
  */
 async function setSetting(configName, value) {
   console.log('设置配置:', configName, value);
-  const configPath = path.join(process.env.APPDATA, 'starte-cache', 'config.json');
+  const configPath = path.join(CACHE_DIR, 'config.json');
   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
   config[configName] = value;
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));

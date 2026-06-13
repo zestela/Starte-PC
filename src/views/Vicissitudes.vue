@@ -89,17 +89,15 @@ onMounted(async () => {
     const todayTime = today.getTime()
     const cutoff = todayTime - 1296000000
 
-    for (let i = Object.keys(list).length - 1; i >= 0; i--) {
-      const art = list[i]
+    list.forEach(art => {
       const d = new Date(art.date)
       art.dateStr = `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日`
 
-      const card = art
-      if (art.ifRecm === 'true') tabs.value[0].articles.push(card)
-      if (art.category === '小说') tabs.value[1].articles.push(card)
-      else if (art.category === '科普') tabs.value[2].articles.push(card)
-      if (d.getTime() < todayTime && d.getTime() > cutoff) recentArticles.value.push(card)
-    }
+      if (art.ifRecm === 'true') tabs.value[0].articles.push(art)
+      if (art.category === '小说') tabs.value[1].articles.push(art)
+      else if (art.category === '科普') tabs.value[2].articles.push(art)
+      if (d.getTime() < todayTime && d.getTime() > cutoff) recentArticles.value.push(art)
+    })
   } catch (e) {
     console.error('vicissitudes error:', e)
   }

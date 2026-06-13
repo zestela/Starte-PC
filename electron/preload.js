@@ -23,7 +23,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     share: (id, type) => ipcRenderer.invoke('share', id, type),
 
     // 保存分享截图
-    saveShare: (data) => ipcRenderer.send('save-share', data),
+    saveShare: (data) => ipcRenderer.invoke('save-share', data),
 
     // 弹出提示
     outAlert: (str) => ipcRenderer.send('out-alert', str),

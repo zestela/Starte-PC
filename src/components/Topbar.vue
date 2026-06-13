@@ -18,13 +18,13 @@
     <div class="topbar-icons-all">
       <div class="topbar-icons">
         <button :class="iconClass('submission')" @click="$router.push('/submission')">
-          <IconAdd :size="14.6" class="add-icon"/>
+          <IconAdd :size="14.6"/>
         </button>
         <button class="onhover" @click="$router.push('/search')">
           <IconSearch :size="14.6" />
         </button>
         <button class="onhover" @click="$router.push('/settings')">
-          <IconSettings :size="14.6" class="add-icon"/>
+          <IconSettings :size="14.6"/>
         </button>
         <button class="onhover" @click="handleWindowEvent(1)">
           <IconMin :size="14.6" />
