@@ -21,8 +21,8 @@ import { useRoute } from 'vue-router'
 import html2canvas from 'html2canvas'
 
 const route = useRoute()
-const title = ref('')
-const describe = ref('')
+const title = ref('加载中...')
+const describe = ref('加载中...')
 const picUrl = ref('')
 const mainPic = ref(null)
 const shareRef = ref(null)
@@ -45,35 +45,35 @@ async function capture() {
 
 function onPicLoad() { capture() }
 
+// 立即从 query 读取参数
+const queryId = route.query.id
+const queryTitle = route.query.title
+const queryDescribe = route.query.describe
+
+console.log('Share 初始化参数:', { queryId, queryTitle, queryDescribe })
+
+// 立即赋值（同步）
+if (queryTitle) {
+  title.value = queryTitle
+  console.log('title 已设置:', title.value)
+}
+
+if (queryDescribe) {
+  describe.value = queryDescribe
+  console.log('describe 已设置:', describe.value)
+}
+
 onMounted(async () => {
-  const { id, title: queryTitle, describe: queryDescribe } = route.query
+  console.log('onMounted - title:', title.value, 'describe:', describe.value)
 
-  console.log('Share 页面接收参数:', { id, title: queryTitle, describe: queryDescribe })
-  console.log('参数类型:', typeof queryTitle, typeof queryDescribe)
-
-  // 直接赋值，Vue Router 会自动解码
-  if (queryTitle) {
-    title.value = decodeURIComponent(queryTitle)
-    console.log('解码后的 title:', title.value)
-  } else {
-    title.value = '无标题'
-  }
-
-  if (queryDescribe) {
-    describe.value = decodeURIComponent(queryDescribe)
-    console.log('解码后的 describe:', describe.value)
-  } else {
-    describe.value = ''
-  }
-
-  if (!id) {
+  if (!queryId) {
     console.error('缺少 id 参数')
     return
   }
 
   // 读取缓存图片
   try {
-    const dataUrl = await window.electronAPI.readCacheFile(id + '.png')
+    const dataUrl = await window.electronAPI.readCacheFile(queryId + '.png')
     picUrl.value = dataUrl
     console.log('图片加载成功')
   } catch (e) {
@@ -81,7 +81,7 @@ onMounted(async () => {
     // 重试一次
     await new Promise(r => setTimeout(r, 1000))
     try {
-      const dataUrl = await window.electronAPI.readCacheFile(id + '.png')
+      const dataUrl = await window.electronAPI.readCacheFile(queryId + '.png')
       picUrl.value = dataUrl
       console.log('图片重试加载成功')
     } catch (e2) {
