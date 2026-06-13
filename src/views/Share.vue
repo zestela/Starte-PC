@@ -4,8 +4,8 @@
       <img ref="mainPic" :src="picUrl" @load="onPicLoad" class="w-full select-none"/>
       <div class="px-5 pb-5 bg-white flex items-center justify-between">
         <div class="flex-1">
-          <h2 class="text-[#000000] font-light text-[25px] mt-2.5 mb-[5px]">{{ title }}</h2>
-          <h5 class="text-[#666666] font-extralight mt-0 mb-0 break-words">{{ describe }}</h5>
+          <h2 class="font-light text-[25px] mt-2.5 mb-[5px]" style="color: #000000 !important;">{{ title }}</h2>
+          <h5 class="font-extralight mt-0 mb-0 break-words" style="color: #666666 !important;">{{ describe }}</h5>
         </div>
         <div class="flex">
           <img src="/qrcode.png" class="w-16 select-none"/>
