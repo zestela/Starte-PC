@@ -128,11 +128,8 @@
       <!-- 检查更新 Tab -->
       <div v-else class="h-full flex items-center justify-center overflow-hidden">
         <div class="flex flex-col items-center">
-          <!-- 图标 -->
-          <img src="/color-logo.png" class="w-20 h-20" alt="Starte"/>
-
           <!-- 状态文字 -->
-          <div class="mt-5 text-[22px] font-medium text-white">{{ statusText }}</div>
+          <div class="text-[22px] font-medium text-white">{{ statusText }}</div>
 
           <!-- 新版本信息 -->
           <div
