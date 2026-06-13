@@ -24,19 +24,23 @@ body {
   padding: 25px 25px 25px 25px;
 }
 
-.mainpage-text-disappearing {
+.mainpage-text-disappearing,
+.mainpage-text-info-disappearing {
   animation: fadenum 0.5s forwards;
 }
 
-.mainpage-text-showing {
+.mainpage-text-showing,
+.mainpage-text-info-showing {
   animation: fadenumshow 0.5s forwards;
 }
 
-.mainpage-text-disappeared {
+.mainpage-text-disappeared,
+.mainpage-text-info-disappeared {
   display: none;
 }
 
-.mainpage-text-showed {
+.mainpage-text-showed,
+.mainpage-text-info-showed {
   margin-left: -400px !important;
   opacity: 0;
 }
