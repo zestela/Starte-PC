@@ -179,6 +179,10 @@ body {
   padding: 7px 5px 3px 8px !important;
 }
 
+.menu-item-today-img.menu-item-chosen {
+  padding: 14px 9px 14px 9px !important;
+}
+
 .menu-item-chosen h5{
   color:white;
 }
