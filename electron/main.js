@@ -70,10 +70,11 @@ async function infoToServer() {
   const errorMsg = "遥测模块出现错误。向<a href='https://zestela.co/support/' target='_blank'>此处</a>反馈<br>错误信息：";
 
   try {
-    const ipData = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(20000) }).then(r => r.json());
+    const { publicIpv4 } = await import('public-ip');
+    const myIp = await publicIpv4({ timeout: 20000 });
     const deviceId = require("node-machine-id").machineIdSync({ original: true });
     const params = new URLSearchParams({
-      getip: ipData.ip,
+      getip: myIp,
       getuseTime: Math.round(Date.now() / 1000),
       getdeviceId: deviceId,
       getuseSystem: os.release(),
@@ -81,9 +82,18 @@ async function infoToServer() {
     }).toString();
     const url = `https://api.zestela.co/info/analysis.php?${params}`;
 
-    const result = await fetch(url, { signal: AbortSignal.timeout(30000) }).then(r => r.json());
+    const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
+    const raw = await response.text();
+    const text = raw.trim();
+    if (!text.startsWith('{') && !text.startsWith('[')) {
+      console.error('[Starte] 遥测服务器返回非 JSON 内容:', raw.slice(0, 200));
+      reportError(errorMsg + '服务器返回异常内容');
+      return;
+    }
+    const result = JSON.parse(text);
     if (result.code !== 1) reportError(errorMsg + result.msg);
   } catch (error) {
+    console.error('[Starte] 遥测模块错误:', error);
     reportError(errorMsg + error.message);
   }
 }

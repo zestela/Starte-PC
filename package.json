@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "v0.5.3",
+  "version": "v0.5.4",
   "main": "dist-electron/main.js",
   "license": "MIT",
   "scripts": {
@@ -55,6 +55,7 @@
   "dependencies": {
     "html2canvas": "^1.4.1",
     "node-machine-id": "^1.1.12",
+    "public-ip": "^8.0.0",
     "wallpaper": "^4.4.2"
   },
   "devDependencies": {
