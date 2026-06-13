@@ -143,8 +143,11 @@ body {
   cursor: pointer;
   border-radius: 7px;
   background: none;
-  padding: 14px 9px;
+  height: 28px;
+  padding: 0 9px;
   border: none;
+  display: flex;
+  align-items: center;
 }
 
 .menu-item-chosen {
