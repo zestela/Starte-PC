@@ -33,9 +33,22 @@ const items = ref([])
 
 function onWheel(e) { e.currentTarget.scrollLeft += e.deltaY }
 
-function share(item) {
-  window.electronAPI.share(item.bgId, 1)
-  router.push({ name: 'share', query: { id: item.bgId, type: '1' } })
+async function share(item) {
+  try {
+    // 等待图片下载完成
+    const result = await window.electronAPI.share(item.bgId, 1)
+
+    if (!result.success) {
+      window.electronAPI.outAlert('图片加载失败，请重试')
+      return
+    }
+
+    // 下载成功后跳转
+    router.push({ name: 'share', query: { id: item.bgId, type: '1' } })
+  } catch (err) {
+    console.error('分享失败:', err)
+    window.electronAPI.outAlert('分享失败，请重试')
+  }
 }
 
 onMounted(async () => {
