@@ -1,6 +1,6 @@
 <template>
   <div id="star-list" @wheel.prevent="onWheel">
-    <div v-for="item in items" :key="item.id" class="star-watching-in-list"
+    <div v-for="item in items" :key="item.id" class="star-watching-in-list star-fade-in"
          :id="item.id" :style="{ backgroundImage: `url(${item.bg}),url(/loading-bg.png)` }">
       <div class="texts">
         <div>
@@ -59,3 +59,19 @@ onMounted(async () => {
   } catch (e) { console.error(e) }
 })
 </script>
+
+<style scoped>
+/* 简单的淡入动画 - 依赖浏览器原生图片加载 */
+.star-fade-in {
+  animation: fadeInBackground 0.6s ease-out;
+}
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>

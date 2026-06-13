@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full overflow-y-auto">
     <div id="wallpaper-list">
-      <div v-for="item in items" :key="item.id" class="wallpaper-in-list relative"
+      <div v-for="item in items" :key="item.id" class="wallpaper-in-list wallpaper-fade-in"
            :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">
         <!-- 实际内容（移除骨架屏，使用背景图占位） -->
         <div class="wallpaper-content">
@@ -83,6 +83,20 @@ onMounted(async () => {
   justify-content: flex-end;
   padding: 35px;
   padding-bottom: 25px;
+}
+
+/* 简单的淡入动画 - 依赖浏览器原生图片加载 */
+.wallpaper-fade-in {
+  animation: fadeInBackground 0.6s ease-out;
+}
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .wallpaper-header {
