@@ -1,7 +1,7 @@
 <template>
-  <div class="vici-detail-wrapper" style="padding:24px 48px">
+  <div class="vici-detail-wrapper px-12 py-6">
     <button @click="$router.back()"
-      style="background:#313131;border:none;color:white;padding:8px 16px;border-radius:8px;cursor:pointer;margin-bottom:16px">
+      class="bg-[#313131] border-0 text-white px-4 py-2 rounded-lg cursor-pointer mb-4">
       ← 返回
     </button>
     <div class="article">

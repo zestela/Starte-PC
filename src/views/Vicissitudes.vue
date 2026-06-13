@@ -22,13 +22,13 @@
              :class="activeTab === i ? 'vicissitudes-left-content' : 'vicissitudes-left-card-notshow'">
           <div v-for="art in tab.articles" :key="art.id" class="vicissitudes-left-card"
                @click="$router.push({ name: 'vicissitudes-detail', query: { id: art.id } })">
-            <div style="padding:15px">
+            <div class="p-[15px]">
               <div class="card-title">{{ art.title }}</div>
               <div class="card-describe">{{ art.summary }}</div>
               <div class="card-detail">{{ art.author }} / {{ art.dateStr }} / {{ art.category }}</div>
             </div>
           </div>
-          <div v-if="!tab.articles.length" style="color:#888;padding:20px">暂无内容</div>
+          <div v-if="!tab.articles.length" class="text-gray-500 p-5">暂无内容</div>
         </div>
       </div>
       <div class="vicissitudes-right">
@@ -36,7 +36,7 @@
         <div class="vicissitudes-right-content">
           <div v-for="art in recentArticles" :key="art.id" class="vicissitudes-left-card"
                @click="$router.push({ name: 'vicissitudes-detail', query: { id: art.id } })">
-            <div style="padding:15px">
+            <div class="p-[15px]">
               <div class="card-title">{{ art.title }}</div>
               <div class="card-describe">{{ art.summary }}</div>
               <div class="card-detail">{{ art.author }} / {{ art.dateStr }} / {{ art.category }}</div>

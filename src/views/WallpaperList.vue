@@ -7,10 +7,10 @@
           <div class="title-and-icons">
             <h1>{{ item.title }}</h1>
             <div class="image-action-icons">
-              <button class="onhover special-onhover" style="padding:3.5px" @click="window.electronAPI.setWallpaper(item.id)">
+              <button class="onhover special-onhover p-[3.5px]" @click="window.electronAPI.setWallpaper(item.id)">
                 <IconSetWallpaper />
               </button>
-              <button class="onhover special-onhover" style="padding:3.5px" @click="share(item)">
+              <button class="onhover special-onhover p-[3.5px]" @click="share(item)">
                 <IconShare />
               </button>
             </div>
