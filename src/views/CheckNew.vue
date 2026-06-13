@@ -23,7 +23,7 @@
     <div class="flex-1 h-full flex items-center justify-center overflow-hidden">
       <div class="flex flex-col items-center">
         <!-- 图标 -->
-        <img src="/src/icons/check-new.png" class="w-20 h-20" alt="检查更新"/>
+        <IconUpdate :size="80" class="text-white/70"/>
 
         <!-- 状态文字 -->
         <div class="mt-5 text-[22px] font-medium text-white">{{ statusText }}</div>
@@ -75,7 +75,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '../utils/api'
-import { IconSettingsNormal, IconSettingsAbout } from '../components/icons'
+import { IconSettingsNormal, IconSettingsAbout, IconUpdate } from '../components/icons'
 
 const statusText = ref('正在检查更新……')
 const hasUpdate = ref(false)
@@ -125,4 +125,5 @@ onMounted(async () => {
   checkUpdate()
 })
 </script>
+
 
