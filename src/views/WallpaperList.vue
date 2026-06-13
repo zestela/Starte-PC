@@ -1,27 +1,29 @@
 <template>
-  <div id="wallpaper-list">
-    <div v-for="item in items" :key="item.id" class="wallpaper-in-list"
-         :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">
-      <div class="wallpaper-content">
-        <div class="wallpaper-header">
-          <div class="title-and-icons">
-            <h1>{{ item.title }}</h1>
-            <div class="image-action-icons">
-              <button class="onhover special-onhover p-[3.5px]" @click="setWallpaper(item.id)">
-                <IconSetWallpaper />
-              </button>
-              <button class="onhover special-onhover p-[3.5px]" @click="share(item)">
-                <IconShare />
-              </button>
+  <div class="w-full h-full overflow-y-auto pt-[45px]">
+    <div id="wallpaper-list">
+      <div v-for="item in items" :key="item.id" class="wallpaper-in-list"
+           :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">
+        <div class="wallpaper-content">
+          <div class="wallpaper-header">
+            <div class="title-and-icons">
+              <h1>{{ item.title }}</h1>
+              <div class="image-action-icons">
+                <button class="onhover special-onhover p-[3.5px]" @click="setWallpaper(item.id)">
+                  <IconSetWallpaper />
+                </button>
+                <button class="onhover special-onhover p-[3.5px]" @click="share(item)">
+                  <IconShare />
+                </button>
+              </div>
+            </div>
+            <div class="disPLAYDATE">
+              <div class="month">{{ item.month }}</div>
+              <div class="fenge"> / </div>
+              <div class="dayte">{{ item.day }}</div>
             </div>
           </div>
-          <div class="disPLAYDATE">
-            <div class="month">{{ item.month }}</div>
-            <div class="fenge"> / </div>
-            <div class="dayte">{{ item.day }}</div>
-          </div>
+          <h3>{{ item.describe }}</h3>
         </div>
-        <h3>{{ item.describe }}</h3>
       </div>
     </div>
   </div>
