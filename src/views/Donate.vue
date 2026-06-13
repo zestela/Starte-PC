@@ -31,14 +31,12 @@
 import { ref, onMounted } from 'vue'
 import { api } from '../utils/api'
 import { IconSettingsNormal, IconSettingsAbout } from '../components/icons'
-import { ref, onMounted } from 'vue'
-import { apiSafe } from '../utils/api'
 
 const sponsors = ref([])
 
 onMounted(async () => {
   try {
-    const data = await apiSafe('https://afdian.com/api/creator/get-sponsors?user_id=77c84822f38311eb8e3052540025c377&type=new&page=1')
+    const data = await api('https://afdian.com/api/creator/get-sponsors?user_id=77c84822f38311eb8e3052540025c377&type=new&page=1')
     if (data) sponsors.value = data.data.list.map(s => ({ name: s.name, avatar: s.avatar }))
   } catch (e) { console.error('donate error:', e) }
 })
