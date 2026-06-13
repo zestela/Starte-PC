@@ -1,5 +1,5 @@
 <template>
-  <div class="setting-contain overflow-hidden">
+  <div class="setting-contain h-full overflow-hidden">
     <div class="setting-left">
       <div class="setting-nav" :class="{ 'bg-[#454545]': tab === 'settings' }" @click="tab = 'settings'">
         <IconSettingsNormal />
