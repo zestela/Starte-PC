@@ -4,7 +4,10 @@ import App from './App.vue'
 import router from './router'
 import { useAppStore } from './stores/app'
 
-// 全局 CSS
+// Tailwind CSS（优先加载）
+import './index.css'
+
+// 全局 CSS（待迁移期间保留）
 import './css/styles.css'
 import './css/icons.css'
 import './css/loading.css'
