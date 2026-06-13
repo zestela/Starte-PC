@@ -43,9 +43,9 @@
 
     <!-- 关于 Tab -->
     <div v-else class="setting-right flex justify-center items-center">
-      <div class="w-[70%] grid grid-cols-3 grid-rows-[175px_90px] gap-1.5 h-[265px]">
+      <div class="w-[70%] grid grid-cols-3 auto-rows-max gap-1.5">
         <!-- Logo 区域 -->
-        <div class="col-span-2 bg-[#311E8F] rounded-l-xl flex items-center justify-between px-8">
+        <div class="col-span-2 h-[175px] bg-[#311E8F] rounded-l-xl flex items-center justify-between px-8">
           <div>
             <img class="h-[30px]" src="/text-logo.png"/>
             <div class="mt-1.5 text-[13px] text-white/40">{{ version }}</div>
@@ -54,7 +54,7 @@
         </div>
 
         <!-- 检查更新按钮 -->
-        <div class="bg-[#383838] rounded-r-xl flex items-center justify-center cursor-pointer hover:bg-[#454545] transition-colors" @click="$router.push('/check-new')">
+        <div class="h-[175px] bg-[#383838] rounded-r-xl flex items-center justify-center cursor-pointer hover:bg-[#454545] transition-colors" @click="$router.push('/check-new')">
           <div class="flex items-center gap-2">
             <IconUpdate :size="25"/>
             <div class="setting-nav-text-title">检查更新</div>
@@ -62,7 +62,7 @@
         </div>
 
         <!-- GitHub 链接 -->
-        <a href="https://github.com/zestela" class="bg-[#383838] rounded-l-xl flex items-center px-6 hover:bg-[#454545] transition-colors" target="_blank">
+        <a href="https://github.com/zestela" class="h-[90px] bg-[#383838] rounded-l-xl flex items-center px-6 hover:bg-[#454545] transition-colors" target="_blank">
           <IconGithub :size="25"/>
           <div class="ml-2.5">
             <div class="setting-nav-text-title">GitHub</div>
@@ -71,7 +71,7 @@
         </a>
 
         <!-- 官网链接 -->
-        <a href="https://zestela.co/starte" class="bg-[#383838] flex items-center px-6 hover:bg-[#454545] transition-colors" target="_blank">
+        <a href="https://zestela.co/starte" class="h-[90px] bg-[#383838] flex items-center px-6 hover:bg-[#454545] transition-colors" target="_blank">
           <IconWebsite :size="25"/>
           <div class="ml-2.5">
             <div class="setting-nav-text-title">官网</div>
@@ -80,7 +80,7 @@
         </a>
 
         <!-- 赞助者链接 -->
-        <a @click="$router.push('/donate')" class="bg-[#383838] rounded-r-xl flex items-center px-6 cursor-pointer hover:bg-[#454545] transition-colors">
+        <a @click="$router.push('/donate')" class="h-[90px] bg-[#383838] rounded-r-xl flex items-center px-6 cursor-pointer hover:bg-[#454545] transition-colors">
           <IconGroup :size="25"/>
           <div class="ml-2.5">
             <div class="setting-nav-text-title">赞助者</div>
