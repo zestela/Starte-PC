@@ -53,7 +53,13 @@ function reportError(errorMsg) {
     show: false
   });
 
-  popupWindow.loadFile(path.join(ROOT, 'src/popup.html'));
+  // 加载 Vue 应用的 popup 路由
+  if (!app.isPackaged) {
+    const devUrl = process.env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
+    popupWindow.loadURL(devUrl + '/#/popup');
+  } else {
+    popupWindow.loadFile(path.join(__dirname, '../dist/index.html'), { hash: '/popup' });
+  }
   popupWindow.show();
 }
 

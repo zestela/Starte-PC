@@ -16,7 +16,6 @@
     "files": [
       "dist/**/*",
       "dist-electron/**/*",
-      "src/popup.html",
       "src/icons/**/*",
       "src/HarmonyOS_Sans_SC/**/*",
       "packages/**/*",

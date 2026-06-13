@@ -1,6 +1,6 @@
 <template>
   <div id="app-root">
-    <Topbar />
+    <Topbar v-if="!isPopup" />
     <main class="router-view-container">
       <router-view v-slot="{ Component, route }">
         <transition :name="route.meta.transition || 'fade'" mode="out-in">
@@ -14,11 +14,15 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import Topbar from './components/Topbar.vue'
 import Toast from './components/Toast.vue'
 import { useToast } from './composables/useToast'
 
+const route = useRoute()
 const { toastMessage, toastType, toastKey } = useToast()
+const isPopup = computed(() => route.meta.popup === true)
 </script>
 
 <style>

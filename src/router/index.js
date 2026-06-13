@@ -12,8 +12,10 @@ import Search from '../views/Search.vue'
 import Share from '../views/Share.vue'
 import CheckNew from '../views/CheckNew.vue'
 import Donate from '../views/Donate.vue'
+import Popup from '../views/Popup.vue'
 
 const routes = [
+  { path: '/popup', name: 'popup', component: Popup, meta: { popup: true } },
   { path: '/', name: 'loading', component: LoadingPage, meta: { transition: 'fade' } },
   { path: '/main', name: 'main', component: MainPage, meta: { transition: 'fade' } },
   { path: '/vicissitudes', name: 'vicissitudes', component: Vicissitudes, meta: { transition: 'fade' } },
