@@ -46,7 +46,7 @@ import { useToast } from '../composables/useToast'
 
 const store = useAppStore()
 const router = useRouter()
-const { success } = useToast()
+const { success, error } = useToast()
 
 const data = computed(() => store.mainpageData)
 const infoHidden = ref(false)
@@ -103,10 +103,14 @@ async function toggleInfo() {
   }
 }
 
-function setWallpaper() {
+async function setWallpaper() {
   if (data.value?.id) {
-    window.electronAPI.setWallpaper(data.value.id)
-    success('壁纸设置成功')
+    const result = await window.electronAPI.setWallpaper(data.value.id)
+    if (result?.success) {
+      success('壁纸设置成功')
+    } else {
+      error('壁纸设置失败')
+    }
   }
 }
 

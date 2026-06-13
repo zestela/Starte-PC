@@ -65,7 +65,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: calc(100%-50px);
+  width: calc(100% - 50px);
 }
 
 #mainpage-text-title {

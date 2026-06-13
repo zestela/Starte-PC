@@ -14,7 +14,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     init: () => ipcRenderer.invoke('init'),
 
     // 设置壁纸（按 ID）
-    setWallpaper: (id) => ipcRenderer.send('set-wallpaper', id),
+    setWallpaper: (id) => ipcRenderer.invoke('set-wallpaper', id),
 
     // 窗口操作
     windowEvents: (type) => ipcRenderer.send('window-events', type),

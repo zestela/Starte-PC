@@ -86,7 +86,7 @@ async function setWallPaperOut(id) {
 
     if (data.code !== 1) {
       console.log('获取壁纸数据失败, code:', data.code);
-      return;
+      return { success: false, error: 'FETCH_FAILED' };
     }
 
     const filename = `${id}.png`;
@@ -96,15 +96,17 @@ async function setWallPaperOut(id) {
     if (fs.existsSync(filePath)) {
       console.log('使用缓存的壁纸:', filePath);
       await setWallpaper(filePath);
-      return;
+      return { success: true };
     }
 
     // 下载并设置
     console.log('下载壁纸:', data.data.url);
     const downloadedPath = await downloadImage(data.data.url, filename);
     await setWallpaper(downloadedPath);
+    return { success: true };
   } catch (error) {
     console.error('setWallPaperOut 错误:', error.message);
+    return { success: false, error: error.message };
   }
 }
 

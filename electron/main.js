@@ -242,10 +242,11 @@ app.whenReady().then(async () => {
     const allowed = ['api.zestela.co', 'afdian.com'];
     try {
       const parsed = new URL(url);
-      if (!allowed.some(d => parsed.hostname.endsWith(d))) {
+      if (!allowed.some(d => parsed.hostname === d || parsed.hostname.endsWith(`.${d}`))) {
         throw new Error(`Blocked domain: ${parsed.hostname}`);
       }
     } catch (e) {
+      if (e.message.startsWith('Blocked domain:')) throw e;
       throw new Error(`Invalid URL: ${url}`);
     }
 
@@ -335,7 +336,7 @@ app.whenReady().then(async () => {
 
   // 其他操作
   ipcMain.on('out-alert', (event, str) => reportError(str));
-  ipcMain.on('set-wallpaper', (event, id) => starte.setWallPaperOut(id));
+  ipcMain.handle('set-wallpaper', async (event, id) => await starte.setWallPaperOut(id));
   ipcMain.on('pop-up-close', () => { if (popupWindow) popupWindow.close(); });
 
   ipcMain.on('save-share', (event, data) => {

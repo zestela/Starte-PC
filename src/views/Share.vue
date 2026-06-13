@@ -50,42 +50,27 @@ const queryId = route.query.id
 const queryTitle = route.query.title
 const queryDescribe = route.query.describe
 
-console.log('Share 初始化参数:', { queryId, queryTitle, queryDescribe })
-
 // 立即赋值（同步）
-if (queryTitle) {
-  title.value = queryTitle
-  console.log('title 已设置:', title.value)
-}
-
-if (queryDescribe) {
-  describe.value = queryDescribe
-  console.log('describe 已设置:', describe.value)
-}
+if (queryTitle) title.value = queryTitle
+if (queryDescribe) describe.value = queryDescribe
 
 onMounted(async () => {
-  console.log('onMounted - title:', title.value, 'describe:', describe.value)
-
   if (!queryId) {
-    console.error('缺少 id 参数')
+    console.error('Share: 缺少 id 参数')
     return
   }
 
   // 读取缓存图片
   try {
-    const dataUrl = await window.electronAPI.readCacheFile(queryId + '.png')
-    picUrl.value = dataUrl
-    console.log('图片加载成功')
+    picUrl.value = await window.electronAPI.readCacheFile(queryId + '.png')
   } catch (e) {
-    console.error('读取缓存图片失败:', e)
+    console.error('Share: 读取缓存图片失败:', e)
     // 重试一次
     await new Promise(r => setTimeout(r, 1000))
     try {
-      const dataUrl = await window.electronAPI.readCacheFile(queryId + '.png')
-      picUrl.value = dataUrl
-      console.log('图片重试加载成功')
+      picUrl.value = await window.electronAPI.readCacheFile(queryId + '.png')
     } catch (e2) {
-      console.error('图片重试失败:', e2)
+      console.error('Share: 图片重试失败:', e2)
       window.electronAPI.outAlert('图片加载失败，请重试')
       return
     }

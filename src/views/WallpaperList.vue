@@ -39,11 +39,15 @@ import { useToast } from '../composables/useToast'
 
 const router = useRouter()
 const items = ref([])
-const { success } = useToast()
+const { success, error } = useToast()
 
-function setWallpaper(id) {
-  window.electronAPI.setWallpaper(id)
-  success('壁纸设置成功')
+async function setWallpaper(id) {
+  const result = await window.electronAPI.setWallpaper(id)
+  if (result?.success) {
+    success('壁纸设置成功')
+  } else {
+    error('壁纸设置失败')
+  }
 }
 
 async function share(item) {
