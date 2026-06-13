@@ -2,74 +2,142 @@ const fs = require("fs");
 const path = require("path");
 const { Readable } = require('stream');
 const wallpaper = require('wallpaper');
-const process = require("process");
+
+/**
+ * 下载图片到缓存目录
+ * @param {string} url - 图片 URL
+ * @param {string} filename - 文件名（仅文件名，不含路径）
+ * @returns {Promise<string>} 返回文件完整路径
+ */
+async function downloadImage(url, filename) {
+  const cachePath = path.join(process.env.APPDATA, 'starte-cache', filename);
+  const writer = fs.createWriteStream(cachePath);
+
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Download failed: ${response.status}`);
+
+  Readable.fromWeb(response.body).pipe(writer);
+
+  return new Promise((resolve, reject) => {
+    writer.on('finish', () => resolve(cachePath));
+    writer.on('error', reject);
+  });
+}
+
+/**
+ * 检查缓存文件是否存在且大小匹配
+ * @param {string} filename - 文件名
+ * @param {number} expectedSize - 期望大小（字节）
+ * @returns {boolean}
+ */
+function isCached(filename, expectedSize) {
+  const filePath = path.join(process.env.APPDATA, 'starte-cache', filename);
+  if (!fs.existsSync(filePath)) return false;
+  if (!expectedSize) return true; // 不检查大小
+  return fs.statSync(filePath).size === expectedSize;
+}
+
+/**
+ * 获取远程图片的文件大小（HEAD 请求）
+ * @param {string} url - 图片 URL
+ * @returns {Promise<number>}
+ */
+async function getRemoteImageSize(url) {
+  const https = require('https');
+  return new Promise((resolve, reject) => {
+    const req = https.request(url, { method: 'HEAD' }, (res) => {
+      const size = parseInt(res.headers['content-length'] || '0', 10);
+      resolve(size);
+    });
+    req.on('error', reject);
+    req.end();
+  });
+}
 
 /**
  * 设置 Windows 桌面壁纸
- * 使用 wallpaper npm 包，支持多显示器、壁纸样式，跨平台
+ * @param {string} imagePath - 图片完整路径
  */
 async function setWallpaper(imagePath) {
-    if (process.platform !== "win32") return;
-    try {
-        await wallpaper.set(imagePath, { scale: 'fill' });
-        console.log('壁纸设置成功:', imagePath);
-    } catch (err) {
-        console.error('设置壁纸失败:', err.message);
-    }
+  if (process.platform !== "win32") {
+    console.log('非 Windows 系统，跳过壁纸设置');
+    return;
+  }
+
+  try {
+    await wallpaper.set(imagePath, { scale: 'fill' });
+    console.log('壁纸设置成功:', imagePath);
+  } catch (err) {
+    console.error('设置壁纸失败:', err.message);
+  }
 }
 
-module.exports.setWallpaper = setWallpaper;
+/**
+ * 根据 ID 设置壁纸（从 API 获取数据并下载）
+ * @param {string} id - 壁纸 ID
+ */
+async function setWallPaperOut(id) {
+  try {
+    const response = await fetch(
+      `https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=${id}`,
+      { signal: AbortSignal.timeout(30000) }
+    );
+    const data = await response.json();
 
-module.exports.setWallPaperOut = async function (id) {
-    try {
-        const wallpaperData = await fetch("https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=" + id, {
-            signal: AbortSignal.timeout(30000)
-        }).then(r => r.json())
-        .catch(function (error) {
-            console.log('Error', error.message);
-            return null;
-        });
-
-        if (!wallpaperData || wallpaperData.code !== 1) {
-            console.log('获取壁纸数据失败, code:', wallpaperData?.code);
-            return;
-        }
-
-        const filename = path.join(process.env.APPDATA, "starte-cache", id + ".png");
-
-        if (fs.existsSync(filename)) {
-            setWallpaper(filename);
-            return;
-        }
-
-        await downloadImage(wallpaperData.data.url, id + ".png");
-        setWallpaper(filename);
-    } catch (error) {
-        console.error('setWallPaperOut 错误:', error.message);
+    if (data.code !== 1) {
+      console.log('获取壁纸数据失败, code:', data.code);
+      return;
     }
-};
 
-async function downloadImage(url, name) {
-    const writer = fs.createWriteStream(path.join(process.env.APPDATA, 'starte-cache', name));
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Download failed: ${response.status}`);
-    Readable.fromWeb(response.body).pipe(writer);
-    return new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
-    });
+    const filename = `${id}.png`;
+    const filePath = path.join(process.env.APPDATA, 'starte-cache', filename);
+
+    // 检查缓存
+    if (fs.existsSync(filePath)) {
+      console.log('使用缓存的壁纸:', filePath);
+      await setWallpaper(filePath);
+      return;
+    }
+
+    // 下载并设置
+    console.log('下载壁纸:', data.data.url);
+    const downloadedPath = await downloadImage(data.data.url, filename);
+    await setWallpaper(downloadedPath);
+  } catch (error) {
+    console.error('setWallPaperOut 错误:', error.message);
+  }
 }
 
-module.exports.downloadImage = downloadImage;
+/**
+ * 读取设置
+ * @param {string} configName - 配置项名称
+ * @returns {Promise<any>}
+ */
+async function getSetting(configName) {
+  const configPath = path.join(process.env.APPDATA, 'starte-cache', 'config.json');
+  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  return config[configName];
+}
 
-module.exports.getSetting = async function (configName) {
-    const jsonValue = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-    return jsonValue[configName];
-};
+/**
+ * 写入设置
+ * @param {string} configName - 配置项名称
+ * @param {any} value - 配置值
+ */
+async function setSetting(configName, value) {
+  console.log('设置配置:', configName, value);
+  const configPath = path.join(process.env.APPDATA, 'starte-cache', 'config.json');
+  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  config[configName] = value;
+  fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+}
 
-module.exports.setSetting = async function (configName, value) {
-    console.log(configName, value);
-    const config = JSON.parse(fs.readFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json")));
-    config[configName] = value;
-    fs.writeFileSync(path.join(process.env.APPDATA, "starte-cache", "config.json"), JSON.stringify(config));
+module.exports = {
+  downloadImage,
+  isCached,
+  getRemoteImageSize,
+  setWallpaper,
+  setWallPaperOut,
+  getSetting,
+  setSetting
 };
