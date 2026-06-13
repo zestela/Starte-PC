@@ -58,8 +58,20 @@ body {
     font-weight: 600;
 }
 
-.vicissitudes-left-title-current{
+.vicissitudes-tab {
+    cursor: pointer;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.vicissitudes-tab:hover {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.vicissitudes-left-title-current {
     color: rgb(255, 255, 255);
+    border-bottom-color: #5D55FF;
 }
 
 .vicissitudes-left-content {
