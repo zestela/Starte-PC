@@ -45,11 +45,11 @@
     <div v-else class="setting-right flex justify-center items-center flex-col">
       <div class="about-container">
         <div class="starte-logo">
-          <div class="ml-[30px]">
-            <img class="h-[30px]" src="/text-logo.png"/>
-            <div class="mt-[5px] text-[13px] text-white/40">{{ version }}</div>
+          <div style="margin-left:30px">
+            <img style="height:30px" src="/text-logo.png"/>
+            <div style="margin-top:5px;font-size:13px;color:rgba(255,255,255,0.436)">{{ version }}</div>
           </div>
-          <img class="h-[70px] mr-[30px]" src="/color-logo.png"/>
+          <img style="height:70px;margin-right:30px" src="/color-logo.png"/>
         </div>
         <div class="buttons">
           <div class="right-icons rounded-r-xl cursor-pointer" @click="$router.push('/check-new')">
@@ -57,13 +57,13 @@
           </div>
         </div>
         <a href="https://github.com/zestela" class="links rounded-l-xl" target="_blank">
-          <IconGithub /><div class="ml-2.5"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
+          <IconGithub /><div style="margin-left:10px"><div class="setting-nav-text-title">GitHub</div><div class="setting-nav-text-context">开源主页</div></div>
         </a>
         <a href="https://zestela.co/starte" class="links" target="_blank">
-          <IconWebsite /><div class="ml-2.5"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
+          <IconWebsite /><div style="margin-left:10px"><div class="setting-nav-text-title">官网</div><div class="setting-nav-text-context">了解更多</div></div>
         </a>
         <a @click="$router.push('/donate')" class="links rounded-r-xl cursor-pointer">
-          <IconGroup /><div class="ml-2.5"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
+          <IconGroup /><div style="margin-left:10px"><div class="setting-nav-text-title">赞助者</div><div class="setting-nav-text-context">感谢支持</div></div>
         </a>
       </div>
     </div>
