@@ -49,6 +49,8 @@ function onPicLoad() { capture() }
 onMounted(async () => {
   const id = route.query.id
   const type = route.query.type
+  console.log('Share 页面参数:', { id, type })
+
   if (!id) return
 
   // 读取缓存图片（调用方应该已经确保下载完成）
@@ -69,13 +71,32 @@ onMounted(async () => {
     }
   }
 
-  if (type === '1') {
-    const data = await api('https://api.zestela.co/new-book/new-get-book-sentence-list.php')
-    const item = data.data.find(it => it.id == id)
-    if (item) { title.value = item.sentence; describe.value = '—— ' + item.from }
-  } else {
-    const data = await api(`https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=${id}`)
-    if (data.data) { title.value = data.data.title; describe.value = data.data.describe }
+  try {
+    if (type === '1') {
+      // 观星页面
+      const data = await api('https://api.zestela.co/new-book/new-get-book-sentence-list.php')
+      const item = data.data.find(it => it.id == id)
+      if (item) {
+        title.value = item.sentence
+        describe.value = '—— ' + item.from
+      }
+    } else {
+      // 往日页面 type='0'
+      const data = await api(`https://api.zestela.co/new-mainpage/get-photo-title-describe-links.php?id=${id}`)
+      console.log('往日页面分享数据:', data)
+      if (data && data.data) {
+        title.value = data.data.title || '无标题'
+        describe.value = data.data.describe || ''
+      } else {
+        console.error('API 返回数据异常:', data)
+        title.value = '加载失败'
+        describe.value = ''
+      }
+    }
+  } catch (e) {
+    console.error('加载分享信息失败:', e)
+    title.value = '加载失败'
+    describe.value = ''
   }
 
   // 兜底：如果图片已缓存，直接截图
