@@ -5,7 +5,6 @@ export const useAppStore = defineStore('app', () => {
   const loading = ref(true)
   const loadError = ref(false)
   const mainpageData = ref(null)
-  const version = ref('')
 
   async function init() {
     loading.value = true
@@ -28,5 +27,5 @@ export const useAppStore = defineStore('app', () => {
     init()
   }
 
-  return { loading, loadError, mainpageData, version, init, retry }
+  return { loading, loadError, mainpageData, init, retry }
 })
