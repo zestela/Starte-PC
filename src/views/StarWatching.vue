@@ -53,9 +53,9 @@ function imageLoaded(url) {
   return loadedImages.value.has(url)
 }
 
+// 图片预加载函数
 function preloadImage(url) {
   if (loadedImages.value.has(url)) return Promise.resolve()
-
   return new Promise((resolve) => {
     const img = new Image()
     img.onload = () => {
