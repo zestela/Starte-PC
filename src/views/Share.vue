@@ -3,9 +3,9 @@
     <div class="w-[70vh] bg-white" ref="shareRef">
       <img ref="mainPic" :src="picUrl" @load="onPicLoad" class="w-full select-none"/>
       <div class="px-5 pb-5 bg-white flex items-center justify-between">
-        <div>
-          <h2 class="text-black font-light text-[25px] mt-2.5 mb-[5px]">{{ title }}</h2>
-          <h5 class="text-black font-extralight mt-0 mb-0 break-words">{{ describe }}</h5>
+        <div class="flex-1">
+          <h2 class="text-[#000000] font-light text-[25px] mt-2.5 mb-[5px]">{{ title }}</h2>
+          <h5 class="text-[#666666] font-extralight mt-0 mb-0 break-words">{{ describe }}</h5>
         </div>
         <div class="flex">
           <img src="/qrcode.png" class="w-16 select-none"/>
