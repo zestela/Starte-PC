@@ -5,30 +5,30 @@
         <IconSettingsNormal />
         <div class="setting-nav-text"><div class="setting-nav-text-title">功能</div></div>
       </div>
-      <div class="setting-nav" style="margin-top:16px" @click="$router.push('/settings?tab=about')">
+      <div class="setting-nav mt-4" @click="$router.push('/settings?tab=about')">
         <IconSettingsAbout />
         <div class="setting-nav-text"><div class="setting-nav-text-title">关于</div></div>
       </div>
     </div>
-    <div class="setting-right" style="display:flex;justify-content:center;align-items:center">
+    <div class="setting-right flex justify-center items-center">
       <div class="check-new-container">
         <img src="/src/icons/check-new.png" width="80px"/>
-        <div class="check-new-title" style="margin-top:20px">{{ statusText }}</div>
+        <div class="check-new-title mt-5">{{ statusText }}</div>
         <div :class="['new-banben', { 'new-banben-checked': hasUpdate }]" v-if="hasUpdate">
-          <div style="margin-left:23px;display:flex;align-items:center">
+          <div class="ml-[23px] flex items-center">
             <img src="/color-logo.png" width="50px"/>
-            <div style="margin-left:16px">
+            <div class="ml-4">
               <div class="check-new-title">{{ newVersion }}</div>
               <div class="check-new-describe">{{ newDate }}</div>
             </div>
           </div>
           <div class="getbuttons">
-            <a class="get-rizhi" :href="updateWeb" target="_blank"><div style="color:white;font-size:15px">更新日志</div></a>
-            <button class="get-new" @click="copyLink"><div style="color:white;font-size:15px">{{ copyText }}</div></button>
+            <a class="get-rizhi" :href="updateWeb" target="_blank"><div class="text-white text-[15px]">更新日志</div></a>
+            <button class="get-new" @click="copyLink"><div class="text-white text-[15px]">{{ copyText }}</div></button>
           </div>
         </div>
-        <button style="margin-top:20px" class="check-new" @click="checkUpdate">
-          <div style="color:white;font-size:15px">检查更新</div>
+        <button class="check-new mt-5" @click="checkUpdate">
+          <div class="text-white text-[15px]">检查更新</div>
         </button>
       </div>
     </div>
