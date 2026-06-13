@@ -39,8 +39,6 @@
 import { ref, onMounted } from 'vue'
 import { api } from '../utils/api'
 import { IconSettingsNormal, IconSettingsAbout } from '../components/icons'
-import { ref, onMounted } from 'vue'
-import { apiSafe } from '../utils/api'
 
 const statusText = ref('正在检查更新……')
 const hasUpdate = ref(false)
