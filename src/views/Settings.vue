@@ -19,6 +19,15 @@
         <IconSettingsAbout :size="20"/>
         <span class="text-[15px] font-medium">关于</span>
       </button>
+
+      <button
+        class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mt-4"
+        :class="tab === 'update' ? 'bg-[#454545]' : 'hover:bg-[#2a2a2a]'"
+        @click="tab = 'update'"
+      >
+        <IconUpdate :size="20"/>
+        <span class="text-[15px] font-medium">检查更新</span>
+      </button>
     </div>
 
     <!-- 右侧内容区 -->
@@ -63,7 +72,7 @@
       </div>
 
       <!-- 关于 Tab -->
-      <div v-else class="h-full flex items-center justify-center overflow-hidden">
+      <div v-else-if="tab === 'about'" class="h-full flex items-center justify-center overflow-hidden">
         <div class="w-[70%] grid grid-cols-3 auto-rows-max gap-1.5">
           <!-- Logo 区域 -->
           <div class="col-span-2 h-[175px] bg-[#311E8F] rounded-l-xl flex items-center justify-between px-8">
@@ -77,7 +86,7 @@
           <!-- 检查更新按钮 -->
           <div
             class="h-[175px] bg-[#383838] rounded-r-xl flex items-center justify-center cursor-pointer hover:bg-[#454545] transition-colors"
-            @click="$router.push('/check-new')"
+            @click="tab = 'update'"
           >
             <div class="flex items-center gap-2">
               <IconUpdate :size="25"/>
@@ -124,28 +133,136 @@
           </a>
         </div>
       </div>
+
+      <!-- 检查更新 Tab -->
+      <div v-else class="h-full flex items-center justify-center overflow-hidden">
+        <div class="flex flex-col items-center">
+          <!-- 图标 -->
+          <IconUpdate :size="80" class="text-white/70"/>
+
+          <!-- 状态文字 -->
+          <div class="mt-5 text-[22px] font-medium text-white">{{ statusText }}</div>
+
+          <!-- 新版本信息 -->
+          <div
+            v-if="hasUpdate"
+            class="mt-6 w-[400px] bg-[#2a2a2a] rounded-xl p-6 flex flex-col gap-4"
+          >
+            <!-- 版本信息 -->
+            <div class="flex items-center gap-4">
+              <img src="/color-logo.png" class="w-[50px] h-[50px]" alt="Logo"/>
+              <div>
+                <div class="text-[18px] font-medium text-white">{{ newVersion }}</div>
+                <div class="text-[13px] text-white/50 mt-1">{{ newDate }}</div>
+              </div>
+            </div>
+
+            <!-- 按钮组 -->
+            <div class="flex gap-3">
+              <a
+                :href="updateWeb"
+                target="_blank"
+                class="flex-1 bg-[#383838] hover:bg-[#454545] py-3 rounded-lg text-center text-[15px] font-medium transition-colors"
+              >
+                更新日志
+              </a>
+              <button
+                @click="copyLink"
+                class="flex-1 bg-[#5D55FF] hover:bg-[#6B63FF] py-3 rounded-lg text-[15px] font-medium transition-colors"
+              >
+                {{ copyText }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 检查更新按钮 -->
+          <button
+            @click="checkUpdate"
+            class="mt-5 px-8 py-3 bg-[#5D55FF] hover:bg-[#6B63FF] rounded-lg text-[15px] font-medium transition-colors"
+          >
+            检查更新
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { IconSettingsNormal, IconSettingsAbout, IconUpdate, IconGithub, IconWebsite, IconGroup } from '../components/icons'
+import { api } from '../utils/api'
 
 const route = useRoute()
 const tab = ref(route.query.tab === 'about' ? 'about' : 'settings')
 const autoStart = ref(false)
 const version = ref('')
 
+// 检查更新相关状态
+const statusText = ref('正在检查更新……')
+const hasUpdate = ref(false)
+const newVersion = ref('')
+const newDate = ref('')
+const updateWeb = ref('')
+const downloadLink = ref('')
+const copyText = ref('复制链接')
+let localVersion = ''
+
 async function toggleAutoStart() {
   autoStart.value = !autoStart.value
   await window.electronAPI.setSetting('isSelfopen', autoStart.value)
 }
 
+async function checkUpdate() {
+  statusText.value = '正在检查更新……'
+  hasUpdate.value = false
+  try {
+    const data = await api('https://api.zestela.co/banben.json', { cache: 'no-cache' })
+    if (!data) {
+      statusText.value = '检查失败，请重试'
+      return
+    }
+    const latest = data.banben[0]
+    newVersion.value = latest.name
+    newDate.value = '发布时间：' + latest.date
+    updateWeb.value = latest.updateweb
+    downloadLink.value = latest.url
+    if (latest.name !== localVersion) {
+      hasUpdate.value = true
+      statusText.value = '发现新版本'
+    } else {
+      statusText.value = '你使用的是最新版本'
+    }
+  } catch (e) {
+    statusText.value = '检查失败，请重试'
+  }
+}
+
+function copyLink() {
+  if (!downloadLink.value) return
+  navigator.clipboard.writeText(downloadLink.value).then(
+    () => { copyText.value = '复制成功' },
+    () => { copyText.value = '复制失败' }
+  )
+}
+
+// 监听 tab 切换，进入检查更新 tab 时自动检查
+watch(tab, (newTab) => {
+  if (newTab === 'update' && statusText.value === '正在检查更新……') {
+    checkUpdate()
+  }
+})
+
 onMounted(async () => {
   autoStart.value = (await window.electronAPI.getSetting('isSelfopen')) == true
   version.value = await window.electronAPI.getVersion()
+  localVersion = version.value
+
+  // 如果直接导航到检查更新页面
+  if (tab.value === 'update') {
+    checkUpdate()
+  }
 })
 </script>
 
