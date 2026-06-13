@@ -14,13 +14,13 @@ import './css/styles.css'
 // import './css/share.css' // Share 已完全迁移
 import './css/index.css'
 import './css/vicissitudes.css'
-import './css/vici-detail.css'
+// import './css/vici-detail.css' // VicissitudesDetail 已用 Tailwind 重写
 import './css/wallpaper-list.css'
 import './css/star-watching.css'
-import './css/settings.css'
+// import './css/settings.css' // Settings 已用 Tailwind 重写
 import './css/submission.css'
 import './css/search.css'
-import './css/check-new.css'
+// import './css/check-new.css' // CheckNew 已用 Tailwind 重写
 
 const app = createApp(App)
 app.use(createPinia())
