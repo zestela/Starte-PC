@@ -10,7 +10,7 @@
       <div class="photos-results-container">
         <div class="photos-result-title">图片</div>
         <div class="photos-results">
-          <div v-if="!photos.length">无数据</div>
+          <div v-if="!photos.length">加载中……若一直不显示则说明无数据</div>
           <div v-for="p in photos" :key="p.objectID" class="photos-result" :style="{ backgroundImage: `url(${p.url})` }"
                @click="$router.push({ name: 'wallpaper-list', query: { scrollTo: p.objectID } })">
             <div class="photo-texts">
@@ -23,7 +23,7 @@
       <div class="photos-results-container">
         <div class="photos-result-title">句子</div>
         <div class="photos-results">
-          <div v-if="!sentences.length">无数据</div>
+          <div v-if="!sentences.length">加载中……若一直不显示则说明无数据</div>
           <div v-for="s in sentences" :key="s.objectID" class="sentence-texts"
                @click="$router.push({ name: 'star-watching', query: { scrollTo: s.objectID } })">
             <div class="sentence-text">
@@ -74,7 +74,7 @@ async function doSearch() {
     await loadAlgolia()
 
     if (!client) {
-      client = window.algoliasearch('PLIM4BWFMR', '493296b2dd9b5d8709021dc22375cdc5')
+      client = window.algoliasearch('4DE22NKE62', '8559d284147e535e33d98c95bf609307')
       photoIndex = client.initIndex('startePhotoDatabase')
       sentenceIndex = client.initIndex('starteSentenceDatabase')
     }
