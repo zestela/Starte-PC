@@ -137,12 +137,28 @@ async function checkUpdate() {
   }
 }
 
-onMounted(async () => {
-  // 加载背景图到组件内部，不污染 body
-  if (data.value?.id) {
-    const dataUrl = await window.electronAPI.readCacheFile(data.value.id + '.png')
-    bgImage.value = `url('${dataUrl}')`
+// 加载背景图：先等图片下载完成（store.imageReady），再读缓存；下载失败则直接放弃，不重试
+async function loadBgImage() {
+  if (!data.value?.id) return
+  const filename = data.value.id + '.png'
+
+  // 等待图片下载完成；失败则主页无背景图（不再重试）
+  const result = await store.imageReady
+  if (!result?.success) {
+    console.warn('主页图片未就绪，主页将无背景图')
+    return
   }
+
+  try {
+    const dataUrl = await window.electronAPI.readCacheFile(filename)
+    bgImage.value = `url('${dataUrl}')`
+  } catch (e) {
+    console.warn('背景图读取失败:', e)
+  }
+}
+
+onMounted(async () => {
+  loadBgImage()  // 后台加载，不阻塞设置读取与更新检查
 
   const hideInfo = await window.electronAPI.getSetting('infoHide')
   if (hideInfo === true) {

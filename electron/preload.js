@@ -1,7 +1,7 @@
 /**
  *
     观星记 Starte
-    Copyright (c) 2022-2023, zestela.co.
+    Copyright (c) 2022-2026, zestela.co.
     网站: https://zestela.co/starte/
     基于 MIT License 开源
     任何根据 MIT License 修改和研究的版本都必须保留本注释, 否则视为未遵守开源协议
@@ -10,8 +10,14 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    // 初始化：创建缓存目录、拉取主页数据、下载图片，返回 { ok: true } 或抛出错误
-    init: () => ipcRenderer.invoke('init'),
+    // 启动：拉取主页数据（直接返回 data，失败 reject）
+    bootstrap: () => ipcRenderer.invoke('bootstrap'),
+
+    // 启动：确保主页图片已下载到缓存（失败不阻断启动）
+    ensureMainpageImage: (data) => ipcRenderer.invoke('ensure-mainpage-image', data),
+
+    // 启动：开机自启时设壁纸（失败不阻断启动）
+    applyStartupWallpaper: (data) => ipcRenderer.invoke('apply-startup-wallpaper', data),
 
     // 设置壁纸（按 ID）
     setWallpaper: (id) => ipcRenderer.invoke('set-wallpaper', id),
@@ -30,12 +36,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
     // 数据获取
     getVersion: () => ipcRenderer.invoke('get-version'),
-    getMainpageData: () => ipcRenderer.invoke('get-mainpage-data'),
     getMachineId: () => ipcRenderer.invoke('get-machine-id'),
 
     // 设置读写
     getSetting: (name) => ipcRenderer.invoke('get-setting', name),
-    setSetting: (name, value) => ipcRenderer.send('set-setting', name, value),
+    setSetting: (name, value) => ipcRenderer.invoke('set-setting', name, value),
 
     // 弹窗专用
     popupClose: () => ipcRenderer.send('pop-up-close'),
