@@ -164,7 +164,7 @@ onUnmounted(() => {
 .submission-wrapper {
   background-color: #0a0a0a;
   min-height: 100%;
-  padding: 60px 20px;
+  padding: 60px 20px 80px;
   display: flex;
   justify-content: center;
   align-items: flex-start;

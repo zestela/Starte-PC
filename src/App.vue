@@ -49,7 +49,8 @@ html, body, #app {
 .router-view-container {
   flex: 1;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
 }
 
