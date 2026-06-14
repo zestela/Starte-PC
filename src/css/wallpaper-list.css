@@ -3,9 +3,7 @@
 }
 
 .wallpaper-in-list {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  position: relative;
   color: white;
   height: 50vh;
   transition: height 0.4s;
@@ -76,12 +74,6 @@
   margin-left: 8px;
   flex-direction: row;
   justify-content: flex-end !important;
-}
-
-.image-action-icons button img {
-  width: 20px;
-  height: 20px;
-  filter: drop-shadow(0.35px 0.35px 10px rgba(0, 0, 0, 0.7));
 }
 
 .special-onhover:hover {

@@ -24,16 +24,26 @@
     left: 0;
     width: 45vw;
     height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position:center center;
     display: flex;
     flex-direction: column;
     transform: rotate(90deg) translateY(-100vh);
     transform-origin: top left;
+    overflow: hidden;
+}
+
+/* 卡片背景图（替代原 background-image），absolute 铺满，lazy 加载 */
+.star-watching-in-list .card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .texts {
+    position: relative;
+    z-index: 1;
     white-space: normal;
     width: 45vw;
     height:100%;
@@ -85,6 +95,8 @@
 }
 
 .star-watching-bottom {
+    position: relative;
+    z-index: 1;
     display: flex;
     margin-bottom: 50px;
     justify-content: space-between;

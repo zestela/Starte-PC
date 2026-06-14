@@ -2,7 +2,8 @@
   <div class="w-full h-full overflow-y-auto">
     <div id="wallpaper-list">
       <div v-for="item in items" :key="item.id" class="wallpaper-in-list wallpaper-fade-in"
-           :id="item.id" :style="{ backgroundImage: `url(${item.url}),url(/loading-bg.png)` }">
+           :id="item.id">
+        <img class="card-img" :src="item.url || '/loading-bg.png'" loading="lazy" alt="" @error="onImgError">
         <!-- 实际内容（移除骨架屏，使用背景图占位） -->
         <div class="wallpaper-content">
           <div class="wallpaper-header">
@@ -48,6 +49,13 @@ function scrollToItem(id) {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
   })
+}
+
+function onImgError(e) {
+  const el = e.target
+  if (el.dataset.fallback) return  // 兜底图也失败，避免死循环
+  el.dataset.fallback = '1'
+  el.src = '/loading-bg.png'
 }
 
 async function setWallpaper(id) {
@@ -98,11 +106,23 @@ onMounted(async () => {
 
 <style scoped>
  .wallpaper-content {
+  position: relative;
+  z-index: 1;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 35px 35px 25px;
+}
+
+/* 卡片背景图（替代原 background-image），absolute 铺满，lazy 加载 */
+.card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* 简单的淡入动画 - 依赖浏览器原生图片加载 */

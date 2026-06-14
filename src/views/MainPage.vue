@@ -1,5 +1,6 @@
 <template>
   <div class="mainpage-wrapper">
+    <img class="mainpage-bg" :class="{ 'loaded': bgLoaded }" :src="bgSrc" alt="" @load="onBgLoad">
     <div
       v-if="hasUpdate"
       class="fixed top-[55px] left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 h-10 px-[27px] bg-black/37 text-white/70 text-[14px] font-semibold border border-white/20 rounded-full backdrop-blur-[98px]"
@@ -55,7 +56,8 @@ const data = computed(() => store.mainpageData)
 const infoHidden = ref(false)
 const hasUpdate = ref(false)
 const newVersion = ref('')
-const bgImage = ref('')
+const bgSrc = ref('')
+const bgLoaded = ref(false)
 const animationState = ref('visible') // 'visible' | 'disappearing' | 'disappeared' | 'showed'
 
 const dateStr = computed(() => {
@@ -137,6 +139,11 @@ async function checkUpdate() {
   }
 }
 
+// 背景图 <img> 解码完成时触发淡入
+function onBgLoad() {
+  bgLoaded.value = true
+}
+
 // 加载背景图：先等图片下载完成（store.imageReady），再读缓存；下载失败则直接放弃，不重试
 async function loadBgImage() {
   if (!data.value?.id) return
@@ -151,7 +158,7 @@ async function loadBgImage() {
 
   try {
     const dataUrl = await window.electronAPI.readCacheFile(filename)
-    bgImage.value = `url('${dataUrl}')`
+    bgSrc.value = dataUrl
   } catch (e) {
     console.warn('背景图读取失败:', e)
   }
@@ -176,11 +183,22 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center center;
-  background-image: v-bind(bgImage);
+}
+
+/* 全屏背景图（替代原 background-image） */
+.mainpage-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.mainpage-bg.loaded {
+  opacity: 1;
 }
 
 /* 确保 .image-info 相对于 wrapper 定位 */

@@ -1,8 +1,8 @@
 <template>
   <div id="star-list" ref="starList">
     <div v-for="item in items" :key="item.id" class="star-watching-slide" :id="item.id">
-      <div class="star-watching-in-list star-fade-in"
-           :style="{ backgroundImage: `url(${item.bg}),url(/loading-bg.png)` }">
+      <div class="star-watching-in-list star-fade-in">
+        <img class="card-img" :src="item.bg || '/loading-bg.png'" loading="lazy" alt="" @error="onImgError">
         <div class="texts">
           <div>
             <h1>{{ item.sentence }}</h1>
@@ -44,6 +44,13 @@ function scrollToItem(id) {
       starList.value.scrollTo({ top: slideHeight * index, behavior: 'smooth' })
     }
   })
+}
+
+function onImgError(e) {
+  const el = e.target
+  if (el.dataset.fallback) return  // 兜底图也失败，避免死循环
+  el.dataset.fallback = '1'
+  el.src = '/loading-bg.png'
 }
 
 async function share(item) {
