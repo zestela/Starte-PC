@@ -1,6 +1,70 @@
 const path = require('path');
+const fs = require('fs');
 const { BrowserWindow, Menu, Tray, nativeImage, app } = require('electron');
 const state = require('./state');
+const { showChoicePrompt } = require('./error-popup');
+
+/**
+ * 同步读取完整 config
+ */
+function readConfig() {
+  try {
+    return JSON.parse(
+      fs.readFileSync(path.join(state.CACHE_DIR, 'config.json'), 'utf8')
+    );
+  } catch (e) {
+    return {};
+  }
+}
+
+/**
+ * 同步写入 config
+ */
+function writeConfig(config) {
+  try {
+    fs.writeFileSync(
+      path.join(state.CACHE_DIR, 'config.json'),
+      JSON.stringify(config, null, 2)
+    );
+    return true;
+  } catch (e) {
+    console.error('写入 config 失败:', e);
+    return false;
+  }
+}
+
+/**
+ * 同步读取关闭行为设置
+ * 注意：只有 config 里显式存在 closeBehavior 才认为"用户已选过"
+ * 如果是首次用户（config 里没有 closeBehavior），会弹窗询问
+ */
+function getCloseBehavior() {
+  const config = readConfig();
+  return config.closeBehavior; // 可能是 'tray' | 'quit' | undefined
+}
+
+/**
+ * 首次关闭时提醒用户选择关闭行为（使用自定义样式弹窗）
+ */
+function showFirstClosePrompt(onDone) {
+  showChoicePrompt({
+    title: '关闭提示',
+    msg: '关闭窗口时你希望观星记如何处理？<br><br>' +
+         '<b>收起到托盘</b>：窗口隐藏，可随时从托盘重新打开<br>' +
+         '<b>退出程序</b>：完全关闭应用<br><br>' +
+         '之后可以随时在「设置」中修改。',
+    choices: [
+      { key: 'tray', label: '收起到托盘' },
+      { key: 'quit', label: '退出程序' }
+    ]
+  }, (choice) => {
+    // 无论用户选择什么，都写入 config（避免反复弹）
+    const config = readConfig();
+    config.closeBehavior = choice;
+    writeConfig(config);
+    onDone(choice);
+  });
+}
 
 /**
  * 创建主窗口和托盘
@@ -76,11 +140,32 @@ async function createWindow() {
   state.appTray.on('right-click', () => state.appTray.popUpContextMenu(trayMenu));
 
   state.mainWindow.on('close', (e) => {
-    if (!state.isQuitting) {
-      e.preventDefault();
-      state.mainWindow.hide();
+    if (state.isQuitting) return;
+    e.preventDefault();
+
+    const savedBehavior = getCloseBehavior();
+
+    if (savedBehavior) {
+      if (savedBehavior === 'quit') {
+        state.isQuitting = true;
+        app.quit();
+      } else {
+        state.mainWindow.hide();
+      }
+      return;
     }
+
+    showFirstClosePrompt((choice) => {
+      if (choice === 'quit') {
+        state.isQuitting = true;
+        app.quit();
+      } else {
+        state.mainWindow.hide();
+      }
+    });
   });
+  
+  return state.mainWindow;
 }
 
 module.exports = { createWindow };

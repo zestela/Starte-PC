@@ -133,13 +133,26 @@ async function submit() {
   submitting.value = true
   btnText.value = '提交中，请等待……'
 
-  const fd = new FormData()
-  fd.append('file', selectedFile)
-  fd.append('SendMessage', `标题：${title}，描述：${describe}，署名：${author}，邮箱：${email}，版权方：${copyright}，机器码：${machineId || '未知'}`)
+  // 将文件转为 base64（FormData 无法通过 IPC 序列化）
+  const fileBase64 = await new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1]
+      resolve(base64)
+    }
+    reader.onerror = reject
+    reader.readAsDataURL(selectedFile)
+  })
 
   try {
     const data = await api('https://api.zestela.co/get-submission/get-submission.php', {
-      method: 'POST', body: fd, timeout: 300000
+      method: 'POST',
+      _multipartBase64: true,
+      _fileName: selectedFile.name,
+      _fileType: selectedFile.type,
+      _fileBase64: fileBase64,
+      _sendMessage: `标题：${title}，描述：${describe}，署名：${author}，邮箱：${email}，版权方：${copyright}，机器码：${machineId || '未知'}`,
+      timeout: 300000
     })
     if (data.msg === 'OK') {
       btnText.value = '提交成功'
@@ -149,8 +162,8 @@ async function submit() {
       window.electronAPI.outAlert(`提交失败：${data.msg || '未知错误'}`)
     }
   } catch (e) {
-    btnText.value = '提交超时, 请重试'
-    window.electronAPI.outAlert('提交超时, 请重试')
+    btnText.value = '提交失败, 请重试'
+    window.electronAPI.outAlert(`提交失败：${e.message || '未知错误'}`)
   }
   setTimeout(() => { btnText.value = '提交'; submitting.value = false }, 5000)
 }

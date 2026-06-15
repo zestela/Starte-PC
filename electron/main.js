@@ -8,7 +8,7 @@ const { app, BrowserWindow, shell } = require('electron');
 
 const { createWindow } = require('./lib/window');
 const { infoToServer } = require('./lib/telemetry');
-const { registerIpc } = require('./ipc');
+const { registerIpc, setMainWindow } = require('./ipc');
 
 process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
@@ -19,7 +19,10 @@ app.whenReady().then(async () => {
   registerIpc();
 
   // 创建主窗口与托盘
-  await createWindow();
+  const mainWindow = await createWindow();
+  
+  // 设置主窗口引用给更新模块
+  setMainWindow(mainWindow);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

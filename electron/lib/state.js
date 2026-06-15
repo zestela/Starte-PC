@@ -10,6 +10,9 @@ module.exports = {
   popupWindow: null,
   appTray: null,
   popupMsg: undefined,
+  popupMsgType: 'info',  // 'info' = 普通提示（复制+知道了），'choice' = 选择型弹窗
+  popupMsgData: null,    // 选择型弹窗的配置数据
+  closePromptCallback: null, // 关闭提示弹窗的回调
   isQuitting: false,
 
   // 常量

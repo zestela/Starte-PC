@@ -1,6 +1,6 @@
 {
   "name": "starte",
-  "version": "v0.5.6",
+  "version": "v0.5.7",
   "main": "dist-electron/main.js",
   "license": "MIT",
   "scripts": {
@@ -40,9 +40,12 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "https://api.zestela.co/"
+        "url": "https://starteupdate.oss-cn-beijing.aliyuncs.com/updates/"
       }
     ],
+    "releaseInfo": {
+      "releaseNotes": "release-notes.md"
+    },
     "win": {
       "icon": "./src/icons/dock.ico",
       "target": [
@@ -53,6 +56,7 @@
     }
   },
   "dependencies": {
+    "electron-updater": "^6.8.9",
     "html2canvas": "^1.4.1",
     "node-machine-id": "^1.1.12",
     "public-ip": "^8.0.0",

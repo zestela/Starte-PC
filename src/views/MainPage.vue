@@ -13,7 +13,7 @@
     <div class="image-info">
       <div :class="textClass" id="mainpage-text">
         <div class="mainpage-title">
-          <div id="mainpage-text-title">{{ data?.title || '加载中' }}</div>
+          <div id="mainpage-text-title" v-html="data?.title || '加载中'"></div>
           <div class="image-action-icons">
             <button class="onhover" @click="setWallpaper">
               <IconSetWallpaper class="w-[25px] h-[25px]"/>
@@ -23,7 +23,7 @@
             </button>
           </div>
         </div>
-        <div id="mainpage-text-describe">{{ data?.describe || '如果你看到了这段话，说明程序正在加载中。' }}</div>
+        <div id="mainpage-text-describe" v-html="data?.describe || '如果你看到了这段话，说明程序正在加载中。'"></div>
       </div>
       <div class="bottom-line">
         <button class="mainpage-text-disappear" @click="toggleInfo">

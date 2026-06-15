@@ -5,8 +5,8 @@
         <img class="card-img" :src="item.bg || '/loading-bg.png'" loading="lazy" alt="" @error="onImgError">
         <div class="texts">
           <div>
-            <h1>{{ item.sentence }}</h1>
-            <h3>{{ item.from }}</h3>
+            <h1 v-html="item.sentence"></h1>
+            <h3 v-html="item.from"></h3>
           </div>
         </div>
         <div class="star-watching-bottom">

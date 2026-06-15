@@ -8,7 +8,7 @@
         <div class="wallpaper-content">
           <div class="wallpaper-header">
             <div class="title-and-icons">
-              <h1>{{ item.title }}</h1>
+              <h1 v-html="item.title"></h1>
               <div class="image-action-icons">
                 <button class="onhover special-onhover p-[3.5px]" @click="setWallpaper(item.id)">
                   <IconSetWallpaper />
@@ -24,7 +24,7 @@
               <div class="dayte">{{ item.day }}</div>
             </div>
           </div>
-          <h3>{{ item.describe }}</h3>
+          <h3 v-html="item.describe"></h3>
         </div>
       </div>
     </div>
